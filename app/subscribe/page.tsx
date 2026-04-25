@@ -217,7 +217,7 @@ export default function SubscribePage() {
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 700, fontSize: '0.9rem' }}>배송 주소 *</label>
-              <input type="text" id="subAddr" value={formData.subAddr} onChange={handleInputChange} placeholder="전라남도 강진군 강진읍..." style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none' }} />
+              <input type="text" id="subAddr" value={formData.subAddr} onChange={handleInputChange} placeholder="경기도 김포시 00동..." style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid #ddd', outline: 'none' }} />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 700, fontSize: '0.9rem' }}>추천인 (있는 경우)</label>

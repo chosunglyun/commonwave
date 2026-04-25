@@ -177,7 +177,7 @@ export default function ReportPage() {
           </div>
           <div className="report-field">
             <label className="report-label"><span className="report-badge b-where">어디서</span> Where</label>
-            <input type="text" id="where" className="report-input" value={formData.where} onChange={handleInputChange} placeholder="예: 마을 회관 앞 광장" />
+            <input type="text" id="where" className="report-input" value={formData.where} onChange={handleInputChange} placeholder="예: 경기도 김포시 00동..." />
           </div>
           <div className="report-field">
             <label className="report-label"><span className="report-badge b-how">어떻게</span> How</label>

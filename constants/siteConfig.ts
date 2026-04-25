@@ -40,11 +40,11 @@ export const SITE_CONFIG = {
 
   // 4. 지역 및 날씨 설정
   location: {
-    city: "Gangjin", // 날씨를 가져올 도시 (영어)
+    city: "Gimpo", // 날씨를 가져올 도시 (영어)
   },
 
   // 5. 지역 카테고리 (필요한 경우)
-  regions: ["강진", "보성", "장흥", "고흥", "전국/일반"],
+  regions: ["김포", "전국/일반"],
 
   // 5. 회원 등급 명칭
   roles: {
@@ -58,8 +58,9 @@ export const SITE_CONFIG = {
 
   // 6. 소셜 미디어 및 연락처
   contact: {
-    email: "contact@commonwave.kr",
-    address: "전라남도 강진군 강진읍...",
+    email: "zsunglyun@gmail.com",
+    phone: "031-000-0000",
+    address: "경기도 김포시",
     copyright: "© 2026 COMMON WAVE. All rights reserved.",
   }
 };
