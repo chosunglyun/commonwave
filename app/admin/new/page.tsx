@@ -6,6 +6,7 @@ import { Save, Image as ImageIcon, Layout, ChevronLeft, Type } from 'lucide-reac
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
+import { SITE_CONFIG } from '@/constants/siteConfig';
 import dynamic from 'next/dynamic';
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
@@ -34,7 +35,7 @@ function EditArticleForm() {
     content: '',
     image_url: '',
     category: '사회',
-    region: '강진',
+    region: SITE_CONFIG.regions[0] || '김포',
     author_id: ''
   });
   const [authors, setAuthors] = useState<any[]>([]);
@@ -264,7 +265,7 @@ function EditArticleForm() {
             <div>
               <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>지역</label>
               <select value={formData.region} onChange={(e) => setFormData({...formData, region: e.target.value})} style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ddd' }}>
-                 <option>강진</option><option>보성</option><option>장흥</option><option>고흥</option><option>전국/일반</option>
+                 {SITE_CONFIG.regions.map(r => <option key={r}>{r}</option>)}
               </select>
             </div>
             {(userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'member') && authors.length > 0 && (
