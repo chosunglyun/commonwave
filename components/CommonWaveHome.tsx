@@ -7,6 +7,7 @@ import { ArrowRight, Users, TrendingUp, Activity, AlertCircle } from 'lucide-rea
 
 export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles: any[]; farmPrices: any[]; memberCount: number }) {
   const topArticles = articles.slice(0, 3);
+  const waveIndexNews = articles.filter(a => a.category === '웨이브 인덱스').slice(0, 2);
   const peopleLog = articles.filter(a => a.category === '피플 로그').slice(0, 3);
   const commonPick = articles.filter(a => a.category === '커먼 픽').slice(0, 4);
   
@@ -114,6 +115,20 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
                 <span>목표: 50%</span>
               </div>
               <Link href="/glass-watch" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--accent)', textAlign: 'right', fontWeight: 600 }}>상세 리포트 보기 →</Link>
+            </div>
+            {/* 웨이브 인덱스 관련 뉴스 (추가) */}
+            <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--primary-light)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary)', borderBottom: '2px solid var(--primary-light)', paddingBottom: '0.5rem' }}>인덱스 리포트</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {waveIndexNews.length > 0 ? waveIndexNews.map(art => (
+                  <Link key={art.id} href={`/article/${art.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.3rem', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{art.title}</h4>
+                    <span style={{ fontSize: '0.75rem', color: '#64748b' }}>{new Date(art.created_at).toLocaleDateString()}</span>
+                  </Link>
+                )) : (
+                  <div style={{ fontSize: '0.85rem', color: '#94a3b8', textAlign: 'center', padding: '2rem 0' }}>등록된 인덱스 기사가 없습니다.</div>
+                )}
+              </div>
             </div>
           </div>
         </section>

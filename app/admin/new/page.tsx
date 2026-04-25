@@ -259,7 +259,9 @@ function EditArticleForm() {
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>카테고리</label>
               <select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ddd' }}>
-                 <option>초점</option><option>행정</option><option>정치</option><option>경제</option><option>사회</option><option>교육</option><option>문화</option><option>인터뷰</option><option>지역</option><option>칼럼</option>
+                 {SITE_CONFIG.categories.map(cat => (
+                   <option key={cat.label}>{cat.label}</option>
+                 ))}
               </select>
             </div>
             <div>
