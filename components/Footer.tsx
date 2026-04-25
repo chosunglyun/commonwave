@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { SITE_CONFIG } from '@/constants/siteConfig';
 
 export default function Footer() {
   return (
@@ -11,7 +12,7 @@ export default function Footer() {
           <div className="np-footer-grid">
             {/* Brand */}
             <div className="np-footer-brand">
-              <h3 className="np-footer-logo">COMMON WAVE</h3>
+              <h3 className="np-footer-logo">{SITE_CONFIG.brand.name}</h3>
               <p className="np-footer-tagline">
                 작은 움직임 하나가 수면 위로 번지고,<br />
                 마침내 해안을 바꾼다.<br />
@@ -20,14 +21,11 @@ export default function Footer() {
             </div>
 
             <div>
-              <h4 className="np-footer-heading">커먼 웨이브</h4>
+              <h4 className="np-footer-heading">{SITE_CONFIG.brand.name_kr}</h4>
               <ul className="np-footer-links">
-                <li><Link href="/wave-index">웨이브 인덱스</Link></li>
-                <li><Link href="/glass-watch">유리알 워치</Link></li>
-                <li><Link href="/people-log">피플 로그</Link></li>
-                <li><Link href="/unfiltered">언필터드</Link></li>
-                <li><Link href="/action-square">액션 스퀘어</Link></li>
-                <li><Link href="/common-pick">커먼 픽</Link></li>
+                {SITE_CONFIG.categories.map((cat, idx) => (
+                  <li key={idx}><Link href={cat.href}>{cat.label}</Link></li>
+                ))}
               </ul>
             </div>
 
@@ -46,10 +44,9 @@ export default function Footer() {
             <div>
               <h4 className="np-footer-heading">연락처</h4>
               <ul className="np-footer-links">
-                <li>📍 전라남도 강진군 강진읍</li>
-                <li>📞 061-000-0000</li>
-                <li>📠 061-000-0001</li>
-                <li>✉ dinoskorea@gmail.com</li>
+                <li>📍 {SITE_CONFIG.contact.address}</li>
+                <li>📞 {SITE_CONFIG.contact.phone}</li>
+                <li>✉ {SITE_CONFIG.contact.email}</li>
               </ul>
             </div>
           </div>
@@ -60,16 +57,16 @@ export default function Footer() {
       <div className="np-footer-legal">
         <div className="container">
             <p>
-              <strong>COMMON WAVE</strong> · 등록번호: 전남, 아00XXX · 등록일: 2026-04-20 · 
-              발행인: COMMON WAVE 조합원 일동 · 편집인: 편집위원회 · 청소년보호책임자: 관리자 · 
-              법인명: 커먼 웨이브 언론협동조합 · 제호: 커먼 웨이브 (COMMON WAVE)
+              <strong>{SITE_CONFIG.brand.name}</strong> · 등록번호: 경기, 아00XXX · 등록일: 2026-04-20 · 
+              발행인: {SITE_CONFIG.brand.name} 조합원 일동 · 편집인: 편집위원회 · 청소년보호책임자: 관리자 · 
+              법인명: {SITE_CONFIG.brand.name_kr} 언론협동조합 · 제호: {SITE_CONFIG.brand.name_kr} ({SITE_CONFIG.brand.name})
             </p>
             <p>
-              대표전화: 061-000-0000 · 팩스: 061-000-0001 · 
-              이메일: dinoskorea@gmail.com
+              대표전화: {SITE_CONFIG.contact.phone} · 
+              이메일: {SITE_CONFIG.contact.email}
             </p>
             <p style={{ marginTop: '0.5rem', fontSize: '0.72rem', opacity: 0.7 }}>
-              커먼 웨이브의 모든 콘텐츠(영상, 기사, 사진)는 저작권법의 보호를 받는 바, 무단 전재와 복사, 배포 등을 금합니다.
+              {SITE_CONFIG.brand.name_kr}의 모든 콘텐츠(영상, 기사, 사진)는 저작권법의 보호를 받는 바, 무단 전재와 복사, 배포 등을 금합니다.
             </p>
 
           <div className="np-footer-legal-links">
@@ -81,7 +78,7 @@ export default function Footer() {
             <Link href="/no-email-collect">이메일무단수집거부</Link>
           </div>
           <div className="np-footer-copyright">
-            Copyright © 2026 커먼 웨이브(COMMON WAVE). All rights reserved.
+            {SITE_CONFIG.contact.copyright}
           </div>
         </div>
       </div>
