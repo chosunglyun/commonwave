@@ -238,7 +238,7 @@ export default function UserManagementPage() {
                         cursor: 'pointer'
                       }}
                     >
-                      <option value="subscriber">구독자 (대기)</option>
+                      <option value="subscriber">구독자</option>
                       <option value="normal">일반회원</option>
                       <option value="member">조합원</option>
                       <option value="reporter">리포터</option>
