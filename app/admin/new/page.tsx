@@ -49,7 +49,7 @@ function EditArticleForm() {
         return;
       }
       const { data: profile } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
-      const allowedRoles = ['admin', 'editor', 'reporter', 'member'];
+      const allowedRoles = ['admin', 'editor', 'reporter', 'member', 'normal'];
       if (!profile || !allowedRoles.includes(profile.role)) {
         alert("기사 작성 권한이 없습니다. (리포터 및 조합원 이상만 가능)");
         router.push('/');
@@ -99,7 +99,7 @@ function EditArticleForm() {
         const { data: allProfiles } = await supabase
           .from('profiles')
           .select('id, name, role')
-          .in('role', ['admin', 'editor', 'reporter', 'member'])
+          .in('role', ['admin', 'editor', 'reporter', 'member', 'normal'])
           .order('name');
         if (allProfiles) setAuthors(allProfiles);
       }
@@ -277,7 +277,7 @@ function EditArticleForm() {
                 >
                   {authors.map(a => (
                     <option key={a.id} value={a.id}>
-                      [{a.role === 'reporter' ? '마을리포터' : '기자'}] {a.name}
+                      [{a.role === 'admin' ? '관리자' : a.role === 'editor' ? '편집자' : a.role === 'reporter' ? '리포터' : a.role === 'member' ? '조합원' : a.role === 'normal' ? '일반회원' : '구독자'}] {a.name}
                     </option>
                   ))}
                 </select>

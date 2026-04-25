@@ -215,8 +215,8 @@ export default function UserManagementPage() {
                       borderRadius: '15px', 
                       fontSize: '0.8rem', 
                       fontWeight: 700,
-                      background: user.role === 'admin' ? '#fee2e2' : user.role === 'editor' ? '#e1f5fe' : user.role === 'reporter' ? '#f0fdf4' : user.role === 'member' ? '#fef3c7' : '#f3f4f6',
-                      color: user.role === 'admin' ? '#991b1b' : user.role === 'editor' ? '#075985' : user.role === 'reporter' ? '#166534' : user.role === 'member' ? '#92400e' : '#4b5563'
+                      background: user.role === 'admin' ? '#fee2e2' : user.role === 'editor' ? '#e1f5fe' : user.role === 'reporter' ? '#f0fdf4' : user.role === 'member' ? '#fef3c7' : user.role === 'normal' ? '#e0e7ff' : '#f3f4f6',
+                      color: user.role === 'admin' ? '#991b1b' : user.role === 'editor' ? '#075985' : user.role === 'reporter' ? '#166534' : user.role === 'member' ? '#92400e' : user.role === 'normal' ? '#3730a3' : '#4b5563'
                     }}>
                       {user.role === 'admin' ? '관리자' : 
                        user.role === 'editor' ? '편집자' : 
