@@ -111,7 +111,7 @@ export default function UserManagementPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `다산어보_회원명단_${new Date().toLocaleDateString()}.csv`);
+    link.setAttribute("download", `커먼웨이브_회원명단_${new Date().toLocaleDateString()}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
