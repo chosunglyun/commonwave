@@ -124,40 +124,20 @@ function EditArticleForm() {
   };
 
   const uploadToSupabase = async (file: File) => {
-    const maxWidth = 1200; 
-    const reader = new FileReader();
-    const compressedFile = await new Promise<Blob>((resolve, reject) => {
-      reader.onload = (event) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          let width = img.width;
-          let height = img.height;
-          if (width > maxWidth) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          }
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx?.drawImage(img, 0, 0, width, height);
-          canvas.toBlob((blob) => {
-            if (blob) resolve(blob);
-            else reject(new Error('Canvas conversion failed'));
-          }, 'image/jpeg', 0.8);
-        };
-        img.src = event.target?.result as string;
-      };
-      reader.readAsDataURL(file);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('bucket', 'article-images');
+
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
     });
 
-    const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.jpg`;
-    const filePath = `articles/${fileName}`;
-    const { error: uploadError } = await supabase.storage.from('article-images').upload(filePath, compressedFile);
-    if (uploadError) throw uploadError;
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || '업로드 실패');
 
-    const { data: { publicUrl } } = supabase.storage.from('article-images').getPublicUrl(filePath);
-    return publicUrl;
+    // 사이트에서는 최적화된 저해상도(lowResUrl)를 사용합니다.
+    return result.lowResUrl;
   };
 
   const handleBodyImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
