@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import emailjs from '@emailjs/browser';
 import Header from '@/components/Header';
+import { SITE_CONFIG } from '@/constants/siteConfig';
 
 // Constants - Use environment variables
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
@@ -592,7 +593,7 @@ export default function SubscribePage() {
 
         <div className="hero">
           <div className="hero-label">SUBSCRIPTION</div>
-          <h1>다산어보와 함께해 주세요</h1>
+          <h1>{SITE_CONFIG.brand.name}와 함께해 주세요</h1>
           <p>지역의 진심을 담은 뉴스를 만드는 일,<br />여러분의 구독이 독립 지역 언론을 지킵니다.</p>
           <div className="hero-paper-note">
             종이신문 월 1회 이상 발송 · 온라인 기사 전체 열람
@@ -661,7 +662,7 @@ export default function SubscribePage() {
                 <li className="highlight">명예 독자증 실물 발급</li>
                 <li className="highlight">지역 특산물 선물박스 (5만원 상당)</li>
                 <li className="highlight">배너 또는 지면 광고 무료 게재</li>
-                <li className="highlight">다산어보의 날 초청 및 편집진 만남</li>
+                <li className="highlight">{SITE_CONFIG.brand.name}의 날 초청 및 편집진 만남</li>
               </ul>
               <div className="select-indicator">{currentPlan === '평생 구독' ? '이 플랜 선택 ✓' : '이 플랜 선택'}</div>
             </div>
@@ -669,7 +670,7 @@ export default function SubscribePage() {
 
           <p className="compare-note">
             모든 플랜에 종이신문 월 1회 이상 우편 배송이 포함됩니다<br />
-            평생 구독자는 다산어보를 처음부터 함께 만든 창간 후원인으로 영구 기록됩니다
+            평생 구독자는 {SITE_CONFIG.brand.name}를 처음부터 함께 만든 창간 후원인으로 영구 기록됩니다
           </p>
         </div>
 
@@ -686,7 +687,7 @@ export default function SubscribePage() {
               </div>
               <div className="perk-item">
                 <div className="perk-icon">🪪</div>
-                <div><strong style={{color:'var(--ink)'}}>명예 독자증 실물 발급</strong><br />다산어보 공식 명예 독자증을 우편 발송합니다</div>
+                <div><strong style={{color:'var(--ink)'}}>명예 독자증 실물 발급</strong><br />{SITE_CONFIG.brand.name} 공식 명예 독자증을 우편 발송합니다</div>
               </div>
               <div className="perk-item">
                 <div className="perk-icon">🎁</div>
@@ -698,7 +699,7 @@ export default function SubscribePage() {
               </div>
               <div className="perk-item">
                 <div className="perk-icon">🥂</div>
-                <div><strong style={{color:'var(--ink)'}}>다산어보의 날 초청</strong><br />연 1회 후원인과 함께하는 특별한 날, 편집진과 직접 만납니다</div>
+                <div><strong style={{color:'var(--ink)'}}>{SITE_CONFIG.brand.name}의 날 초청</strong><br />연 1회 후원인과 함께하는 특별한 날, 편집진과 직접 만납니다</div>
               </div>
             </div>
           </div>
@@ -767,7 +768,7 @@ export default function SubscribePage() {
             <strong>입금 안내</strong><br />
             신청 후 아래 계좌로 구독료를 입금해 주세요.<br />
             입금자명은 <b>신청자 이름</b>으로 해주시면 확인이 빠릅니다.
-            <div className="payment-account">농협 000-0000-0000-00 · 다산어보언론협동조합</div>
+            <div className="payment-account">농협 000-0000-0000-00 · {SITE_CONFIG.brand.name_kr} 언론협동조합</div>
           </div>
 
           <label className="agree-row" onClick={(e) => {
