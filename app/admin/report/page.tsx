@@ -41,8 +41,8 @@ export default function ReportPage() {
         .select('*')
         .eq('id', session.user.id)
         .single();
-      if (!profile || (profile.role !== 'reporter' && profile.role !== 'editor' && profile.role !== 'admin' && profile.role !== 'member')) {
-        alert('이 메뉴를 볼 권한이 없습니다. (취재기자 등급 이상 필요)');
+      if (!profile || (profile.role !== 'subscriber' && profile.role !== 'normal' && profile.role !== 'reporter' && profile.role !== 'editor' && profile.role !== 'admin' && profile.role !== 'member')) {
+        alert('이 메뉴는 로그인 회원만 이용 가능합니다.');
         router.push('/');
         return;
       }

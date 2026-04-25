@@ -49,7 +49,7 @@ function EditArticleForm() {
         return;
       }
       const { data: profile } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
-      const allowedRoles = ['admin', 'editor', 'reporter', 'member', 'normal'];
+      const allowedRoles = ['admin', 'editor'];
       if (!profile || !allowedRoles.includes(profile.role)) {
         alert("기사 작성 권한이 없습니다. (리포터 및 조합원 이상만 가능)");
         router.push('/');
@@ -99,7 +99,7 @@ function EditArticleForm() {
         const { data: allProfiles } = await supabase
           .from('profiles')
           .select('id, name, role')
-          .in('role', ['admin', 'editor', 'reporter', 'member', 'normal'])
+          .in('role', ['admin', 'editor', 'reporter', 'member', 'normal', 'subscriber'])
           .order('name');
         if (allProfiles) setAuthors(allProfiles);
       }
