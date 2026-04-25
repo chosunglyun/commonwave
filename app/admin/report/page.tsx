@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import emailjs from '@emailjs/browser';
+import { SITE_CONFIG } from '@/constants/siteConfig';
 import './report.css';
 
 export default function ReportPage() {
@@ -135,7 +136,7 @@ export default function ReportPage() {
     <main className="report-body">
       <Header />
       <div className="report-masthead">
-        <div className="report-masthead-name">다산어보</div>
+        <div className="report-masthead-name">{SITE_CONFIG.brand.name}</div>
         <div className="report-masthead-sub">마을 소식 제보 시스템 (기자 전용)</div>
         <div className="report-masthead-date">{todayStr()}</div>
       </div>
@@ -238,7 +239,7 @@ export default function ReportPage() {
           )}
         </div>
 
-        <div className="report-footer-rule">다산어보 언론협동조합 · 마을 소식 제보 시스템</div>
+        <div className="report-footer-rule">{SITE_CONFIG.brand.name_kr} 언론협동조합 · 마을 소식 제보 시스템</div>
       </div>
     </main>
   );
