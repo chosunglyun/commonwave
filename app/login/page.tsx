@@ -30,8 +30,7 @@ export default function LoginPage() {
         alert('로그인 실패: ' + error.message);
       } else {
         alert('환영합니다!');
-        router.push('/');
-        router.refresh();
+        window.location.href = '/';
       }
     } else {
       // 회원가입 처리
@@ -79,7 +78,7 @@ export default function LoginPage() {
           boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
         }}>
           <h1 style={{ textAlign: 'center', margin: '0 0 2rem', fontSize: '1.8rem', fontWeight: 800 }}>
-            {isLogin ? '다산어보 로그인' : '다산어보 회원가입'}
+            {isLogin ? 'COMMON WAVE 로그인' : 'COMMON WAVE 회원가입'}
           </h1>
 
           <form onSubmit={handleAuth} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>

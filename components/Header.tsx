@@ -91,6 +91,7 @@ export default function Header() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    window.location.href = '/';
   };
 
   const navCategories: { label: string; href: string; region?: boolean; accent?: boolean }[] = SITE_CONFIG.categories;
