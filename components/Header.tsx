@@ -118,7 +118,14 @@ export default function Header() {
           <div className="np-topbar-right">
             {userProfile ? (
               <>
-                <Link href="/profile" className="np-user-name" style={{ color: '#fff', textDecoration: 'none' }}>
+                <Link href="/profile" className="np-user-name" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontSize: '0.7rem', background: 'var(--accent)', color: 'var(--primary-dark)', padding: '1px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
+                    {userProfile.role === 'admin' ? '관리자' : 
+                     userProfile.role === 'editor' ? '편집국' : 
+                     userProfile.role === 'reporter' ? '리포터' : 
+                     userProfile.role === 'member' ? '조합원' : 
+                     userProfile.role === 'normal' ? '일반회원' : '구독자'}
+                  </span>
                   {userProfile.name} 님
                 </Link>
                 {(userProfile.role === 'admin' || userProfile.role === 'editor' || userProfile.role === 'member') && (
