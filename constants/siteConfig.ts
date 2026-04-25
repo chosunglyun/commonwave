@@ -38,7 +38,12 @@ export const SITE_CONFIG = {
     { label: '웨이브 멤버십', href: '/membership' },
   ],
 
-  // 4. 지역 설정 (필요한 경우)
+  // 4. 지역 및 날씨 설정
+  location: {
+    city: "Gangjin", // 날씨를 가져올 도시 (영어)
+  },
+
+  // 5. 지역 카테고리 (필요한 경우)
   regions: ["강진", "보성", "장흥", "고흥", "전국/일반"],
 
   // 5. 회원 등급 명칭
