@@ -6,11 +6,11 @@ import { supabase } from '@/lib/supabase';
 
 export const revalidate = 0;
 
-export default async function GlassWatchPage() {
+export default async function DataReportPage() {
   const { data: articles } = await supabase
     .from('articles')
     .select('*')
-    .eq('category', '유리알 워치')
+    .in('category', ['웨이브 인덱스', '데이터 리포트'])
     .eq('status', 'published')
     .order('created_at', { ascending: false });
 
@@ -19,9 +19,9 @@ export default async function GlassWatchPage() {
       <Header />
       <main className="container" style={{ flex: 1, padding: '4rem 1rem' }}>
         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '2rem', color: 'var(--primary)' }}>
-          유리알 워치
+          데이터 리포트
         </h1>
-        <p style={{ color: '#64748b', marginBottom: '3rem', fontSize: '1.1rem' }}>지자체 예산과 정책을 투명하게 들여다보고 시민의 눈으로 감시합니다.</p>
+        <p style={{ color: '#64748b', marginBottom: '3rem', fontSize: '1.1rem' }}>데이터로 기록하는 우리 마을의 실시간 지표와 심층 리포트입니다.</p>
 
         {articles && articles.length > 0 ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
@@ -33,7 +33,7 @@ export default async function GlassWatchPage() {
                   </div>
                 ) : (
                   <div style={{ width: '100%', height: '180px', background: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', fontWeight: 800 }}>
-                    GLASS WATCH
+                    DATA REPORT
                   </div>
                 )}
                 <div style={{ padding: '1.5rem', flex: 1 }}>

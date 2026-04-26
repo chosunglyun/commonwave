@@ -94,7 +94,7 @@ export default function Header() {
     window.location.href = '/';
   };
 
-  const navCategories: { label: string; href: string; region?: boolean; accent?: boolean }[] = SITE_CONFIG.categories;
+  const navCategories: { label: string; href: string; region?: boolean; accent?: boolean; subItems?: { label: string; href: string }[] }[] = SITE_CONFIG.categories;
 
   return (
     <header className="np-header">
@@ -197,7 +197,7 @@ export default function Header() {
             {navCategories.map((cat, idx) => {
               const isActive = pathname === cat.href || (cat.href !== '/' && pathname.startsWith(cat.href) && cat.href !== '/region');
               return (
-                <li key={idx} className={`np-nav-item${idx > 0 ? ' np-nav-divider' : ''}`}>
+                <li key={idx} className={`np-nav-item${idx > 0 ? ' np-nav-divider' : ''} ${cat.subItems ? 'np-has-dropdown' : ''}`}>
                   <Link
                     href={cat.href}
                     className={[
@@ -207,8 +207,17 @@ export default function Header() {
                       isActive ? 'np-nav-active' : '',
                     ].filter(Boolean).join(' ')}
                   >
-                    {cat.label}
+                    {cat.label} {cat.subItems && <span className="np-dropdown-arrow">▼</span>}
                   </Link>
+                  {cat.subItems && (
+                    <ul className="np-dropdown-menu">
+                      {cat.subItems.map((sub, sIdx) => (
+                        <li key={sIdx}>
+                          <Link href={sub.href} className="np-dropdown-link">{sub.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               );
             })}
@@ -439,6 +448,50 @@ export default function Header() {
         .np-nav-accent:hover {
           background: #fff5f5 !important;
           border-bottom-color: #c0392b !important;
+        }
+
+        /* 드롭다운 메뉴 */
+        .np-has-dropdown {
+          position: relative;
+        }
+        .np-dropdown-arrow {
+          font-size: 0.6rem;
+          margin-left: 0.2rem;
+          vertical-align: middle;
+        }
+        .np-dropdown-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #F9F8F6;
+          border: 1px solid #D6D1C4;
+          border-top: 3px solid var(--primary);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          list-style: none;
+          padding: 0.5rem 0;
+          margin: 0;
+          min-width: 150px;
+          z-index: 100;
+          border-radius: 0 0 4px 4px;
+        }
+        .np-has-dropdown:hover .np-dropdown-menu {
+          display: block;
+        }
+        .np-dropdown-link {
+          display: block;
+          padding: 0.6rem 1rem;
+          color: #2C2B29;
+          text-decoration: none;
+          font-family: '"Nanum Myeongjo", "Batang", serif';
+          font-size: 0.85rem;
+          transition: background 0.2s, color 0.2s;
+          text-align: center;
+        }
+        .np-dropdown-link:hover {
+          background: #EAE6DF;
+          color: var(--primary);
         }
 
         /* === MOBILE === */

@@ -7,9 +7,10 @@ import { ArrowRight, Users, TrendingUp, Activity, AlertCircle } from 'lucide-rea
 
 export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles: any[]; farmPrices: any[]; memberCount: number }) {
   const topArticles = articles.slice(0, 3);
-  const waveIndexNews = articles.filter(a => a.category === '웨이브 인덱스').slice(0, 2);
-  const peopleLog = articles.filter(a => a.category === '피플 로그').slice(0, 3);
+  const dataReportNews = articles.filter(a => a.category === '데이터 리포트' || a.category === '웨이브 인덱스').slice(0, 2);
+  const localPeople = articles.filter(a => a.category === '로컬 인물' || a.category === '피플 로그').slice(0, 3);
   const commonPick = articles.filter(a => a.category === '커먼 픽').slice(0, 4);
+  const cinemaArchive = articles.filter(a => a.category === '시네마 아카이브' || a.category === '인문학적 시선').slice(0, 3);
   
   // 미세먼지, 교통혼잡도 모의 데이터 (실제 연동 전)
   const airQuality = '좋음 (32µg/m³)';
@@ -68,7 +69,7 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
           marginBottom: '4rem'
         }}>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)' }}>
-            <Activity size={24} /> 웨이브 인덱스 (L-Dashboard)
+            <Activity size={24} /> 데이터 리포트 (L-Dashboard)
           </h2>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
@@ -83,7 +84,7 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
                   </div>
                 ))}
               </div>
-              <Link href="/wave-index" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--primary)', textAlign: 'right', fontWeight: 600 }}>자세히 보기 →</Link>
+              <Link href="/data-report" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--primary)', textAlign: 'right', fontWeight: 600 }}>자세히 보기 →</Link>
             </div>
 
             {/* 환경 & 교통 */}
@@ -101,9 +102,9 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
               </div>
             </div>
 
-            {/* 유리알 워치 미니 위젯 */}
+            {/* 권력 감시 미니 위젯 */}
             <div style={{ background: 'var(--primary)', padding: '1.5rem', borderRadius: '12px', color: '#fff' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--accent)' }}>유리알 워치</h3>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--accent)' }}>권력 감시</h3>
               <p style={{ fontSize: '0.9rem', opacity: 0.9, marginBottom: '1.5rem', lineHeight: 1.5 }}>
                 2026년도 상반기 지자체 예산 집행 현황을 투명하게 추적합니다.
               </p>
@@ -114,13 +115,13 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
                 <span>집행률: 42%</span>
                 <span>목표: 50%</span>
               </div>
-              <Link href="/glass-watch" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--accent)', textAlign: 'right', fontWeight: 600 }}>상세 리포트 보기 →</Link>
+              <Link href="/power-surveillance" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--accent)', textAlign: 'right', fontWeight: 600 }}>상세 리포트 보기 →</Link>
             </div>
-            {/* 웨이브 인덱스 관련 뉴스 (추가) */}
+            {/* 데이터 리포트 관련 뉴스 */}
             <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--primary-light)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary)', borderBottom: '2px solid var(--primary-light)', paddingBottom: '0.5rem' }}>인덱스 리포트</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {waveIndexNews.length > 0 ? waveIndexNews.map(art => (
+                {dataReportNews.length > 0 ? dataReportNews.map(art => (
                   <Link key={art.id} href={`/article/${art.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                     <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.3rem', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{art.title}</h4>
                     <span style={{ fontSize: '0.75rem', color: '#64748b' }}>{new Date(art.created_at).toLocaleDateString()}</span>
@@ -161,7 +162,7 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
             </div>
           </div>
 
-          {/* 사이드바 - 피플 로그 & 액션 스퀘어 */}
+          {/* 사이드바 - 로컬 인물 & 시민 참여 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             
             {/* 조합원 가입 미니 박스 */}
@@ -190,11 +191,11 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
               </Link>
             </div>
             
-            {/* 피플 로그 */}
+            {/* 로컬 인물 */}
             <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.02)', border: '1px solid #e2e8f0' }}>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--primary)' }}>피플 로그</h2>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--primary)' }}>로컬 인물</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {peopleLog.length > 0 ? peopleLog.map(art => (
+                {localPeople.length > 0 ? localPeople.map(art => (
                   <Link key={art.id} href={`/article/${art.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     {art.image_url && (
                       <div style={{ width: '60px', height: '60px', position: 'relative', borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
@@ -210,13 +211,13 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
                   <p style={{ fontSize: '0.9rem', color: '#64748b' }}>최신 인물 인터뷰가 없습니다.</p>
                 )}
               </div>
-              <Link href="/people-log" style={{ display: 'block', marginTop: '1rem', textAlign: 'center', fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary)', background: 'var(--primary-light)', padding: '0.5rem', borderRadius: '6px', textDecoration: 'none' }}>더보기</Link>
+              <Link href="/local-people" style={{ display: 'block', marginTop: '1rem', textAlign: 'center', fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary)', background: 'var(--primary-light)', padding: '0.5rem', borderRadius: '6px', textDecoration: 'none' }}>더보기</Link>
             </div>
 
-            {/* 액션 스퀘어 HOT */}
+            {/* 시민 참여 HOT */}
             <div style={{ background: 'var(--primary)', padding: '1.5rem', borderRadius: '12px', color: '#fff' }}>
               <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <AlertCircle size={20} /> 액션 스퀘어 HOT
+                <AlertCircle size={20} /> 시민 참여 HOT
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '8px' }}>
@@ -228,7 +229,7 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
                   </div>
                 </div>
               </div>
-              <Link href="/action-square" style={{ display: 'block', marginTop: '1rem', textAlign: 'center', fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary)', background: 'var(--accent)', padding: '0.5rem', borderRadius: '6px', textDecoration: 'none' }}>참여하기</Link>
+              <Link href="/citizen-participation" style={{ display: 'block', marginTop: '1rem', textAlign: 'center', fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary)', background: 'var(--accent)', padding: '0.5rem', borderRadius: '6px', textDecoration: 'none' }}>참여하기</Link>
             </div>
 
           </div>
@@ -259,6 +260,110 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
             )) : (
               [1, 2, 3, 4].map(i => (
                 <div key={i} style={{ background: '#fff', borderRadius: '12px', height: '280px', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#cbd5e1' }}>추천 콘텐츠 준비중</div>
+              ))
+            )}
+          </div>
+        </section>
+
+        {/* 4.5 인문학적 시선 (시네마 아카이브) - 별도 톤앤매너 적용 */}
+        <section style={{ 
+          marginBottom: '4rem', 
+          background: '#F9F8F6', // 따뜻하고 인문학적인 느낌의 배경
+          padding: '3rem', 
+          borderRadius: '16px',
+          border: '1px solid #E5E0D8'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', borderBottom: '1px solid #D6D1C4', paddingBottom: '1rem' }}>
+            <div>
+              <h2 style={{ 
+                fontSize: '2.2rem', 
+                fontWeight: 600, 
+                color: '#2C2B29', 
+                fontFamily: '"Nanum Myeongjo", "Batang", serif',
+                letterSpacing: '-0.5px'
+              }}>
+                인문학적 시선
+              </h2>
+              <p style={{ 
+                fontFamily: '"Nanum Myeongjo", "Batang", serif', 
+                color: '#6B6862', 
+                marginTop: '0.5rem',
+                fontSize: '1.1rem',
+                letterSpacing: '0.5px'
+              }}>
+                시네마 아카이브: 영화로 읽는 시대의 풍경
+              </p>
+            </div>
+            <Link href="/humanities" style={{ 
+              fontFamily: '"Nanum Myeongjo", "Batang", serif', 
+              color: '#4A4843', 
+              textDecoration: 'none',
+              borderBottom: '1px solid #4A4843',
+              paddingBottom: '2px',
+              fontSize: '0.95rem'
+            }}>
+              전체보기
+            </Link>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+            {cinemaArchive.length > 0 ? cinemaArchive.map((art, idx) => (
+              <Link key={art.id} href={`/article/${art.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ width: '100%', aspectRatio: '16/9', position: 'relative', overflow: 'hidden', borderRadius: '4px' }}>
+                  {art.image_url ? (
+                    <Image src={art.image_url} alt={art.title} fill style={{ objectFit: 'cover', filter: 'grayscale(20%)' }} />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', background: '#EAE6DF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span style={{ fontFamily: '"Nanum Myeongjo", "Batang", serif', color: '#A39F98', fontStyle: 'italic' }}>Cinema Archive</span>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <span style={{ 
+                    fontFamily: '"Nanum Myeongjo", "Batang", serif', 
+                    fontSize: '0.85rem', 
+                    color: '#8A867D', 
+                    display: 'block', 
+                    marginBottom: '0.5rem' 
+                  }}>
+                    {new Date(art.created_at).toLocaleDateString()}
+                  </span>
+                  <h3 style={{ 
+                    fontFamily: '"Nanum Myeongjo", "Batang", serif', 
+                    fontSize: '1.4rem', 
+                    fontWeight: 700, 
+                    color: '#2C2B29', 
+                    lineHeight: 1.4,
+                    marginBottom: '0.8rem'
+                  }}>
+                    {art.title}
+                  </h3>
+                  <p style={{ 
+                    fontFamily: '"Nanum Myeongjo", "Batang", serif', 
+                    fontSize: '1.05rem', 
+                    color: '#5C5A55', 
+                    lineHeight: 1.6,
+                    display: '-webkit-box', 
+                    WebkitLineClamp: 3, 
+                    WebkitBoxOrient: 'vertical', 
+                    overflow: 'hidden' 
+                  }}>
+                    {art.content?.replace(/<[^>]*>/g, '')}
+                  </p>
+                </div>
+              </Link>
+            )) : (
+              [1, 2, 3].map(i => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <div style={{ width: '100%', aspectRatio: '16/9', background: '#EAE6DF', borderRadius: '4px' }}></div>
+                  <div>
+                    <div style={{ width: '60px', height: '12px', background: '#EAE6DF', marginBottom: '0.8rem' }}></div>
+                    <div style={{ width: '90%', height: '24px', background: '#EAE6DF', marginBottom: '0.5rem' }}></div>
+                    <div style={{ width: '70%', height: '24px', background: '#EAE6DF', marginBottom: '1rem' }}></div>
+                    <div style={{ width: '100%', height: '16px', background: '#EAE6DF', marginBottom: '0.4rem' }}></div>
+                    <div style={{ width: '100%', height: '16px', background: '#EAE6DF' }}></div>
+                  </div>
+                </div>
               ))
             )}
           </div>

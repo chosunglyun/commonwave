@@ -6,11 +6,11 @@ import { supabase } from '@/lib/supabase';
 
 export const revalidate = 0;
 
-export default async function WaveIndexPage() {
+export default async function LocalPeoplePage() {
   const { data: articles } = await supabase
     .from('articles')
     .select('*')
-    .eq('category', '웨이브 인덱스')
+    .in('category', ['피플 로그', '로컬 인물'])
     .eq('status', 'published')
     .order('created_at', { ascending: false });
 
@@ -19,9 +19,9 @@ export default async function WaveIndexPage() {
       <Header />
       <main className="container" style={{ flex: 1, padding: '4rem 1rem' }}>
         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '2rem', color: 'var(--primary)' }}>
-          웨이브 인덱스
+          로컬 인물
         </h1>
-        <p style={{ color: '#64748b', marginBottom: '3rem', fontSize: '1.1rem' }}>데이터로 기록하는 우리 마을의 실시간 지표와 심층 리포트입니다.</p>
+        <p style={{ color: '#64748b', marginBottom: '3rem', fontSize: '1.1rem' }}>마을을 만드는 사람들, 평범하지만 특별한 우리 이웃들의 삶을 기록합니다.</p>
 
         {articles && articles.length > 0 ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
@@ -33,7 +33,7 @@ export default async function WaveIndexPage() {
                   </div>
                 ) : (
                   <div style={{ width: '100%', height: '180px', background: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', fontWeight: 800 }}>
-                    WAVE INDEX
+                    LOCAL PEOPLE
                   </div>
                 )}
                 <div style={{ padding: '1.5rem', flex: 1 }}>

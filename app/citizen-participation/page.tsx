@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ThumbsUp, ThumbsDown, MessageSquare } from 'lucide-react';
 
-export default function ActionSquarePage() {
+export default function CitizenParticipationPage() {
   const proposals = [
     {
       id: 1,
@@ -32,7 +32,7 @@ export default function ActionSquarePage() {
       <main className="container" style={{ flex: 1, padding: '4rem 1rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--primary)', margin: 0 }}>
-            액션 스퀘어
+            시민 참여
           </h1>
           <button style={{ background: 'var(--primary)', color: '#fff', padding: '0.8rem 1.5rem', borderRadius: '8px', fontWeight: 700, border: 'none', cursor: 'pointer' }}>
             새 제안 작성하기

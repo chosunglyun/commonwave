@@ -29,11 +29,15 @@ export const SITE_CONFIG = {
 
   // 3. 메뉴 카테고리 설정
   categories: [
-    { label: '웨이브 인덱스', href: '/wave-index' },
-    { label: '유리알 워치', href: '/glass-watch' },
-    { label: '피플 로그', href: '/people-log' },
-    { label: '언필터드', href: '/unfiltered' },
-    { label: '액션 스퀘어', href: '/action-square', accent: true },
+    { label: '데이터 리포트', href: '/data-report' },
+    { label: '권력 감시', href: '/power-surveillance' },
+    { label: '로컬 인물', href: '/local-people' },
+    { label: '시민 참여', href: '/citizen-participation', accent: true },
+    { label: '인문학적 시선', href: '/humanities', 
+      subItems: [
+        { label: '시네마 아카이브', href: '/humanities/cinema-archive' }
+      ]
+    },
     { label: '커먼 픽', href: '/common-pick' },
     { label: '웨이브 멤버십', href: '/membership' },
   ],

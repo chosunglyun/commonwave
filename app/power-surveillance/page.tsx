@@ -6,11 +6,11 @@ import { supabase } from '@/lib/supabase';
 
 export const revalidate = 0;
 
-export default async function PeopleLogPage() {
+export default async function PowerSurveillancePage() {
   const { data: articles } = await supabase
     .from('articles')
     .select('*')
-    .eq('category', '피플 로그')
+    .in('category', ['유리알 워치', '권력 감시'])
     .eq('status', 'published')
     .order('created_at', { ascending: false });
 
@@ -19,9 +19,9 @@ export default async function PeopleLogPage() {
       <Header />
       <main className="container" style={{ flex: 1, padding: '4rem 1rem' }}>
         <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '2rem', color: 'var(--primary)' }}>
-          피플 로그
+          권력 감시
         </h1>
-        <p style={{ color: '#64748b', marginBottom: '3rem', fontSize: '1.1rem' }}>마을을 만드는 사람들, 평범하지만 특별한 우리 이웃들의 삶을 기록합니다.</p>
+        <p style={{ color: '#64748b', marginBottom: '3rem', fontSize: '1.1rem' }}>지자체 예산과 정책을 투명하게 들여다보고 시민의 눈으로 감시합니다.</p>
 
         {articles && articles.length > 0 ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
@@ -33,7 +33,7 @@ export default async function PeopleLogPage() {
                   </div>
                 ) : (
                   <div style={{ width: '100%', height: '180px', background: 'var(--primary-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', fontWeight: 800 }}>
-                    PEOPLE LOG
+                    POWER SURVEILLANCE
                   </div>
                 )}
                 <div style={{ padding: '1.5rem', flex: 1 }}>
