@@ -12,42 +12,7 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
   const commonPick = articles.filter(a => a.category === '커먼 픽').slice(0, 4);
   const cinemaArchive = articles.filter(a => a.category === '시네마 아카이브' || a.category === '인문학적 시선').slice(0, 3);
   
-  // 대기질 및 색상 상태 관리
-  const [airQuality, setAirQuality] = useState('불러오는 중...');
-  const [airQualityColor, setAirQualityColor] = useState('#64748b');
-  const [airStation, setAirStation] = useState('전국');
-
-  useEffect(() => {
-    const fetchAirQuality = async () => {
-      try {
-        // Edge Proxy API 호출 (CORS 우회 및 한국 IP 우회)
-        const res = await fetch('/api/air-quality-proxy?sidoName=전남');
-        
-        if (res.ok) {
-          const data = await res.json();
-          if (data.pm10Value && data.pm10Value !== '-') {
-            setAirQuality(`${data.grade} (${data.pm10Value}µg/m³)`);
-            setAirStation(data.stationName || '전남');
-            
-            if (data.grade === '좋음') setAirQualityColor('#10b981');
-            else if (data.grade === '보통') setAirQualityColor('#3b82f6');
-            else if (data.grade === '나쁨') setAirQualityColor('#f59e0b');
-            else if (data.grade === '매우나쁨') setAirQualityColor('#ef4444');
-          } else {
-            setAirQuality('데이터 없음');
-          }
-        } else {
-          setAirQuality('연결 실패');
-        }
-      } catch (e) {
-        setAirQuality('오류 발생');
-      }
-    };
-    
-    fetchAirQuality();
-  }, []);
-
-  // 기상특보 등은 모의 데이터 유지
+  // 기상특보 등은 모의 데이터 유지 (현재 미세먼지는 외부 링크로 대체)
   const traffic = '원활';
 
   return (
@@ -132,12 +97,12 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: '#334155' }}>로컬 미세먼지 & 기상 특보</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.5rem', borderBottom: '1px solid #e2e8f0' }}>
-                  <span style={{ fontSize: '0.9rem', color: '#64748b' }}>미세먼지 ({airStation})</span>
-                  <span style={{ fontWeight: 700, color: airQualityColor }}>{airQuality}</span>
+                  <span style={{ fontSize: '0.9rem', color: '#64748b' }}>우리동네 미세먼지</span>
+                  <a href="https://www.airkorea.or.kr/" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>에어코리아 가기 →</a>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.9rem', color: '#64748b' }}>기상 특보</span>
-                  <span style={{ fontWeight: 700, color: '#f59e0b' }}>강풍주의보 발효중</span>
+                  <span style={{ fontSize: '0.9rem', color: '#64748b' }}>지역 기상 특보</span>
+                  <a href="https://www.weather.go.kr/" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.85rem', color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>기상청 가기 →</a>
                 </div>
               </div>
             </div>
