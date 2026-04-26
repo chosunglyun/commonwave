@@ -261,23 +261,27 @@ export default function AdminPage() {
                   </label>
                 ) : <span style={{fontSize:'0.8rem', color:'#ef4444'}}>데이터 없음 (SQL 실행 필요)</span>}
               </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
-                  <input type="text" defaultValue={billboard.title} onBlur={(e) => updateAd(billboard.id, { title: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="광고 제목" />
-                  <input type="text" defaultValue={billboard.description} onBlur={(e) => updateAd(billboard.id, { description: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="상세 설명 / 축제 기간 등" />
-                  <input type="text" defaultValue={billboard.link_url} onBlur={(e) => updateAd(billboard.id, { link_url: e.target.value })} style={{ padding: '0.6rem', border: '1px solid var(--primary)', borderRadius: '4px', background: '#f0fdf4' }} placeholder="랜딩 페이지 URL (http://...)" />
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderTop: '1px dashed #ddd', paddingTop: '1rem' }}>
-                  <div style={{ flex: 1 }}>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>배너 이미지 업로드 (권장: 1150 x 110 px)</label>
-                    <input type="file" accept="image/*" onChange={(e) => e.target.files && e.target.files[0] && handleAdImageUpload(billboard.id, e.target.files[0])} style={{ fontSize: '0.85rem' }} />
+              {billboard && (
+                <>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                    <input type="text" defaultValue={billboard.title} onBlur={(e) => updateAd(billboard.id, { title: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="광고 제목" />
+                    <input type="text" defaultValue={billboard.description} onBlur={(e) => updateAd(billboard.id, { description: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="상세 설명 / 축제 기간 등" />
+                    <input type="text" defaultValue={billboard.link_url} onBlur={(e) => updateAd(billboard.id, { link_url: e.target.value })} style={{ padding: '0.6rem', border: '1px solid var(--primary)', borderRadius: '4px', background: '#f0fdf4' }} placeholder="랜딩 페이지 URL (http://...)" />
                   </div>
-                  {billboard.image_url && (
-                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                      <img src={billboard.image_url} alt="배너 미리보기" style={{ height: '40px', borderRadius: '4px', border: '1px solid #ddd' }} />
-                      <button onClick={() => updateAd(billboard.id, { image_url: null })} style={{ background: 'none', border: '1px solid #ef4444', color: '#ef4444', padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer' }}>이미지 삭제</button>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderTop: '1px dashed #ddd', paddingTop: '1rem' }}>
+                    <div style={{ flex: 1 }}>
+                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>배너 이미지 업로드 (권장: 1150 x 110 px)</label>
+                      <input type="file" accept="image/*" onChange={(e) => e.target.files && e.target.files[0] && handleAdImageUpload(billboard.id, e.target.files[0])} style={{ fontSize: '0.85rem' }} />
                     </div>
-                  )}
-                </div>
+                    {billboard.image_url && (
+                      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        <img src={billboard.image_url} alt="배너 미리보기" style={{ height: '40px', borderRadius: '4px', border: '1px solid #ddd' }} />
+                        <button onClick={() => updateAd(billboard.id, { image_url: null })} style={{ background: 'none', border: '1px solid #ef4444', color: '#ef4444', padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer' }}>이미지 삭제</button>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Sidebar Ad Section */}
@@ -290,11 +294,13 @@ export default function AdminPage() {
                   </label>
                 ) : <span style={{fontSize:'0.8rem', color:'#ef4444'}}>데이터 없음 (SQL 실행 필요)</span>}
               </div>
+              {sidebar && (
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
                   <input type="text" defaultValue={sidebar.title} onBlur={(e) => updateAd(sidebar.id, { title: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="광고 제목" />
                   <input type="text" defaultValue={sidebar.description} onBlur={(e) => updateAd(sidebar.id, { description: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="연락처 / URL 등" />
                   <input type="text" defaultValue={sidebar.link_url} onBlur={(e) => updateAd(sidebar.id, { link_url: e.target.value })} style={{ padding: '0.6rem', border: '1px solid var(--primary)', borderRadius: '4px', background: '#f0fdf4' }} placeholder="랜딩 페이지 URL (http://...)" />
                 </div>
+              )}
             </div>
           </div>
         </div>
