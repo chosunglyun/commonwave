@@ -32,7 +32,7 @@ export const SITE_CONFIG = {
     { label: '데이터 리포트', href: '/data-report' },
     { label: '권력 감시', href: '/power-surveillance' },
     { label: '로컬 인물', href: '/local-people' },
-    { label: '시민 참여', href: '/citizen-participation', accent: true },
+
     { label: '인문학적 시선', href: '/humanities', 
       subItems: [
         { label: '시네마 아카이브', href: '/humanities/cinema-archive' }

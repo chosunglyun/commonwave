@@ -206,23 +206,6 @@ export function CommonWaveHome({ articles, farmPrices, memberCount, localEvents 
               <Link href="/local-people" style={{ display: 'block', marginTop: '1rem', textAlign: 'center', fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary)', background: 'var(--primary-light)', padding: '0.5rem', borderRadius: '6px', textDecoration: 'none' }}>더보기</Link>
             </div>
 
-            {/* 시민 참여 HOT */}
-            <div style={{ background: 'var(--primary)', padding: '1.5rem', borderRadius: '12px', color: '#fff' }}>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <AlertCircle size={20} /> 시민 참여 HOT
-              </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ background: 'rgba(255,255,255,0.1)', padding: '1rem', borderRadius: '8px' }}>
-                  <span style={{ fontSize: '0.75rem', background: 'var(--accent)', color: 'var(--primary)', padding: '0.1rem 0.4rem', borderRadius: '4px', fontWeight: 800, marginBottom: '0.5rem', display: 'inline-block' }}>진행중</span>
-                  <h4 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem' }}>강진읍 주차장 부족 문제 해결 방안</h4>
-                  <div style={{ display: 'flex', gap: '1rem', fontSize: '0.85rem' }}>
-                    <span style={{ color: 'var(--accent)' }}>찬성 142</span>
-                    <span style={{ color: '#ff7675' }}>반대 38</span>
-                  </div>
-                </div>
-              </div>
-              <Link href="/citizen-participation" style={{ display: 'block', marginTop: '1rem', textAlign: 'center', fontSize: '0.9rem', fontWeight: 700, color: 'var(--primary)', background: 'var(--accent)', padding: '0.5rem', borderRadius: '6px', textDecoration: 'none' }}>참여하기</Link>
-            </div>
 
           </div>
         </div>
