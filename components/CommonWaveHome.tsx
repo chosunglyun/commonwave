@@ -20,20 +20,44 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
   useEffect(() => {
     const fetchAirQuality = async () => {
       try {
-        const res = await fetch('/api/air-quality?sidoName=전남'); // 필요시 강진 등 특정 측정소 지정 가능
+        const apiKey = process.env.NEXT_PUBLIC_AIR_KOREA_API_KEY;
+        if (!apiKey) {
+          setAirQuality('키 설정 필요');
+          return;
+        }
+
+        let safeApiKey = apiKey;
+        if (!apiKey.includes('%')) {
+          safeApiKey = encodeURIComponent(apiKey);
+        }
+
+        const sidoName = '전남';
+        const url = `https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${safeApiKey}&returnType=json&numOfRows=100&pageNo=1&sidoName=${encodeURIComponent(sidoName)}&ver=1.0`;
+        
+        const res = await fetch(url);
+        
         if (res.ok) {
           const data = await res.json();
-          if (data.pm10Value) {
-            setAirQuality(`${data.grade} (${data.pm10Value}µg/m³)`);
-            setAirStation(data.stationName || '전남');
-            
-            // 미세먼지 등급별 색상 지정
-            if (data.grade === '좋음') setAirQualityColor('#10b981'); // Green
-            else if (data.grade === '보통') setAirQualityColor('#3b82f6'); // Blue
-            else if (data.grade === '나쁨') setAirQualityColor('#f59e0b'); // Orange
-            else if (data.grade === '매우나쁨') setAirQualityColor('#ef4444'); // Red
+          if (data.response?.header?.resultCode === '00') {
+            const items = data.response.body.items;
+            if (items && items.length > 0) {
+              const targetItem = items[0]; // 기본 전남 첫번째 관측소 (추후 필요시 강진읍 등으로 필터링 가능)
+              
+              const gradeMap: Record<string, string> = { '1': '좋음', '2': '보통', '3': '나쁨', '4': '매우나쁨' };
+              const grade = gradeMap[targetItem.pm10Grade] || '보통';
+              
+              setAirQuality(`${grade} (${targetItem.pm10Value}µg/m³)`);
+              setAirStation(targetItem.stationName || '전남');
+              
+              if (grade === '좋음') setAirQualityColor('#10b981');
+              else if (grade === '보통') setAirQualityColor('#3b82f6');
+              else if (grade === '나쁨') setAirQualityColor('#f59e0b');
+              else if (grade === '매우나쁨') setAirQualityColor('#ef4444');
+            } else {
+              setAirQuality('데이터 없음');
+            }
           } else {
-            setAirQuality('정보 없음');
+            setAirQuality('연결 실패(CORS/권한)');
           }
         } else {
           setAirQuality('연결 실패');
