@@ -69,7 +69,7 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
           marginBottom: '4rem'
         }}>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)' }}>
-            <Activity size={24} /> 데이터 리포트 (L-Dashboard)
+            <Activity size={24} /> 전국 생활 지수 대시보드
           </h2>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
@@ -87,49 +87,50 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
               <Link href="/data-report" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--primary)', textAlign: 'right', fontWeight: 600 }}>자세히 보기 →</Link>
             </div>
 
-            {/* 환경 & 교통 */}
+            {/* 로컬 미세먼지 & 기상 특보 */}
             <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: '#334155' }}>실시간 지역 지표</h3>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: '#334155' }}>로컬 미세먼지 & 기상 특보</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.5rem', borderBottom: '1px solid #e2e8f0' }}>
                   <span style={{ fontSize: '0.9rem', color: '#64748b' }}>미세먼지</span>
                   <span style={{ fontWeight: 700, color: '#10b981' }}>{airQuality}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.9rem', color: '#64748b' }}>주요 도로 소통</span>
-                  <span style={{ fontWeight: 700, color: '#3b82f6' }}>{traffic}</span>
+                  <span style={{ fontSize: '0.9rem', color: '#64748b' }}>기상 특보</span>
+                  <span style={{ fontWeight: 700, color: '#f59e0b' }}>강풍주의보 발효중</span>
                 </div>
               </div>
             </div>
 
-            {/* 권력 감시 미니 위젯 */}
+            {/* 오늘의 지역 행사/문화 알림 */}
+            <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--primary-light)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary)', borderBottom: '2px solid var(--primary-light)', paddingBottom: '0.5rem' }}>오늘의 지역 행사/문화 알림</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.3rem', lineHeight: 1.4 }}>제24회 지역 문화축제 개막식</h4>
+                  <span style={{ fontSize: '0.75rem', color: '#64748b' }}>오늘 18:00 | 중앙광장 일원</span>
+                </Link>
+                <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.3rem', lineHeight: 1.4 }}>시민과 함께하는 가을 밤 음악회</h4>
+                  <span style={{ fontSize: '0.75rem', color: '#64748b' }}>내일 19:30 | 문화예술회관</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* 의료 공백 리포트 */}
             <div style={{ background: 'var(--primary)', padding: '1.5rem', borderRadius: '12px', color: '#fff' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--accent)' }}>권력 감시</h3>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--accent)' }}>의료 공백 리포트</h3>
               <p style={{ fontSize: '0.9rem', opacity: 0.9, marginBottom: '1.5rem', lineHeight: 1.5 }}>
-                2026년도 상반기 지자체 예산 집행 현황을 투명하게 추적합니다.
+                권역 응급의료센터 병상 가동률 및 지역 내 필수의료 인력 현황을 모니터링합니다.
               </p>
               <div style={{ width: '100%', background: 'rgba(255,255,255,0.2)', height: '8px', borderRadius: '4px', marginBottom: '0.5rem' }}>
-                <div style={{ width: '42%', background: 'var(--accent)', height: '100%', borderRadius: '4px' }}></div>
+                <div style={{ width: '85%', background: '#ef4444', height: '100%', borderRadius: '4px' }}></div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', opacity: 0.8 }}>
-                <span>집행률: 42%</span>
-                <span>목표: 50%</span>
+                <span>응급실 포화도: 85%</span>
+                <span style={{ color: '#fca5a5', fontWeight: 'bold' }}>위험 단계</span>
               </div>
-              <Link href="/power-surveillance" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--accent)', textAlign: 'right', fontWeight: 600 }}>상세 리포트 보기 →</Link>
-            </div>
-            {/* 데이터 리포트 관련 뉴스 */}
-            <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--primary-light)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary)', borderBottom: '2px solid var(--primary-light)', paddingBottom: '0.5rem' }}>인덱스 리포트</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {dataReportNews.length > 0 ? dataReportNews.map(art => (
-                  <Link key={art.id} href={`/article/${art.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.3rem', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{art.title}</h4>
-                    <span style={{ fontSize: '0.75rem', color: '#64748b' }}>{new Date(art.created_at).toLocaleDateString()}</span>
-                  </Link>
-                )) : (
-                  <div style={{ fontSize: '0.85rem', color: '#94a3b8', textAlign: 'center', padding: '2rem 0' }}>등록된 인덱스 기사가 없습니다.</div>
-                )}
-              </div>
+              <Link href="#" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--accent)', textAlign: 'right', fontWeight: 600 }}>상세 리포트 보기 →</Link>
             </div>
           </div>
         </section>
