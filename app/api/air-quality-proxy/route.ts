@@ -6,8 +6,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const sidoName = searchParams.get('sidoName') || '전남';
 
-  // 클라이언트에서 넘긴 환경 변수든, 서버에 저장된 환경 변수든 모두 탐색
-  const apiKey = process.env.AIR_KOREA_API_KEY || process.env.NEXT_PUBLIC_AIR_KOREA_API_KEY;
+  // 클라이언트에서 넘긴 환경 변수든, 서버에 저장된 환경 변수든 모두 탐색하고 공백 제거
+  const apiKey = (process.env.AIR_KOREA_API_KEY || process.env.NEXT_PUBLIC_AIR_KOREA_API_KEY || '').trim();
   
   if (!apiKey) {
     return NextResponse.json({ error: 'API key is not configured' }, { status: 500 });
