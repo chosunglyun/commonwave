@@ -17,11 +17,24 @@ export default function HumanitiesPage() {
           </p>
         </header>
         
+        <style>{`
+          .humanities-card {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 4px;
+            border: 1px solid #E5E0D8;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+          }
+          .humanities-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+          }
+        `}</style>
+
         <div style={{ display: 'grid', gap: '2rem' }}>
           <Link href="/humanities/cinema-archive" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div style={{ background: '#fff', padding: '3rem', borderRadius: '4px', border: '1px solid #E5E0D8', transition: 'transform 0.3s, boxShadow 0.3s', cursor: 'pointer' }}
-                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.05)' }}
-                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none' }}>
+            <div className="humanities-card">
               <h2 style={{ fontSize: '2rem', fontWeight: 600, marginBottom: '1rem', color: '#2C2B29' }}>시네마 아카이브</h2>
               <p style={{ fontSize: '1.1rem', color: '#6B6862', lineHeight: 1.8 }}>
                 영화라는 렌즈를 통해 우리 시대의 풍경과 인간의 심연을 비평합니다.
