@@ -123,22 +123,6 @@ export function CommonWaveHome({ articles, farmPrices, memberCount, localEvents 
                 )}
               </div>
             </div>
-
-            {/* 의료 공백 리포트 */}
-            <div style={{ background: 'var(--primary)', padding: '1.5rem', borderRadius: '12px', color: '#fff' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: 'var(--accent)' }}>의료 공백 리포트</h3>
-              <p style={{ fontSize: '0.9rem', opacity: 0.9, marginBottom: '1.5rem', lineHeight: 1.5 }}>
-                권역 응급의료센터 병상 가동률 및 지역 내 필수의료 인력 현황을 모니터링합니다.
-              </p>
-              <div style={{ width: '100%', background: 'rgba(255,255,255,0.2)', height: '8px', borderRadius: '4px', marginBottom: '0.5rem' }}>
-                <div style={{ width: '85%', background: '#ef4444', height: '100%', borderRadius: '4px' }}></div>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', opacity: 0.8 }}>
-                <span>응급실 포화도: 85%</span>
-                <span style={{ color: '#fca5a5', fontWeight: 'bold' }}>위험 단계</span>
-              </div>
-              <Link href="#" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--accent)', textAlign: 'right', fontWeight: 600 }}>상세 리포트 보기 →</Link>
-            </div>
           </div>
         </section>
 
