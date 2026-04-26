@@ -111,14 +111,20 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
             <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', color: '#334155' }}>장바구니 물가 (KAMIS)</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                {farmPrices.slice(0, 3).map((p, i) => (
-                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.9rem', color: '#64748b' }}>{p.item_name} <small>({p.unit})</small></span>
-                    <span style={{ fontWeight: 700, color: 'var(--primary)' }}>{parseInt(p.price).toLocaleString()}원</span>
+                {farmPrices.length > 0 ? (
+                  farmPrices.slice(0, 3).map((p, i) => (
+                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: '0.9rem', color: '#64748b' }}>{p.item_name} <small>({p.unit})</small></span>
+                      <span style={{ fontWeight: 700, color: 'var(--primary)' }}>{parseInt(p.price).toLocaleString()}원</span>
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ fontSize: '0.9rem', color: '#64748b', textAlign: 'center', padding: '1rem 0' }}>
+                    실시간 가격 정보를 수집 중입니다.
                   </div>
-                ))}
+                )}
               </div>
-              <Link href="/data-report" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--primary)', textAlign: 'right', fontWeight: 600 }}>자세히 보기 →</Link>
+              <a href="https://www.kamis.or.kr/customer/main/main.do" target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--primary)', textAlign: 'right', fontWeight: 600 }}>KAMIS 사이트 가기 →</a>
             </div>
 
             {/* 로컬 미세먼지 & 기상 특보 */}
