@@ -28,6 +28,22 @@ export default async function Home() {
     .select('*', { count: 'exact', head: true });
 
   const safeMemberCount = memberCount || 128; // Fallback
+  
+  // Fetch local events from site_settings
+  const { data: eventsSetting } = await supabase
+    .from('site_settings')
+    .select('value')
+    .eq('id', 'local_events')
+    .single();
+    
+  let localEvents = [];
+  if (eventsSetting && eventsSetting.value) {
+    try {
+      localEvents = JSON.parse(eventsSetting.value);
+    } catch (e) {
+      console.error('Failed to parse local_events', e);
+    }
+  }
 
   return (
     <main style={{ background: 'var(--background)', minHeight: '100vh' }}>
@@ -38,6 +54,7 @@ export default async function Home() {
         articles={safeArticles}
         farmPrices={farmPrices || []}
         memberCount={safeMemberCount}
+        localEvents={localEvents}
       />
 
       <Footer />

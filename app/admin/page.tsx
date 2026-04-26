@@ -17,6 +17,7 @@ export default function AdminPage() {
   const [applications, setApplications] = useState<any[]>([]);
   const [adApplications, setAdApplications] = useState<any[]>([]);
   const [siteSettings, setSiteSettings] = useState<any>({});
+  const [localEvents, setLocalEvents] = useState<any[]>([]);
   const [ads, setAds] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusMsg, setStatusMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
@@ -48,6 +49,9 @@ export default function AdminPage() {
     if (settings) {
       const settingsMap = settings.reduce((acc: any, curr: any) => ({ ...acc, [curr.id]: curr.value }), {});
       setSiteSettings(settingsMap);
+      if (settingsMap.local_events) {
+        try { setLocalEvents(JSON.parse(settingsMap.local_events)); } catch (e) {}
+      }
     }
 
     // Ads
@@ -175,10 +179,30 @@ export default function AdminPage() {
       if (!res.ok) throw new Error(data.error);
       
       setStatusMsg({ text: '수정사항이 반영되었습니다.', type: 'success' });
-      fetchArticles(); // Refresh
+      // fetchArticles(); // Refresh only needed if we want full re-render, but usually not needed for settings
     } catch (error: any) {
       setStatusMsg({ text: '저장 실패: ' + error.message, type: 'error' });
     }
+  };
+
+  const handleSaveEvents = async (newEvents: any[]) => {
+    setLocalEvents(newEvents);
+    await updateSetting('local_events', JSON.stringify(newEvents));
+  };
+
+  const addEvent = () => {
+    handleSaveEvents([...localEvents, { title: '', datetime: '', location: '', link: '' }]);
+  };
+
+  const updateEvent = (index: number, field: string, value: string) => {
+    const newEvents = [...localEvents];
+    newEvents[index] = { ...newEvents[index], [field]: value };
+    handleSaveEvents(newEvents);
+  };
+
+  const deleteEvent = (index: number) => {
+    const newEvents = localEvents.filter((_, i) => i !== index);
+    handleSaveEvents(newEvents);
   };
 
   const renderSettingsTab = () => {
@@ -272,6 +296,44 @@ export default function AdminPage() {
                   <input type="text" defaultValue={sidebar.link_url} onBlur={(e) => updateAd(sidebar.id, { link_url: e.target.value })} style={{ padding: '0.6rem', border: '1px solid var(--primary)', borderRadius: '4px', background: '#f0fdf4' }} placeholder="랜딩 페이지 URL (http://...)" />
                 </div>
             </div>
+          </div>
+        </div>
+
+        {/* Local Events Management */}
+        <div style={{ marginTop: '3rem', padding: '2rem', border: '1px solid #eee', borderRadius: '12px', background: '#fff' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              지역 행사/문화 알림판 관리
+            </h4>
+            <button onClick={addEvent} style={{ background: 'var(--primary-dark)', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>+ 새 행사 추가</button>
+          </div>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            {localEvents.map((ev, index) => (
+              <div key={index} style={{ padding: '1.5rem', background: '#f8f9fa', borderRadius: '8px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '1rem', position: 'relative' }}>
+                <button onClick={() => deleteEvent(index)} style={{ position: 'absolute', top: '10px', right: '10px', background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', padding: '5px' }}>삭제 ✕</button>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>행사명 (예: 제24회 문화축제)</label>
+                    <input type="text" value={ev.title} onChange={(e) => updateEvent(index, 'title', e.target.value)} style={{ width: '100%', padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>날짜/시간 (예: 오늘 18:00)</label>
+                    <input type="text" value={ev.datetime} onChange={(e) => updateEvent(index, 'datetime', e.target.value)} style={{ width: '100%', padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>장소 (예: 중앙광장 일원)</label>
+                    <input type="text" value={ev.location} onChange={(e) => updateEvent(index, 'location', e.target.value)} style={{ width: '100%', padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>이동할 링크 (없으면 비워두세요)</label>
+                    <input type="text" value={ev.link || ''} onChange={(e) => updateEvent(index, 'link', e.target.value)} placeholder="https://..." style={{ width: '100%', padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} />
+                  </div>
+                </div>
+              </div>
+            ))}
+            {localEvents.length === 0 && <p style={{ textAlign: 'center', color: '#999', padding: '1rem' }}>등록된 행사가 없습니다.</p>}
           </div>
         </div>
 

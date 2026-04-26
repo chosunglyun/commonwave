@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Users, TrendingUp, Activity, AlertCircle } from 'lucide-react';
 
-export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles: any[]; farmPrices: any[]; memberCount: number }) {
+export function CommonWaveHome({ articles, farmPrices, memberCount, localEvents = [] }: { articles: any[]; farmPrices: any[]; memberCount: number; localEvents?: any[] }) {
   const topArticles = articles.slice(0, 3);
   const dataReportNews = articles.filter(a => a.category === '데이터 리포트' || a.category === '웨이브 인덱스').slice(0, 2);
   const localPeople = articles.filter(a => a.category === '로컬 인물' || a.category === '피플 로그').slice(0, 3);
@@ -111,14 +111,16 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
             <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--primary-light)', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary)', borderBottom: '2px solid var(--primary-light)', paddingBottom: '0.5rem' }}>오늘의 지역 행사/문화 알림</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.3rem', lineHeight: 1.4 }}>제24회 지역 문화축제 개막식</h4>
-                  <span style={{ fontSize: '0.75rem', color: '#64748b' }}>오늘 18:00 | 중앙광장 일원</span>
-                </Link>
-                <Link href="#" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.3rem', lineHeight: 1.4 }}>시민과 함께하는 가을 밤 음악회</h4>
-                  <span style={{ fontSize: '0.75rem', color: '#64748b' }}>내일 19:30 | 문화예술회관</span>
-                </Link>
+                {localEvents && localEvents.length > 0 ? (
+                  localEvents.map((ev: any, i: number) => (
+                    <Link key={i} href={ev.link || '#'} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.3rem', lineHeight: 1.4 }}>{ev.title}</h4>
+                      <span style={{ fontSize: '0.75rem', color: '#64748b' }}>{ev.datetime} | {ev.location}</span>
+                    </Link>
+                  ))
+                ) : (
+                  <div style={{ fontSize: '0.85rem', color: '#999', textAlign: 'center', padding: '1rem 0' }}>등록된 행사 일정이 없습니다.</div>
+                )}
               </div>
             </div>
 
