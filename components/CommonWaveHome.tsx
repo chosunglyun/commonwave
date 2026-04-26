@@ -20,44 +20,21 @@ export function CommonWaveHome({ articles, farmPrices, memberCount }: { articles
   useEffect(() => {
     const fetchAirQuality = async () => {
       try {
-        const apiKey = process.env.NEXT_PUBLIC_AIR_KOREA_API_KEY;
-        if (!apiKey) {
-          setAirQuality('키 설정 필요');
-          return;
-        }
-
-        let safeApiKey = apiKey;
-        if (!apiKey.includes('%')) {
-          safeApiKey = encodeURIComponent(apiKey);
-        }
-
-        const sidoName = '전남';
-        const url = `https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${safeApiKey}&returnType=json&numOfRows=100&pageNo=1&sidoName=${encodeURIComponent(sidoName)}&ver=1.0`;
-        
-        const res = await fetch(url);
+        // Edge Proxy API 호출 (CORS 우회 및 한국 IP 우회)
+        const res = await fetch('/api/air-quality-proxy?sidoName=전남');
         
         if (res.ok) {
           const data = await res.json();
-          if (data.response?.header?.resultCode === '00') {
-            const items = data.response.body.items;
-            if (items && items.length > 0) {
-              const targetItem = items[0]; // 기본 전남 첫번째 관측소 (추후 필요시 강진읍 등으로 필터링 가능)
-              
-              const gradeMap: Record<string, string> = { '1': '좋음', '2': '보통', '3': '나쁨', '4': '매우나쁨' };
-              const grade = gradeMap[targetItem.pm10Grade] || '보통';
-              
-              setAirQuality(`${grade} (${targetItem.pm10Value}µg/m³)`);
-              setAirStation(targetItem.stationName || '전남');
-              
-              if (grade === '좋음') setAirQualityColor('#10b981');
-              else if (grade === '보통') setAirQualityColor('#3b82f6');
-              else if (grade === '나쁨') setAirQualityColor('#f59e0b');
-              else if (grade === '매우나쁨') setAirQualityColor('#ef4444');
-            } else {
-              setAirQuality('데이터 없음');
-            }
+          if (data.pm10Value && data.pm10Value !== '-') {
+            setAirQuality(`${data.grade} (${data.pm10Value}µg/m³)`);
+            setAirStation(data.stationName || '전남');
+            
+            if (data.grade === '좋음') setAirQualityColor('#10b981');
+            else if (data.grade === '보통') setAirQualityColor('#3b82f6');
+            else if (data.grade === '나쁨') setAirQualityColor('#f59e0b');
+            else if (data.grade === '매우나쁨') setAirQualityColor('#ef4444');
           } else {
-            setAirQuality('연결 실패(CORS/권한)');
+            setAirQuality('데이터 없음');
           }
         } else {
           setAirQuality('연결 실패');
