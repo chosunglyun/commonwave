@@ -12,15 +12,36 @@ export async function GET(request: Request) {
   }
 
   try {
+    // 공공데이터포털은 인코딩된 키를 요구하므로, 사용자가 디코딩 키를 넣었든 인코딩 키를 넣었든 안전하게 변환
+    let safeApiKey = apiKey;
+    if (apiKey.includes('%')) {
+      // 이미 인코딩된 키인 경우
+      safeApiKey = apiKey;
+    } else {
+      // 디코딩된 키인 경우 인코딩
+      safeApiKey = encodeURIComponent(apiKey);
+    }
+
     // 공공데이터포털 대기오염정보 API 호출 URL
-    const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${apiKey}&returnType=json&numOfRows=100&pageNo=1&sidoName=${encodeURIComponent(sidoName)}&ver=1.0`;
+    const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${safeApiKey}&returnType=json&numOfRows=100&pageNo=1&sidoName=${encodeURIComponent(sidoName)}&ver=1.0`;
     
     // API 한도 및 성능을 위해 서버단에서 1시간 단위로 캐시 (Next.js App Router 기능)
-    const response = await fetch(url, { next: { revalidate: 3600 } }); 
-    const data = await response.json();
+    const response = await fetch(url, { next: { revalidate: 0 } }); // 디버깅을 위해 임시로 캐시 끔
+    
+    // 응답을 텍스트로 먼저 받아서 확인 (XML 에러인지, JSON인지 판별)
+    const rawText = await response.text();
+    
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch (parseError) {
+      // JSON 파싱 에러면 공공데이터포털에서 XML 에러(키 오류, 트래픽 초과 등)를 뱉은 것임
+      console.error('XML/HTML Error Response:', rawText);
+      return NextResponse.json({ error: '데이터포털 응답 형식 오류(XML 반환됨)', rawMsg: rawText }, { status: 500 });
+    }
 
     if (data.response?.header?.resultCode !== '00') {
-      throw new Error(data.response?.header?.resultMsg || 'API 요청에 실패했습니다.');
+      return NextResponse.json({ error: 'API 요청 실패', msg: data.response?.header?.resultMsg }, { status: 500 });
     }
 
     const items = data.response.body.items;
@@ -48,8 +69,8 @@ export async function GET(request: Request) {
       grade: grade
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Air Quality API Error:', error);
-    return NextResponse.json({ error: 'Failed to fetch data' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch data', detail: error.toString() }, { status: 500 });
   }
 }
