@@ -18,11 +18,11 @@ export const SITE_CONFIG = {
 
   // 2. 컬러 시스템 (HSL 또는 Hex)
   colors: {
-    primary: "#1B3A6B",      // 메인 컬러 (Midnight Blue)
-    primary_dark: "#0F2548",
-    primary_light: "#eef2f7",
-    accent: "#00C9B1",       // 강조 컬러 (Neon Cyan)
-    accent_dark: "#00b29d",
+    primary: "#14213D",      // 메인 컬러 (Urban Deep Blue)
+    primary_dark: "#0B1221",
+    primary_light: "#E5E9F0",
+    accent: "#FCA311",       // 강조 컬러 (Orange Yellow)
+    accent_dark: "#D48806",
     text_main: "#1a1a1a",
     background: "#F4F6FA",
   },

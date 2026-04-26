@@ -55,7 +55,7 @@ export default function ReporterApplyPage() {
           </Link>
           <h1 style={{ fontSize: '2rem', fontWeight: 900, color: '#111', margin: '0 0 1rem' }}>마을 리포터 신청하기</h1>
           <p style={{ color: '#555', lineHeight: '1.6', fontSize: '1.05rem' }}>
-            다산어보는 지역 주민의 목소리를 가장 중요하게 생각합니다.<br/>
+            COMMON WAVE는 지역 주민의 목소리를 가장 중요하게 생각합니다.<br/>
             우리 동네의 숨겨진 이야기, 이웃의 따뜻한 소식, 또는 개선이 필요한 문제들을 직접 취재하고 알릴 <strong>마을 리포터</strong>를 모십니다.
           </p>
         </div>

@@ -136,7 +136,7 @@ export function InfographicDashboard({ settings }: { settings?: any }) {
     <section style={{ margin: '3rem 0', background: '#f9fafb', padding: '2.5rem', borderRadius: '12px', border: '1px solid #eee' }}>
       <div style={{ marginBottom: '2rem' }}>
         <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: '#111' }}>실시간 지역 데이터 대시보드</h3>
-        <p style={{ margin: '0.4rem 0 0', fontSize: '0.9rem', color: '#666' }}>다산어보가 전하는 4개 권역 최신 소식과 물가 정보입니다.</p>
+        <p style={{ margin: '0.4rem 0 0', fontSize: '0.9rem', color: '#666' }}>COMMON WAVE가 전하는 4개 권역 최신 소식과 물가 정보입니다.</p>
       </div>
 
       <div className="dashboard-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '2rem' }}>
@@ -265,7 +265,7 @@ export function TransparencyBanner({ settings }: { settings?: any }) {
       <div style={{ position: 'relative', zIndex: 2 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
           <ShieldCheck size={24} color="var(--primary)" />
-          <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>다산어보 구독자 현황</h4>
+          <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>COMMON WAVE 구독자 현황</h4>
         </div>
         <p style={{ fontSize: '0.9rem', lineHeight: '1.6', opacity: 0.9, marginBottom: '1.5rem', whiteSpace: 'pre-line', wordBreak: 'keep-all' }}>
           강진·고흥·보성·장흥의 이야기,{"\n"}
@@ -305,7 +305,7 @@ export function NewsTicker() {
         setHeadlines(data.map(a => `[${a.category}] ${a.title}`));
       } else {
         setHeadlines([
-          "[안내] 다산어보 뉴스 플랫폼이 정식 오픈하였습니다.",
+          "[안내] COMMON WAVE 뉴스 플랫폼이 정식 오픈하였습니다.",
           "[모집] 주민 리포터 1기 활동가를 선발합니다. 기사작성 메뉴를 확인하세요."
         ]);
       }

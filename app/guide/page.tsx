@@ -12,7 +12,7 @@ const GUIDE_DATA = {
       {
         step: 1,
         title: '홈페이지 접속',
-        description: 'www.dasaneobo.kr 에 접속하세요. 모바일, PC 모두 이용 가능합니다.',
+        description: 'www.commonwave.kr 에 접속하세요. 모바일, PC 모두 이용 가능합니다.',
       },
       {
         step: 2,
@@ -32,7 +32,7 @@ const GUIDE_DATA = {
         tags: ['월 10,000원', '연 100,000원']
       }
     ],
-    footer: '개인정보 안내 — 수집된 정보는 다산어보 서비스 제공 목적으로만 사용되며 외부에 제공되지 않습니다.'
+    footer: '개인정보 안내 — 수집된 정보는 COMMON WAVE 서비스 제공 목적으로만 사용되며 외부에 제공되지 않습니다.'
   },
   reporter: {
     title: '리포터 신청',
@@ -152,10 +152,10 @@ export default function GuidePage() {
             marginBottom: '1rem',
             fontFamily: 'var(--font-serif)'
           }}>
-            다산어보 이용 안내
+            COMMON WAVE 이용 안내
           </h1>
           <p style={{ color: '#64748b', fontSize: '1.2rem', maxWidth: '600px', margin: '0 auto' }}>
-            다산어보를 처음 이용하시는 분들을 위한 단계별 가이드입니다.
+            COMMON WAVE를 처음 이용하시는 분들을 위한 단계별 가이드입니다.
           </p>
         </div>
 

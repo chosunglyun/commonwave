@@ -16,18 +16,18 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = resolvedParams;
   const { data: article } = await supabase.from('articles').select('*').eq('id', id).single();
   
-  if (!article) return { title: '기사를 찾을 수 없습니다 | 다산어보' };
+  if (!article) return { title: '기사를 찾을 수 없습니다 | COMMON WAVE' };
   
-  const contentSnippet = article.content ? article.content.substring(0, 150).replace(/<[^>]*>/g, '').replace(/[#*`~]/g, '') + '...' : '다산어보 지역 뉴스';
+  const contentSnippet = article.content ? article.content.substring(0, 150).replace(/<[^>]*>/g, '').replace(/[#*`~]/g, '') + '...' : 'COMMON WAVE 지역 뉴스';
 
   return {
-    title: `${article.title} | 다산어보`,
+    title: `${article.title} | COMMON WAVE`,
     description: contentSnippet,
     openGraph: {
-      title: `${article.title} | 다산어보`,
+      title: `${article.title} | COMMON WAVE`,
       description: contentSnippet,
-      images: article.image_url ? [{ url: article.image_url }] : [{ url: 'https://www.dasaneobo.kr/og-image.png' }],
-      url: `https://www.dasaneobo.kr/article/${article.id}`,
+      images: article.image_url ? [{ url: article.image_url }] : [{ url: 'https://www.commonwave.kr/og-image.png' }],
+      url: `https://www.commonwave.kr/article/${article.id}`,
       type: 'article',
       publishedTime: article.created_at,
     }
@@ -87,7 +87,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: article.title,
-    image: article.image_url ? [article.image_url] : ['https://www.dasaneobo.kr/og-image.png'],
+    image: article.image_url ? [article.image_url] : ['https://www.commonwave.kr/og-image.png'],
     datePublished: article.created_at,
     author: [{
       '@type': 'Person',
@@ -95,10 +95,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
     }],
     publisher: {
       '@type': 'Organization',
-      name: '다산어보',
+      name: 'COMMON WAVE',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.dasaneobo.kr/og-image.png'
+        url: 'https://www.commonwave.kr/og-image.png'
       }
     },
     articleBody: article.content ? article.content.replace(/<[^>]*>/g, '').replace(/[#*`~]/g, '').substring(0, 500) : ''
@@ -180,7 +180,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
                     style={{ width: '100%', height: 'auto', borderRadius: '4px', overflow: 'hidden' }} 
                   />
                   <figcaption style={{ fontSize: '0.8rem', color: '#999', marginTop: '0.7rem', paddingLeft: '0.5rem', borderLeft: '2px solid var(--primary)' }}>
-                    {article.title} 관련 자료 사진. ⓒ 다산어보
+                    {article.title} 관련 자료 사진. ⓒ COMMON WAVE
                   </figcaption>
                 </figure>
               )}
@@ -194,7 +194,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
           {/* Footer Info Box */}
           <footer style={{ marginTop: '5rem', borderTop: '4px solid #f0f0f0', paddingTop: '2rem' }}>
               <div style={{ background: '#f9fafb', padding: '2rem', borderRadius: '8px', textAlign: 'center' }}>
-                <h4 style={{ margin: '0 0 0.8rem', fontSize: '1.2rem', fontWeight: 800 }}>다산어보 주민 기자단에 참여하세요!</h4>
+                <h4 style={{ margin: '0 0 0.8rem', fontSize: '1.2rem', fontWeight: 800 }}>COMMON WAVE 주민 기자단에 참여하세요!</h4>
                 <p style={{ margin: 0, color: '#777', fontSize: '0.9rem', lineHeight: 1.6 }}>현장의 목소리를 직접 전해주세요. 여러분의 제보가 우리 지역의 역사가 됩니다.</p>
                 <Link href="/admin/new">
                   <button className="btn btn-primary" style={{ marginTop: '1.5rem', padding: '0.7rem 2rem' }}>제보하기</button>
@@ -226,7 +226,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
 
       <footer style={{ background: '#222', color: '#ccc', padding: '4rem 0', marginTop: '5rem' }}>
         <div className="container" style={{ textAlign: 'center', fontSize: '0.8rem', opacity: 0.6 }}>
-          Copyright by 다산어보 All rights reserved. 등록번호 : 전남 아 00000
+          Copyright by COMMON WAVE All rights reserved. 등록번호 : 전남 아 00000
         </div>
       </footer>
     </main>

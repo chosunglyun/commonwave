@@ -16,7 +16,7 @@ export function CitizenParticipation() {
             <MessageCircle size={18} /> 제보 가이드
           </h4>
           <p style={{ fontSize: '0.85rem', color: '#666', margin: '0.5rem 0' }}>
-            카카오톡 채널 '다산어보'를 추가하고 실시간 제보를 시작해보세요.
+            카카오톡 채널 'COMMON WAVE'를 추가하고 실시간 제보를 시작해보세요.
           </p>
           <button className="btn btn-primary" style={{ width: '100%', fontSize: '0.85rem' }}>
             카카오톡 연결하기

@@ -153,7 +153,7 @@ export default function ProfilePage() {
           </div>
 
           <div style={{ marginTop: '3rem', textAlign: 'center' }}>
-            <p style={{ fontSize: '0.9rem', color: '#94a3b8' }}>도움이 필요하신가요? <strong style={{ color: '#64748b' }}>press@dasaneobo.kr</strong></p>
+            <p style={{ fontSize: '0.9rem', color: '#94a3b8' }}>도움이 필요하신가요? <strong style={{ color: '#64748b' }}>press@commonwave.kr</strong></p>
           </div>
         </div>
       </div>

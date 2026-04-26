@@ -1,8 +1,8 @@
 import Header from '@/components/Header';
 
 export const metadata = {
-  title: '이메일주소 무단수집 거부 - 다산어보',
-  description: '다산어보는 정보통신망법에 따라 이메일 주소의 무단 수집 및 유통을 엄격히 금지합니다.'
+  title: '이메일주소 무단수집 거부 - COMMON WAVE',
+  description: 'COMMON WAVE는 정보통신망법에 따라 이메일 주소의 무단 수집 및 유통을 엄격히 금지합니다.'
 };
 
 export default function NoEmailCollectPage() {
@@ -14,7 +14,7 @@ export default function NoEmailCollectPage() {
         <div style={{ background: 'white', padding: '3rem', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', border: '1px solid #eee' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '2px solid #2E7D52', paddingBottom: '1.5rem' }}>
             <h1 style={{ margin: 0, fontSize: '2rem', fontWeight: 800, color: '#1a1a1a' }}>이메일주소 무단수집 거부</h1>
-            <p style={{ marginTop: '0.5rem', color: '#666', fontSize: '1.1rem' }}>다산어보 언론협동조합</p>
+            <p style={{ marginTop: '0.5rem', color: '#666', fontSize: '1.1rem' }}>COMMON WAVE 언론협동조합</p>
           </div>
 
           <div style={{ lineHeight: '1.8', color: '#333', fontSize: '1.05rem' }}>
@@ -47,20 +47,20 @@ export default function NoEmailCollectPage() {
               <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2E7D52' }}>문의</h3>
               <p>
                 <strong>▸ 이메일:</strong> <a href="mailto:dinoskorea@gmail.com" style={{ color: '#2E7D52' }}>dinoskorea@gmail.com</a><br />
-                <strong>▸ 다산어보 언론협동조합 편집국</strong>
+                <strong>▸ COMMON WAVE 언론협동조합 편집국</strong>
               </p>
             </section>
 
             <div style={{ marginTop: '4rem', textAlign: 'center', borderTop: '1px solid #eee', paddingTop: '2rem' }}>
               <p style={{ fontWeight: 700, fontSize: '1.1rem' }}>시행일: 2026년 4월 30일</p>
-              <p style={{ marginTop: '0.5rem', fontWeight: 800, fontSize: '1.3rem' }}>다산어보 언론협동조합</p>
+              <p style={{ marginTop: '0.5rem', fontWeight: 800, fontSize: '1.3rem' }}>COMMON WAVE 언론협동조합</p>
             </div>
           </div>
         </div>
       </div>
 
       <footer style={{ textAlign: 'center', padding: '2rem', color: '#999', fontSize: '0.9rem' }}>
-        © 2026 다산어보 All rights reserved.
+        © 2026 COMMON WAVE All rights reserved.
       </footer>
     </main>
   );

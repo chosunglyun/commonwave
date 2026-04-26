@@ -292,6 +292,8 @@ export default function Header() {
           text-decoration: none;
           text-align: center;
           flex-shrink: 0;
+          position: relative;
+          z-index: 10;
         }
         .np-logo-title {
           font-family: var(--font-sans);

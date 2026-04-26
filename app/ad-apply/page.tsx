@@ -87,7 +87,7 @@ export default function AdApplyPage() {
           </Link>
           <h1 style={{ fontSize: '2rem', fontWeight: 900, color: '#111', margin: '0 0 1rem' }}>광고주 신청</h1>
           <p style={{ color: '#555', lineHeight: '1.6', fontSize: '1.05rem' }}>
-            다산어보와 함께 지역 사회에 비즈니스를 알릴 파트너를 모십니다.<br/>
+            COMMON WAVE와 함께 지역 사회에 비즈니스를 알릴 파트너를 모십니다.<br/>
             투명하고 정직한 광고 운영을 통해 지역 경제 활성화에 기여합니다.
           </p>
         </div>
@@ -109,7 +109,7 @@ export default function AdApplyPage() {
                 <div style={{ fontSize: '0.95rem', color: '#334155', lineHeight: '1.6' }}>
                   <strong>광고비:</strong> 1개월 300,000원<br/>
                   <strong>입금 계좌:</strong> 농협 000-00000-0000<br/>
-                  <strong>예금주:</strong> 다산어보 언론협동조합
+                  <strong>예금주:</strong> COMMON WAVE 언론협동조합
                 </div>
               </div>
               <br />
@@ -194,7 +194,7 @@ export default function AdApplyPage() {
                 <div style={{ fontSize: '0.95rem', color: '#334155', lineHeight: '1.6' }}>
                   <strong>광고비:</strong> 1개월 300,000원<br/>
                   <strong>입금 계좌:</strong> 농협 000-00000-0000<br/>
-                  <strong>예금주:</strong> 다산어보 언론협동조합
+                  <strong>예금주:</strong> COMMON WAVE 언론협동조합
                 </div>
                 <p style={{ margin: '0.8rem 0 0', fontSize: '0.8rem', color: '#64748b' }}>* 신청서 제출 후 입금해 주시면 확인 후 광고가 게재됩니다.</p>
               </div>

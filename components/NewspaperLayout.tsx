@@ -96,7 +96,7 @@ export default function NewspaperLayout({ title, type, value }: NewspaperLayoutP
            </div>
         </div>
         <div style={{ fontSize: '0.9rem', color: '#888', fontWeight: 600, borderLeft: '1px solid #ddd', paddingLeft: '1rem' }}>
-           다산어보 섹션 제 {Math.floor(Math.random() * 100) + 10}호
+           COMMON WAVE 섹션 제 {Math.floor(Math.random() * 100) + 10}호
         </div>
       </div>
 

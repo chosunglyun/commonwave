@@ -1,7 +1,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NewspaperLayout from '@/components/NewspaperLayout';
-export const metadata = { title: '장흥 뉴스 | 다산어보' };
+export const metadata = { title: '장흥 뉴스 | COMMON WAVE' };
 
 export default function JangheungPage() {
   return (

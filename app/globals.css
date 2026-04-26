@@ -1,16 +1,16 @@
 :root {
   --background: #F4F6FA;
   --foreground: #1a1a1a;
-  --primary: #1B3A6B; /* COMMON WAVE 미드나잇 블루 */
-  --primary-dark: #12284b;
-  --primary-light: #e8ecf1;
+  --primary: #14213D; /* 세련된 도시감각의 딥블루 */
+  --primary-dark: #0B1221;
+  --primary-light: #E5E9F0;
   --secondary: #2c3e50;
-  --accent: #00C9B1; /* 네온 시안 */
+  --accent: #FCA311; /* 포인트 컬러 (오렌지 옐로우) */
   --card: #ffffff;
   --card-foreground: #1a1a1a;
   --border: #e2e8f0;
   --input: #e2e8f0;
-  --ring: #1B3A6B;
+  --ring: #14213D;
   --radius: 3px;
   --font-serif: 'Noto Serif KR', 'Nanum Myeongjo', 'KoPubWorldBatang', Georgia, serif;
   --font-sans: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
@@ -19,9 +19,9 @@
 [data-theme='dark'] {
   --background: #0A0F1E;
   --foreground: #f8fafc;
-  --primary: #00C9B1;
-  --primary-dark: #00a894;
-  --primary-light: #1B3A6B;
+  --primary: #FCA311;
+  --primary-dark: #D48806;
+  --primary-light: #14213D;
   --secondary: #94a3b8;
   --accent: #1B3A6B;
   --card: #1e293b;

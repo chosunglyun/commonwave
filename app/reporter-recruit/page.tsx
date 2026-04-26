@@ -131,7 +131,7 @@ export default function ReporterRecruitPage() {
               <li>공식 마을 리포터 위촉장 발급</li>
               <li>작성 기사에 이름 게재</li>
               <li>연간 우수 리포터 시상</li>
-              <li>다산어보 1년 구독권 제공</li>
+              <li>COMMON WAVE 1년 구독권 제공</li>
             </ul>
           </div>
 
@@ -228,7 +228,7 @@ export default function ReporterRecruitPage() {
           <div style={{ display: 'flex', justifyContent: 'center', gap: '3rem', marginBottom: '2rem' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '0.5rem' }}>활동 문의</div>
-              <div style={{ fontSize: '1.2rem', fontWeight: 800 }}>press@dasaneobo.kr</div>
+              <div style={{ fontSize: '1.2rem', fontWeight: 800 }}>press@commonwave.kr</div>
             </div>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '0.5rem' }}>활동 중인 리포터</div>

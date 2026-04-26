@@ -15,7 +15,7 @@ export function BreakingTicker({ articles }: { articles: any[] }) {
     if (articles.length > 0) {
       setItems(articles.slice(0, 8).map((a) => `[${a.category || '종합'}] ${a.title}`));
     } else {
-      setItems(['[안내] 다산어보 뉴스 플랫폼이 정식 오픈하였습니다.', '[모집] 주민 리포터 1기 활동가를 선발합니다.']);
+      setItems(['[안내] COMMON WAVE 뉴스 플랫폼이 정식 오픈하였습니다.', '[모집] 주민 리포터 1기 활동가를 선발합니다.']);
     }
   }, [articles]);
 

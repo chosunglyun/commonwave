@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/login'],
     },
-    sitemap: 'https://www.dasaneobo.kr/sitemap.xml',
+    sitemap: 'https://www.commonwave.kr/sitemap.xml',
   };
 }
