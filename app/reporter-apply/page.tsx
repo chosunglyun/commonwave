@@ -42,7 +42,7 @@ export default function ReporterRecruitPage() {
     contact_phone: '',
     email: '',
     birth_date: '',
-    region: '강진',
+    region: '김포',
     interests: [] as string[],
     intro: '',
     frequency: 'flexible',
@@ -233,7 +233,7 @@ export default function ReporterRecruitPage() {
             전국 뉴스는 서울 이야기로 가득하고, 포털에서는 우리 지역 소식을 찾기 어렵습니다. 군청 보도자료는 그대로 올라오고, 불편한 진실은 외면받기 일쑤입니다.
           </p>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.8, color: '#334155', wordBreak: 'keep-all' }}>
-            COMMON WAVE는 강진·고흥·보성·장흥 <strong>4개 군</strong>의 이야기를 직접 기록하고, 잘못된 것을 바로잡기 위해 만들어진 협동조합 언론입니다. 강진에서 <strong>18년</strong>간 유배 생활을 하며 <strong>499권</strong>의 책을 쓰신 다산 정약용 선생의 정신처럼 — 백성의 삶을 기록하고, 잘못된 것을 바로잡는 신문을 함께 만들어가려 합니다.
+            COMMON WAVE는 김포, 파주, 고양, 의정부의 이야기를 직접 기록하고, 잘못된 것을 바로잡기 위해 만들어진 협동조합 언론입니다.
           </p>
         </div>
       </section>
@@ -266,7 +266,7 @@ export default function ReporterRecruitPage() {
             <div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '1.5rem', color: '#1F5946' }}>어떤 것이든 좋습니다</h3>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {['동네 행사·축제·작은 사건 ("우리 동네에 이런 일이 있었다")', '군청·의회 게시판, 공고, 정책 변경', '사라져가는 풍경·기억의 기록', '지역에서 활동하시는 분들 이야기', '불편한 점, 잘못된 것, 시민이 알아야 할 것'].map((item, i) => (
+                {['동네 행사·축제·작은 사건 ("우리 동네에 이런 일이 있었다")', '시청, 의회 게시판, 공고, 정책 변경', '사라져가는 풍경·기억의 기록', '지역에서 활동하시는 분들 이야기', '불편한 점, 잘못된 것, 시민이 알아야 할 것'].map((item, i) => (
                   <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem', fontSize: '1.05rem', color: '#334155', lineHeight: 1.5 }}>
                     <CheckCircle size={20} color="#1F5946" style={{ flexShrink: 0, marginTop: '2px' }} />
                     {item}
@@ -481,10 +481,10 @@ export default function ReporterRecruitPage() {
               <div>
                 <label style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', fontSize: '0.9rem' }}>거주 권역 *</label>
                 <select required value={formData.region} onChange={e => setFormData({...formData, region: e.target.value})} style={{ width: '100%', padding: '0.8rem 1rem', borderRadius: '8px', border: '1px solid #cbd5e1', background: 'white' }}>
-                  <option value="강진">강진</option>
-                  <option value="고흥">고흥</option>
-                  <option value="보성">보성</option>
-                  <option value="장흥">장흥</option>
+                  <option value="김포">김포</option>
+                  <option value="파주">파주</option>
+                  <option value="고양">고양</option>
+                  <option value="의정부">의정부</option>
                   <option value="기타">기타</option>
                 </select>
               </div>

@@ -28,7 +28,7 @@ function ReportContent() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     who: '', what: '', when_text: '', where_text: '', how: '', why: '', memo: '',
-    region: '강진', contact_email: '', contact_phone: ''
+    region: '김포', contact_email: '', contact_phone: ''
   });
   const [files, setFiles] = useState<File[]>([]);
 
@@ -302,10 +302,10 @@ function ReportContent() {
                 disabled={!!reporter}
                 style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none', background: reporter ? '#f1f5f9' : 'white' }}
               >
-                <option value="강진">강진</option>
-                <option value="고흥">고흥</option>
-                <option value="보성">보성</option>
-                <option value="장흥">장흥</option>
+                <option value="김포">김포</option>
+                <option value="파주">파주</option>
+                <option value="고양">고양</option>
+                <option value="의정부">의정부</option>
                 <option value="기타">기타</option>
               </select>
             </div>

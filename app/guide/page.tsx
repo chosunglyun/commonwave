@@ -12,7 +12,7 @@ const GUIDE_DATA = {
       {
         step: 1,
         title: '홈페이지 접속',
-        description: 'www.dasaneobo.kr 에 접속하세요. 모바일, PC 모두 이용 가능합니다.',
+        description: 'www.commonwave.kr 에 접속하세요. 모바일, PC 모두 이용 가능합니다.',
       },
       {
         step: 2,
