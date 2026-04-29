@@ -71,9 +71,13 @@ export default function UserManagementPage() {
     }
 
     try {
+      const session = (await supabase.auth.getSession()).data.session;
       const res = await fetch('/api/admin/users', {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session?.access_token}`
+        },
         body: JSON.stringify({ userId }),
       });
 
