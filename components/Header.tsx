@@ -154,12 +154,13 @@ export default function Header() {
       <div className="np-logo-section">
         <div className="container np-logo-inner">
           <div className="np-logo-left">
-            <Link href="/" className="np-logo-link">
-              <h1 className="np-logo-title">{SITE_CONFIG.name}</h1>
-              <div className="np-logo-sub" style={{ whiteSpace: 'nowrap' }}>
-                김포·파주·고양·의정부 밀착 독립언론
-              </div>
+            {/* Mobile Logo & Slogan */}
+            <Link href="/" className="np-logo-link desktop-hide" style={{ display: 'flex', alignItems: 'center' }}>
+              <img src="/images/logo.png" alt="COMMON WAVE" style={{ height: '32px', objectFit: 'contain' }} />
             </Link>
+            <div className="np-logo-sub mobile-hide" style={{ whiteSpace: 'nowrap', opacity: 0.8, fontWeight: 700, color: 'var(--primary)' }}>
+              김포·파주·고양·의정부 밀착 독립언론
+            </div>
           </div>
 
           <div className="np-mobile-hamburger desktop-hide">
@@ -168,19 +169,14 @@ export default function Header() {
             </button>
           </div>
 
-          <div className="np-logo-center">
-            {/* 한자 제호 이미지 주석 처리 (추후 커먼웨이브 로고로 교체 가능)
-            <Link href="/" className="np-logo-hanja-link" title="커먼웨이브 로고">
-              <Image 
-                src="/images/hanja-logo.png" 
+          <div className="np-logo-center mobile-hide">
+            <Link href="/" className="np-logo-hanja-link" title="COMMON WAVE 로고">
+              <img 
+                src="/images/logo.png" 
                 alt="COMMON WAVE" 
-                width={200} 
-                height={55} 
-                className="np-logo-hanja-img"
-                priority 
+                style={{ height: '55px', objectFit: 'contain' }}
               />
             </Link>
-            */}
           </div>
 
           <div className="np-logo-right">
@@ -272,7 +268,7 @@ export default function Header() {
 
       <style jsx>{`
         .np-header {
-          background: #fff;
+          background: var(--background);
           border-bottom: 2px solid var(--primary);
         }
 
@@ -430,7 +426,7 @@ export default function Header() {
 
         /* === NAVIGATION === */
         .np-nav {
-          background: #fff;
+          background: var(--background);
           border-top: 3px solid var(--primary);
           border-bottom: 1px solid #ddd;
         }
@@ -491,6 +487,7 @@ export default function Header() {
 
         /* === MOBILE === */
         .desktop-hide { display: none; }
+        .mobile-hide { display: block; }
         .np-mobile-hamburger { display: none; }
         
         .np-mobile-drawer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; display: flex; }
@@ -510,6 +507,7 @@ export default function Header() {
 
         @media (max-width: 768px) {
           .desktop-hide { display: block; }
+          .mobile-hide { display: none !important; }
           .np-topbar { display: block; padding: 0.2rem 0; }
           .np-topbar-left { display: none; }
           .np-topbar-inner { justify-content: center; }
@@ -529,7 +527,7 @@ export default function Header() {
           .np-logo-title { font-size: 1.8rem; margin-bottom: 0.1rem; text-align: left; }
           .np-logo-sub { font-size: 0.55rem; letter-spacing: 0; text-align: left; white-space: normal !important; }
           
-          .np-logo-center { display: none; } /* Hide center logo on mobile to save space */
+          /* .np-logo-center hidden via .mobile-hide */
           
           .np-mobile-hamburger { grid-column: 2 / 3; grid-row: 1 / 2; display: flex; align-items: center; justify-content: flex-end; }
           .np-hamburger-btn { background: none; border: none; padding: 0.2rem; cursor: pointer; color: var(--primary); display: flex; align-items: center; }
