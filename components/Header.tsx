@@ -156,7 +156,7 @@ export default function Header() {
           <div className="np-logo-left">
             {/* Mobile Logo & Slogan */}
             <Link href="/" className="np-logo-link desktop-hide">
-              <img src="/images/logo_new.png" alt="COMMON WAVE" style={{ height: '135px', objectFit: 'contain', margin: '-20px 0' }} />
+              <img src="/images/logo_new.png" alt="COMMON WAVE" style={{ height: '200px', objectFit: 'contain', margin: '-35px 0' }} />
             </Link>
             <div className="np-logo-sub mobile-hide" style={{ whiteSpace: 'nowrap', opacity: 0.8, fontWeight: 700, color: 'var(--primary)' }}>
               김포·파주·고양·의정부 밀착 독립언론
@@ -174,7 +174,7 @@ export default function Header() {
               <img 
                 src="/images/logo_new.png" 
                 alt="COMMON WAVE" 
-                style={{ height: '150px', objectFit: 'contain', margin: '-25px 0' }}
+                style={{ height: '220px', objectFit: 'contain', margin: '-45px 0' }}
               />
             </Link>
           </div>
