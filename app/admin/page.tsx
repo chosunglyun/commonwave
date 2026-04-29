@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import { supabase } from '@/lib/supabase';
-import { ClipboardList, CheckCircle, Clock, ArrowRight, FileText, XCircle, Users, Star, Edit, Settings } from 'lucide-react';
+import { ClipboardList, CheckCircle, Clock, ArrowRight, FileText, XCircle, Users, Star, Edit, Settings, Copy } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -409,6 +409,13 @@ export default function AdminPage() {
               <Link href="/admin/users">
                 <button className="btn btn-outline" style={{ gap: '0.5rem', display: 'flex', alignItems: 'center', padding: '0.6rem 1.2rem', borderRadius: '8px', fontWeight: 'bold' }}>
                   <Users size={18} /> 회원 관리
+                </button>
+              </Link>
+            )}
+            {userProfile?.role === 'admin' && (
+              <Link href="/admin/copy-articles">
+                <button className="btn btn-outline" style={{ gap: '0.5rem', display: 'flex', alignItems: 'center', padding: '0.6rem 1.2rem', borderRadius: '8px', fontWeight: 'bold', background: '#f0fdf4', color: '#2E7D52', border: '1px solid #86efac' }}>
+                  <Copy size={18} /> 다산어보로 퍼가기
                 </button>
               </Link>
             )}

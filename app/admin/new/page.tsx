@@ -359,7 +359,7 @@ function EditArticleForm() {
             <div>
               <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>지역</label>
               <select value={formData.region} onChange={(e) => setFormData({...formData, region: e.target.value})} style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ddd' }}>
-                 <option>강진</option><option>보성</option><option>장흥</option><option>고흥</option><option>전국/일반</option>
+                 <option>김포</option><option>파주</option><option>고양</option><option>의정부</option><option>전국/일반</option>
               </select>
             </div>
             {(userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'member') && authors.length > 0 && (
