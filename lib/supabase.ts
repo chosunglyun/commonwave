@@ -1,12 +1,13 @@
-import { createClient } from '@supabase/supabase-js';
+import { createBrowserClient } from '@supabase/ssr';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
 
 export type Article = {
   id: string;
+  slug?: string;
   created_at: string;
   title: string;
   content: string;
@@ -14,6 +15,7 @@ export type Article = {
   author_id?: string;
   status: 'draft' | 'published';
   category: string;
+  view_count?: number;
 };
 
 export type Draft = {
@@ -27,7 +29,7 @@ export type Profile = {
   id: string;
   email: string;
   name: string;
-  role: 'admin' | 'editor' | 'reporter' | 'normal';
+  role: 'admin' | 'editor' | 'reporter' | 'member' | 'subscriber' | 'normal';
   recommender?: string;
   created_at?: string;
 };

@@ -1,70 +1,75 @@
 /**
- * NEWS PLATFORM TEMPLATE CONFIGURATION
- * ------------------------------------
- * 이 파일의 값만 수정하면 새로운 뉴스 사이트 브랜딩이 즉시 적용됩니다.
+ * News Platform Template v1.0 - Configuration
+ * 모든 신문사 공통 설정값들을 여기서 관리합니다.
  */
 
 export const SITE_CONFIG = {
-  // 1. 브랜드 정보
-  brand: {
-    name: "COMMON WAVE",
-    name_kr: "커먼 웨이브",
-    slogan: "시민이 주주가 되고, 이웃이 기자가 되는 공동체의 진짜 목소리",
-    sub_slogan: "Come on, ride the wave.",
-    description: "데이터로 진실을 드러내고, 이웃의 삶을 기록하는 시민 참여형 뉴스 플랫폼입니다.",
-    keywords: "뉴스, 시민기자, 공동체, 데이터저널리즘, 커먼웨이브",
-    domain: "https://commonwave.vercel.app", // 배포 후 주소로 변경
-  },
-
-  // 2. 컬러 시스템 (HSL 또는 Hex)
+  name: "COMMON WAVE",
+  englishName: "COMMON WAVE",
+  slogan: "경기 서북부 밀착 독립언론 · LOCAL MEDIA",
+  description: "김포·파주·고양·의정부 밀착 독립언론. 투명한 보도와 주민 참여로 지역의 미래를 씁니다.",
+  
+  // 브랜딩 컬러
   colors: {
-    primary: "#14213D",      // 메인 컬러 (Urban Deep Blue)
-    primary_dark: "#0B1221",
-    primary_light: "#E5E9F0",
-    accent: "#FCA311",       // 강조 컬러 (Orange Yellow)
-    accent_dark: "#D48806",
-    text_main: "#1a1a1a",
-    background: "#F4F6FA",
+    primary: "#3950C4", // 커먼웨이브 클래식 블루
+    primaryDark: "#2b3c94",
+    accent: "#6c81f0", // 밝은 블루 계열
   },
-
-  // 3. 메뉴 카테고리 설정
-  categories: [
-    { label: '데이터 리포트', href: '/data-report' },
-    { label: '권력 감시', href: '/power-surveillance' },
-    { label: '로컬 인물', href: '/local-people' },
-
-    { label: '인문학적 시선', href: '/humanities', 
-      subItems: [
-        { label: '시네마 아카이브', href: '/humanities/cinema-archive' }
-      ]
-    },
-    { label: '커먼 픽', href: '/common-pick' },
-    { label: '웨이브 멤버십', href: '/membership' },
-  ],
-
-  // 4. 지역 및 날씨 설정
+  
+  // UI 라벨 (영문 대문자 한글화)
+  labels: {
+    topNews: "주요 뉴스",
+    importantNews: "추천 기사",
+    community: "독자 참여",
+    subscription: "구독",
+    report: "제보",
+    ad: "광고",
+  },
+  
+  // 지역 설정 (날씨 등)
   location: {
-    city: "Gimpo", // 날씨를 가져올 도시 (영어)
+    city: "Gimpo",
+    cityKR: "김포",
   },
-
-  // 5. 지역 카테고리 (필요한 경우)
-  regions: ["김포", "전국/일반"],
-
-  // 5. 회원 등급 명칭
-  roles: {
-    admin: "관리자",
-    editor: "편집자",
-    reporter: "리포터",
-    member: "조합원",
-    normal: "일반회원",
-    subscriber: "구독자"
-  },
-
-  // 6. 소셜 미디어 및 연락처
+  
+  // 메뉴 카테고리
+  categories: [
+    { label: '전체기사', href: '/region' },
+    { label: '김포', href: '/gimpo', region: true },
+    { label: '파주', href: '/paju', region: true },
+    { label: '고양', href: '/goyang', region: true },
+    { label: '의정부', href: '/uijeongbu', region: true },
+    { label: '인문학', href: '/humanities' },
+    { label: '영화 아카이브', href: '/cinema-archive' },
+    { label: '시민참여', href: '/citizen-participation' },
+    { label: '지역사람들', href: '/local-people' },
+    // { label: '기획연재', href: '/series', enabled: false }, // 콘텐츠 추가 시 활성화
+    // { label: '포토', href: '/photo', enabled: false },     // 콘텐츠 추가 시 활성화
+    { label: '이용안내', href: '/guide' },
+    { label: '기사제보', href: '/report', accent: true },
+  ] as { label: string; href: string; region?: boolean; accent?: boolean; enabled?: boolean }[],
+  
+  // 등록 상태
+  isRegistered: false,
+  
+  // 연락처 및 하단 정보
   contact: {
-    email: "zsunglyun@gmail.com",
+    publisher: "-",
+    editor: "-",
+    youthProtector: "-",
+    corporation: "COMMON WAVE",
+    registrationNumber: "(등록 진행 중)",
+    registrationDate: "-",
+    address: "경기도",
     phone: "031-000-0000",
-    address: "경기도 김포시",
-    copyright: "© 2026 COMMON WAVE. All rights reserved.",
-  }
+    fax: "031-000-0001",
+    email: "editor@commonwave.kr",
+    temporaryContact: {
+      label: '연락처',
+      value: '대표 이메일로 문의 부탁드립니다',
+      email: 'editor@commonwave.kr',
+    },
+  },
+  url: "https://www.commonwave.kr"
 };
+

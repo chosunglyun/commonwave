@@ -17,7 +17,6 @@ export default function AdminPage() {
   const [applications, setApplications] = useState<any[]>([]);
   const [adApplications, setAdApplications] = useState<any[]>([]);
   const [siteSettings, setSiteSettings] = useState<any>({});
-  const [localEvents, setLocalEvents] = useState<any[]>([]);
   const [ads, setAds] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusMsg, setStatusMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
@@ -49,9 +48,6 @@ export default function AdminPage() {
     if (settings) {
       const settingsMap = settings.reduce((acc: any, curr: any) => ({ ...acc, [curr.id]: curr.value }), {});
       setSiteSettings(settingsMap);
-      if (settingsMap.local_events) {
-        try { setLocalEvents(JSON.parse(settingsMap.local_events)); } catch (e) {}
-      }
     }
 
     // Ads
@@ -179,30 +175,10 @@ export default function AdminPage() {
       if (!res.ok) throw new Error(data.error);
       
       setStatusMsg({ text: '수정사항이 반영되었습니다.', type: 'success' });
-      // fetchArticles(); // Refresh only needed if we want full re-render, but usually not needed for settings
+      fetchArticles(); // Refresh
     } catch (error: any) {
       setStatusMsg({ text: '저장 실패: ' + error.message, type: 'error' });
     }
-  };
-
-  const handleSaveEvents = async (newEvents: any[]) => {
-    setLocalEvents(newEvents);
-    await updateSetting('local_events', JSON.stringify(newEvents));
-  };
-
-  const addEvent = () => {
-    handleSaveEvents([...localEvents, { title: '', datetime: '', location: '', link: '' }]);
-  };
-
-  const updateEvent = (index: number, field: string, value: string) => {
-    const newEvents = [...localEvents];
-    newEvents[index] = { ...newEvents[index], [field]: value };
-    handleSaveEvents(newEvents);
-  };
-
-  const deleteEvent = (index: number) => {
-    const newEvents = localEvents.filter((_, i) => i !== index);
-    handleSaveEvents(newEvents);
   };
 
   const renderSettingsTab = () => {
@@ -261,27 +237,23 @@ export default function AdminPage() {
                   </label>
                 ) : <span style={{fontSize:'0.8rem', color:'#ef4444'}}>데이터 없음 (SQL 실행 필요)</span>}
               </div>
-              {billboard && (
-                <>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
-                    <input type="text" defaultValue={billboard.title} onBlur={(e) => updateAd(billboard.id, { title: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="광고 제목" />
-                    <input type="text" defaultValue={billboard.description} onBlur={(e) => updateAd(billboard.id, { description: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="상세 설명 / 축제 기간 등" />
-                    <input type="text" defaultValue={billboard.link_url} onBlur={(e) => updateAd(billboard.id, { link_url: e.target.value })} style={{ padding: '0.6rem', border: '1px solid var(--primary)', borderRadius: '4px', background: '#f0fdf4' }} placeholder="랜딩 페이지 URL (http://...)" />
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                  <input type="text" defaultValue={billboard.title} onBlur={(e) => updateAd(billboard.id, { title: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="광고 제목" />
+                  <input type="text" defaultValue={billboard.description} onBlur={(e) => updateAd(billboard.id, { description: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="상세 설명 / 축제 기간 등" />
+                  <input type="text" defaultValue={billboard.link_url} onBlur={(e) => updateAd(billboard.id, { link_url: e.target.value })} style={{ padding: '0.6rem', border: '1px solid var(--primary)', borderRadius: '4px', background: '#f0fdf4' }} placeholder="랜딩 페이지 URL (http://...)" />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderTop: '1px dashed #ddd', paddingTop: '1rem' }}>
+                  <div style={{ flex: 1 }}>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>배너 이미지 업로드 (권장: 1150 x 110 px)</label>
+                    <input type="file" accept="image/*" onChange={(e) => e.target.files && e.target.files[0] && handleAdImageUpload(billboard.id, e.target.files[0])} style={{ fontSize: '0.85rem' }} />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', borderTop: '1px dashed #ddd', paddingTop: '1rem' }}>
-                    <div style={{ flex: 1 }}>
-                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>배너 이미지 업로드 (권장: 1150 x 110 px)</label>
-                      <input type="file" accept="image/*" onChange={(e) => e.target.files && e.target.files[0] && handleAdImageUpload(billboard.id, e.target.files[0])} style={{ fontSize: '0.85rem' }} />
+                  {billboard.image_url && (
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                      <img src={billboard.image_url} alt="배너 미리보기" style={{ height: '40px', borderRadius: '4px', border: '1px solid #ddd' }} />
+                      <button onClick={() => updateAd(billboard.id, { image_url: null })} style={{ background: 'none', border: '1px solid #ef4444', color: '#ef4444', padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer' }}>이미지 삭제</button>
                     </div>
-                    {billboard.image_url && (
-                      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                        <img src={billboard.image_url} alt="배너 미리보기" style={{ height: '40px', borderRadius: '4px', border: '1px solid #ddd' }} />
-                        <button onClick={() => updateAd(billboard.id, { image_url: null })} style={{ background: 'none', border: '1px solid #ef4444', color: '#ef4444', padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer' }}>이미지 삭제</button>
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
+                  )}
+                </div>
             </div>
 
             {/* Sidebar Ad Section */}
@@ -294,52 +266,12 @@ export default function AdminPage() {
                   </label>
                 ) : <span style={{fontSize:'0.8rem', color:'#ef4444'}}>데이터 없음 (SQL 실행 필요)</span>}
               </div>
-              {sidebar && (
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
                   <input type="text" defaultValue={sidebar.title} onBlur={(e) => updateAd(sidebar.id, { title: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="광고 제목" />
                   <input type="text" defaultValue={sidebar.description} onBlur={(e) => updateAd(sidebar.id, { description: e.target.value })} style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} placeholder="연락처 / URL 등" />
                   <input type="text" defaultValue={sidebar.link_url} onBlur={(e) => updateAd(sidebar.id, { link_url: e.target.value })} style={{ padding: '0.6rem', border: '1px solid var(--primary)', borderRadius: '4px', background: '#f0fdf4' }} placeholder="랜딩 페이지 URL (http://...)" />
                 </div>
-              )}
             </div>
-          </div>
-        </div>
-
-        {/* Local Events Management */}
-        <div style={{ marginTop: '3rem', padding: '2rem', border: '1px solid #eee', borderRadius: '12px', background: '#fff' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              지역 행사/문화 알림판 관리
-            </h4>
-            <button onClick={addEvent} style={{ background: 'var(--primary-dark)', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>+ 새 행사 추가</button>
-          </div>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {localEvents.map((ev, index) => (
-              <div key={index} style={{ padding: '1.5rem', background: '#f8f9fa', borderRadius: '8px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '1rem', position: 'relative' }}>
-                <button onClick={() => deleteEvent(index)} style={{ position: 'absolute', top: '10px', right: '10px', background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', padding: '5px' }}>삭제 ✕</button>
-                
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>행사명 (예: 제24회 문화축제)</label>
-                    <input type="text" value={ev.title} onChange={(e) => updateEvent(index, 'title', e.target.value)} style={{ width: '100%', padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} />
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>날짜/시간 (예: 오늘 18:00)</label>
-                    <input type="text" value={ev.datetime} onChange={(e) => updateEvent(index, 'datetime', e.target.value)} style={{ width: '100%', padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} />
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>장소 (예: 중앙광장 일원)</label>
-                    <input type="text" value={ev.location} onChange={(e) => updateEvent(index, 'location', e.target.value)} style={{ width: '100%', padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} />
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.4rem' }}>이동할 링크 (없으면 비워두세요)</label>
-                    <input type="text" value={ev.link || ''} onChange={(e) => updateEvent(index, 'link', e.target.value)} placeholder="https://..." style={{ width: '100%', padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }} />
-                  </div>
-                </div>
-              </div>
-            ))}
-            {localEvents.length === 0 && <p style={{ textAlign: 'center', color: '#999', padding: '1rem' }}>등록된 행사가 없습니다.</p>}
           </div>
         </div>
 
@@ -349,40 +281,69 @@ export default function AdminPage() {
 
   const handleReject = async (id: string) => {
     if (!confirm('삭제하시겠습니까?')) return;
-    const { error } = await supabase.from('articles').delete().eq('id', id);
-    if (!error) await fetchArticles();
+    try {
+      const res = await fetch('/api/admin/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ table: 'articles', id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      setStatusMsg({ text: '삭제되었습니다.', type: 'success' });
+      await fetchArticles();
+    } catch (err: any) {
+      setStatusMsg({ text: '삭제 실패: ' + err.message, type: 'error' });
+    }
   };
 
   const handleDeleteReport = async (id: string) => {
     if (!confirm('제보를 삭제하시겠습니까?')) return;
-    const { error } = await supabase.from('village_reports').delete().eq('id', id);
-    if (error) {
-      setStatusMsg({ text: '제보 삭제 실패: ' + error.message, type: 'error' });
-    } else {
+    try {
+      const res = await fetch('/api/admin/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ table: 'village_reports', id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
       setStatusMsg({ text: '제보가 삭제되었습니다.', type: 'success' });
       await fetchArticles();
+    } catch (err: any) {
+      setStatusMsg({ text: '제보 삭제 실패: ' + err.message, type: 'error' });
     }
   };
 
   const handleDeleteApplication = async (id: string) => {
     if (!confirm('해당 신청 내역을 삭제하시겠습니까?')) return;
-    const { error } = await supabase.from('reporter_applications').delete().eq('id', id);
-    if (error) {
-      setStatusMsg({ text: '삭제 실패: ' + error.message, type: 'error' });
-    } else {
+    try {
+      const res = await fetch('/api/admin/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ table: 'reporter_applications', id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
       setStatusMsg({ text: '신청 내역이 삭제되었습니다.', type: 'success' });
       await fetchArticles();
+    } catch (err: any) {
+      setStatusMsg({ text: '삭제 실패: ' + err.message, type: 'error' });
     }
   };
 
   const handleDeleteAdApplication = async (id: string) => {
     if (!confirm('해당 광고 신청 내역을 삭제하시겠습니까?')) return;
-    const { error } = await supabase.from('ad_applications').delete().eq('id', id);
-    if (error) {
-      setStatusMsg({ text: '삭제 실패: ' + error.message, type: 'error' });
-    } else {
+    try {
+      const res = await fetch('/api/admin/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ table: 'ad_applications', id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
       setStatusMsg({ text: '광고 신청 내역이 삭제되었습니다.', type: 'success' });
       await fetchArticles();
+    } catch (err: any) {
+      setStatusMsg({ text: '삭제 실패: ' + err.message, type: 'error' });
     }
   };
 
@@ -528,6 +489,12 @@ export default function AdminPage() {
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.5rem' }}>
                        {article.is_top && <span style={{ background: '#ef4444', color: 'white', padding: '2px 8px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 'bold' }}>메인 1면 톱</span>}
+                       {article.is_featured && (article.pin_until === null || new Date(article.pin_until) > new Date()) && (
+                         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#ecfdf5', color: '#059669', padding: '2px 8px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 'bold' }}>
+                           <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#059669' }} />
+                           초점 픽 {article.pin_until ? `· ${Math.ceil((new Date(article.pin_until).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))}일 남음` : '· 영구'}
+                         </span>
+                       )}
                        <span style={{ color: 'var(--primary-dark)', fontSize: '0.8rem', fontWeight: 'bold' }}>[{article.category}]</span>
                     </div>
                     <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700 }}>{article.title}</h4>
@@ -569,7 +536,23 @@ export default function AdminPage() {
                        <div><strong>누가:</strong> {report.who}</div><div><strong>무엇을:</strong> {report.what}</div><div><strong>언제:</strong> {report.when}</div>
                        <div><strong>어디서:</strong> {report.where}</div><div><strong>어떻게:</strong> {report.how}</div><div><strong>왜:</strong> {report.why}</div>
                     </div>
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                       <button 
+                         onClick={async (e) => {
+                           const btn = e.currentTarget;
+                           const originalText = btn.innerText;
+                           const textToCopy = `[COMMON WAVE 마을 리포터 제보 내용]\n다음 내용을 바탕으로 인터넷 신문사 'COMMON WAVE'의 기사 초안을 작성해주세요. 문체는 객관적이고 신뢰감 있게 작성해주시고, 제보 형식을 고려하여 적절한 톤앤매너를 유지해주세요.\n\n- 제보 형식: ${report.style}\n- 지역: ${report.where}\n- 누가: ${report.who}\n- 언제: ${report.when}\n- 어디서: ${report.where}\n- 무엇을: ${report.what}\n- 어떻게: ${report.how}\n- 왜: ${report.why}\n- 상세 내용 및 전달 사항: \n${report.extra || '없음'}`;
+                           try {
+                             await navigator.clipboard.writeText(textToCopy);
+                             btn.innerText = '복사 완료!';
+                             btn.style.background = '#10b981';
+                             setTimeout(() => { btn.innerText = originalText; btn.style.background = '#3b82f6'; }, 2000);
+                           } catch(err) { alert('복사 실패'); }
+                         }}
+                         style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '5px 12px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 'bold' }}
+                       >
+                         Claude로 복사
+                       </button>
                        <Link href={report.high_res_url || '#'} target="_blank"><button style={{ background: '#4285F4', color: 'white', border: 'none', padding: '5px 12px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}>원본 드라이브</button></Link>
                        <Link href={`/admin/new?reportId=${report.id}`}><button style={{ background: '#333', color: 'white', border: 'none', padding: '5px 12px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}>기사 변환</button></Link>
                        <button onClick={() => handleDeleteReport(report.id)} style={{ background: 'none', border: '1px solid #ef4444', color: '#ef4444', padding: '4px 12px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}>제보 삭제</button>
@@ -586,23 +569,74 @@ export default function AdminPage() {
             applications.length > 0 ? (
               applications.map(app => (
                 <div key={app.id} style={{ background: 'white', padding: '1.5rem', borderRadius: '12px', border: '1px solid #eee', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>{app.name} <span style={{ fontSize: '0.9rem', color: '#666', fontWeight: 400 }}>({app.birthdate})</span></h3>
-                    <span style={{ fontSize: '0.85rem', color: '#999' }}>{new Date(app.created_at).toLocaleString()}</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div>
+                      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.4rem' }}>
+                        <span style={{ 
+                          padding: '4px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700,
+                          background: app.status === 'approved' ? '#dcfce7' : app.status === 'rejected' ? '#fee2e2' : '#fef3c7',
+                          color: app.status === 'approved' ? '#166534' : app.status === 'rejected' ? '#991b1b' : '#92400e'
+                        }}>
+                          {app.status === 'approved' ? '승인됨' : app.status === 'rejected' ? '반려됨' : '검토 대기'}
+                        </span>
+                        <span style={{ fontSize: '0.85rem', color: '#999' }}>{new Date(app.created_at).toLocaleString('ko-KR')}</span>
+                      </div>
+                      <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>
+                        {app.name} <span style={{ fontSize: '0.9rem', color: '#666', fontWeight: 400 }}>({app.birthdate})</span>
+                      </h3>
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <button 
+                        onClick={async () => {
+                          const { error } = await supabase.from('reporter_applications').update({ status: 'approved' }).eq('id', app.id);
+                          if (!error) { alert('승인되었습니다.'); window.location.reload(); }
+                        }}
+                        style={{ padding: '6px 12px', background: '#10b981', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 700 }}
+                      >승인</button>
+                      <button 
+                        onClick={async () => {
+                          const { error } = await supabase.from('reporter_applications').update({ status: 'rejected' }).eq('id', app.id);
+                          if (!error) { alert('반려 처리되었습니다.'); window.location.reload(); }
+                        }}
+                        style={{ padding: '6px 12px', background: '#64748b', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 700 }}
+                      >반려</button>
+                    </div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', fontSize: '0.9rem', color: '#444' }}>
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem', fontSize: '0.9rem', color: '#444', background: '#f8fafc', padding: '1rem', borderRadius: '8px' }}>
+                    <div><strong>활동 지역:</strong> {app.region || '-'}</div>
+                    <div><strong>직업·소속:</strong> {app.occupation || '-'}</div>
                     <div><strong>연락처:</strong> {app.phone}</div>
                     <div><strong>이메일:</strong> {app.email}</div>
                     <div style={{ gridColumn: '1 / -1' }}><strong>주소:</strong> {app.address}</div>
+                    <div style={{ gridColumn: '1 / -1' }}>
+                      <strong>관심 분야:</strong> {app.interests ? app.interests.join(', ') : '-'}
+                    </div>
                   </div>
+
+                  {(app.guardian_name || app.guardian_contact) && (
+                    <div style={{ borderLeft: '3px solid #f59e0b', paddingLeft: '1rem', color: '#92400e', fontSize: '0.85rem' }}>
+                      <strong>미성년자 보호자 정보:</strong> {app.guardian_name} ({app.guardian_contact})
+                    </div>
+                  )}
+
                   {app.reason && (
-                    <div style={{ background: '#f8f9fa', padding: '1rem', borderRadius: '8px', fontSize: '0.9rem', color: '#333', lineHeight: '1.5', whiteSpace: 'pre-wrap' }}>
+                    <div style={{ background: '#f1f5f9', padding: '1rem', borderRadius: '8px', fontSize: '0.9rem', color: '#333', lineHeight: '1.5', whiteSpace: 'pre-wrap' }}>
                       <strong>신청 사유:</strong><br/>
                       {app.reason}
                     </div>
                   )}
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-                    <button onClick={() => handleDeleteApplication(app.id)} style={{ background: 'none', border: '1px solid #ef4444', color: '#ef4444', padding: '0.4rem 1rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}>삭제</button>
+
+                  <div style={{ fontSize: '0.8rem', color: '#64748b', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                    <strong>동의 내역:</strong>
+                    <span>결격사유({app.agreement_eligibility?'O':'X'})</span>
+                    <span>자원봉사({app.agreement_volunteer?'O':'X'})</span>
+                    <span>윤리규정({app.agreement_ethics?'O':'X'})</span>
+                    <span>개인정보({app.agreement_privacy?'O':'X'})</span>
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem', borderTop: '1px solid #eee', paddingTop: '1rem' }}>
+                    <button onClick={() => handleDeleteApplication(app.id)} style={{ background: 'none', border: '1px solid #ef4444', color: '#ef4444', padding: '0.4rem 1rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold' }}>데이터 완전 삭제</button>
                   </div>
                 </div>
               ))

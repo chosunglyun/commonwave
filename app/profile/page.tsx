@@ -74,7 +74,8 @@ export default function ProfilePage() {
   const roleLabel = userProfile.role === 'admin' ? '관리자' : 
                     userProfile.role === 'editor' ? '편집자' : 
                     userProfile.role === 'reporter' ? '리포터' : 
-                    userProfile.role === 'member' ? '조합원' : '구독자';
+                    userProfile.role === 'member' ? '조합원' : 
+                    userProfile.role === 'subscriber' ? '구독자' : '일반회원';
 
   return (
     <main style={{ minHeight: '100vh', background: '#f8fafc' }}>
@@ -153,7 +154,7 @@ export default function ProfilePage() {
           </div>
 
           <div style={{ marginTop: '3rem', textAlign: 'center' }}>
-            <p style={{ fontSize: '0.9rem', color: '#94a3b8' }}>도움이 필요하신가요? <strong style={{ color: '#64748b' }}>press@commonwave.kr</strong></p>
+            <p style={{ fontSize: '0.9rem', color: '#94a3b8' }}>도움이 필요하신가요? <strong style={{ color: '#64748b' }}>press@dasaneobo.kr</strong></p>
           </div>
         </div>
       </div>

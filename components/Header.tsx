@@ -2,15 +2,17 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, LogIn, UserPlus, BookOpen, FileText, LogOut } from 'lucide-react';
+import { Search, LogIn, UserPlus, BookOpen, FileText, LogOut, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter, usePathname } from 'next/navigation';
 import { SITE_CONFIG } from '@/constants/siteConfig';
+import BannerAd from '@/components/ads/BannerAd';
 
 export default function Header() {
   const [userProfile, setUserProfile] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const pathname = usePathname();
   const [currentDate, setCurrentDate] = useState('');
   const [weather, setWeather] = useState<{ temp: string; desc: string } | null>(null);
@@ -91,10 +93,9 @@ export default function Header() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.href = '/';
   };
 
-  const navCategories: { label: string; href: string; region?: boolean; accent?: boolean; subItems?: { label: string; href: string }[] }[] = SITE_CONFIG.categories;
+  const navCategories: { label: string; href: string; region?: boolean; accent?: boolean }[] = SITE_CONFIG.categories;
 
   return (
     <header className="np-header">
@@ -118,14 +119,7 @@ export default function Header() {
           <div className="np-topbar-right">
             {userProfile ? (
               <>
-                <Link href="/profile" className="np-user-name" style={{ color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ fontSize: '0.7rem', background: 'var(--accent)', color: 'var(--primary-dark)', padding: '1px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
-                    {userProfile.role === 'admin' ? '관리자' : 
-                     userProfile.role === 'editor' ? '편집국' : 
-                     userProfile.role === 'reporter' ? '리포터' : 
-                     userProfile.role === 'member' ? '조합원' : 
-                     userProfile.role === 'normal' ? '일반회원' : '구독자'}
-                  </span>
+                <Link href="/profile" className="np-user-name" style={{ color: '#fff', textDecoration: 'none' }}>
                   {userProfile.name} 님
                 </Link>
                 {(userProfile.role === 'admin' || userProfile.role === 'editor' || userProfile.role === 'member') && (
@@ -147,7 +141,7 @@ export default function Header() {
                 <Link href="/login" className="np-topbar-link">
                   <LogIn size={12} /> 로그인
                 </Link>
-                <Link href="/login" className="np-topbar-link">
+                <Link href="/signup" className="np-topbar-link">
                   <UserPlus size={12} /> 회원가입
                 </Link>
               </>
@@ -159,14 +153,38 @@ export default function Header() {
       {/* === LOGO SECTION === */}
       <div className="np-logo-section">
         <div className="container np-logo-inner">
+          <div className="np-logo-left">
+            <Link href="/" className="np-logo-link">
+              <h1 className="np-logo-title">{SITE_CONFIG.name}</h1>
+              <div className="np-logo-sub" style={{ whiteSpace: 'nowrap' }}>
+                김포·파주·고양·의정부 밀착 독립언론
+              </div>
+            </Link>
+          </div>
 
-          <Link href="/" className="np-logo-link">
-            <h1 className="np-logo-title">COMMON WAVE</h1>
-            <div className="np-logo-sub" style={{ whiteSpace: 'nowrap' }}>시민이 주주가 되고, 이웃이 기자가 되는 공동체의 진짜 목소리</div>
-          </Link>
+          <div className="np-mobile-hamburger desktop-hide">
+            <button onClick={() => setIsDrawerOpen(true)} className="np-hamburger-btn">
+              <Menu size={28} />
+            </button>
+          </div>
+
+          <div className="np-logo-center">
+            {/* 한자 제호 이미지 주석 처리 (추후 커먼웨이브 로고로 교체 가능)
+            <Link href="/" className="np-logo-hanja-link" title="커먼웨이브 로고">
+              <Image 
+                src="/images/hanja-logo.png" 
+                alt="COMMON WAVE" 
+                width={200} 
+                height={55} 
+                className="np-logo-hanja-img"
+                priority 
+              />
+            </Link>
+            */}
+          </div>
 
           <div className="np-logo-right">
-            <form onSubmit={handleSearch} className="np-search-form" style={{ marginRight: '1rem' }}>
+            <form onSubmit={handleSearch} className="np-search-form">
               <input
                 type="text"
                 placeholder="검색어 입력"
@@ -182,9 +200,6 @@ export default function Header() {
               <Link href="/subscribe" className="np-subscribe-btn">
                 구독 신청
               </Link>
-              <Link href="/admin/report" className="np-report-btn">
-                기사 제보
-              </Link>
             </div>
           </div>
         </div>
@@ -197,7 +212,7 @@ export default function Header() {
             {navCategories.map((cat, idx) => {
               const isActive = pathname === cat.href || (cat.href !== '/' && pathname.startsWith(cat.href) && cat.href !== '/region');
               return (
-                <li key={idx} className={`np-nav-item${idx > 0 ? ' np-nav-divider' : ''} ${cat.subItems ? 'np-has-dropdown' : ''}`}>
+                <li key={idx} className={`np-nav-item${idx > 0 ? ' np-nav-divider' : ''}`}>
                   <Link
                     href={cat.href}
                     className={[
@@ -207,23 +222,53 @@ export default function Header() {
                       isActive ? 'np-nav-active' : '',
                     ].filter(Boolean).join(' ')}
                   >
-                    {cat.label} {cat.subItems && <span className="np-dropdown-arrow">▼</span>}
+                    {cat.label}
                   </Link>
-                  {cat.subItems && (
-                    <ul className="np-dropdown-menu">
-                      {cat.subItems.map((sub, sIdx) => (
-                        <li key={sIdx}>
-                          <Link href={sub.href} className="np-dropdown-link">{sub.label}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
                 </li>
               );
             })}
           </ul>
         </div>
       </nav>
+
+      {/* === MOBILE DRAWER === */}
+      {isDrawerOpen && (
+        <div className="np-mobile-drawer">
+          <div className="np-drawer-overlay" onClick={() => setIsDrawerOpen(false)} />
+          <div className="np-drawer-content">
+            <div className="np-drawer-header">
+              <Link href="/subscribe" className="np-subscribe-btn np-drawer-subscribe" onClick={() => setIsDrawerOpen(false)}>
+                구독 신청
+              </Link>
+              <button onClick={() => setIsDrawerOpen(false)} className="np-drawer-close">
+                <X size={24} />
+              </button>
+            </div>
+            <ul className="np-drawer-nav">
+              {navCategories.map((cat, idx) => (
+                <li key={idx} className="np-drawer-nav-item">
+                  <Link
+                    href={cat.href}
+                    className="np-drawer-link"
+                    onClick={() => setIsDrawerOpen(false)}
+                  >
+                    {cat.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* 띠배너 광고 슬롯 — 새 이미지 업로드 후 BannerAd 복원 예정
+      <BannerAd
+        slot="header-bottom"
+        fallbackSrc="/ads/banner_leaderboard.png"
+        href="/ad-apply"
+        alt="광고"
+      />
+      */}
 
       <style jsx>{`
         .np-header {
@@ -278,48 +323,66 @@ export default function Header() {
 
         /* === LOGO === */
         .np-logo-section {
-          padding: 1.2rem 0;
+          padding: 0.8rem 0;
           border-bottom: 1px solid #ddd;
         }
         .np-logo-inner {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
           align-items: center;
-          justify-content: center;
-          position: relative;
           gap: 1rem;
         }
         .np-logo-link {
           text-decoration: none;
-          text-align: center;
-          flex-shrink: 0;
-          position: relative;
-          z-index: 10;
+          text-align: left;
+          display: block;
         }
         .np-logo-title {
-          font-family: var(--font-sans);
+          font-family: 'Noto Serif KR', 'Nanum Myeongjo', 'KoPubWorldBatang', serif;
           font-size: 3.2rem;
           font-weight: 900;
           color: var(--primary);
-          letter-spacing: -1px;
+          letter-spacing: -2px;
           line-height: 1;
-          text-transform: uppercase;
           margin: 0 0 0.3rem;
-          white-space: nowrap;
         }
         .np-logo-sub {
-          font-size: 0.85rem;
+          font-size: 0.75rem;
           color: #666;
-          letter-spacing: -0.5px;
-          font-weight: 500;
+          letter-spacing: 0px;
+          font-weight: 600;
         }
 
-        .np-logo-right {
-          position: absolute;
-          right: 1rem;
+        /* Center Hanja Area */
+        .np-logo-center {
           display: flex;
+          justify-content: center;
           align-items: center;
         }
+        .np-logo-hanja-link {
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .np-logo-hanja-img {
+          height: 48px;
+          width: auto;
+          object-fit: contain;
+        }
 
+        /* Search & Right Area */
+        .np-logo-left {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+        }
+        .np-logo-right {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          justify-content: flex-end;
+        }
         .np-search-form {
           display: flex;
           align-items: center;
@@ -334,7 +397,7 @@ export default function Header() {
           padding: 0.45rem 0.7rem;
           font-size: 0.85rem;
           outline: none;
-          width: 160px;
+          width: 180px;
           font-family: inherit;
         }
         .np-search-btn {
@@ -346,48 +409,22 @@ export default function Header() {
           display: flex;
           align-items: center;
         }
-
-        /* Right area */
-        .np-logo-right {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          min-width: 500px;
-          justify-content: flex-end;
-        }
         .np-logo-btns {
           display: flex;
-          flex-direction: column;
-          gap: 0.4rem;
+          align-items: center;
         }
         .np-subscribe-btn {
           background: var(--primary);
           color: white;
           border: none;
-          padding: 0.4rem 1rem;
+          padding: 0.45rem 1.2rem;
           border-radius: 3px;
-          font-size: 0.8rem;
+          font-size: 0.85rem;
           font-weight: 700;
           text-decoration: none;
           cursor: pointer;
           font-family: inherit;
           text-align: center;
-          width: 100px;
-          display: block;
-        }
-        .np-report-btn {
-          background: white;
-          color: var(--primary);
-          border: 1.5px solid var(--primary);
-          padding: 0.35rem 1rem;
-          border-radius: 3px;
-          font-size: 0.8rem;
-          font-weight: 700;
-          text-decoration: none;
-          cursor: pointer;
-          font-family: inherit;
-          text-align: center;
-          width: 100px;
           display: block;
         }
 
@@ -452,69 +489,57 @@ export default function Header() {
           border-bottom-color: #c0392b !important;
         }
 
-        /* 드롭다운 메뉴 */
-        .np-has-dropdown {
-          position: relative;
-        }
-        .np-dropdown-arrow {
-          font-size: 0.6rem;
-          margin-left: 0.2rem;
-          vertical-align: middle;
-        }
-        .np-dropdown-menu {
-          display: none;
-          position: absolute;
-          top: 100%;
-          left: 50%;
-          transform: translateX(-50%);
-          background: #F9F8F6;
-          border: 1px solid #D6D1C4;
-          border-top: 3px solid var(--primary);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-          list-style: none;
-          padding: 0.5rem 0;
-          margin: 0;
-          min-width: 150px;
-          z-index: 100;
-          border-radius: 0 0 4px 4px;
-        }
-        .np-has-dropdown:hover .np-dropdown-menu {
-          display: block;
-        }
-        .np-dropdown-link {
-          display: block;
-          padding: 0.6rem 1rem;
-          color: #2C2B29;
-          text-decoration: none;
-          font-family: '"Nanum Myeongjo", "Batang", serif';
-          font-size: 0.85rem;
-          transition: background 0.2s, color 0.2s;
-          text-align: center;
-        }
-        .np-dropdown-link:hover {
-          background: #EAE6DF;
-          color: var(--primary);
+        /* === MOBILE === */
+        .desktop-hide { display: none; }
+        .np-mobile-hamburger { display: none; }
+        
+        .np-mobile-drawer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; display: flex; }
+        .np-drawer-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+        .np-drawer-content { position: relative; width: 80%; max-width: 320px; height: 100%; background: #fff; display: flex; flex-direction: column; animation: slideIn 0.3s ease; }
+        .np-drawer-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid #eee; }
+        .np-drawer-subscribe { width: auto; flex: 1; margin-right: 1rem; padding: 0.6rem; font-size: 0.9rem; }
+        .np-drawer-close { background: none; border: none; padding: 0.5rem; cursor: pointer; color: #333; }
+        .np-drawer-nav { list-style: none; padding: 0; margin: 0; overflow-y: auto; flex: 1; }
+        .np-drawer-nav-item { border-bottom: 1px solid #f5f5f5; }
+        .np-drawer-link { display: block; padding: 1rem; font-size: 1rem; font-weight: 700; color: #333; text-decoration: none; }
+        
+        @keyframes slideIn {
+          from { transform: translateX(-100%); }
+          to { transform: translateX(0); }
         }
 
-        /* === MOBILE === */
         @media (max-width: 768px) {
+          .desktop-hide { display: block; }
           .np-topbar { display: block; padding: 0.2rem 0; }
           .np-topbar-left { display: none; }
           .np-topbar-inner { justify-content: center; }
           .np-topbar-right { gap: 0.6rem; width: 100%; justify-content: center; }
-          .np-logo-title { font-size: 1.4rem; margin-bottom: 0.1rem; }
-          .np-logo-sub { font-size: 0.5rem; letter-spacing: 1px; }
-          .np-logo-inner { flex-direction: column; gap: 0.1rem !important; text-align: center; display: flex !important; }
-          .np-logo-link { order: 1; margin-bottom: 0.1rem; }
-          .np-logo-right { position: static !important; order: 2; flex-direction: row; min-width: unset !important; align-items: center; justify-content: center; gap: 0.3rem; margin-bottom: 0.2rem; }
-          .np-logo-left { display: none !important; }
-          .np-header-ad-container { display: none; }
-          .np-search-input { width: 90px; padding: 0.2rem 0.4rem; font-size: 0.7rem; }
-          .np-search-btn { padding: 0.2rem 0.4rem; }
-          .np-logo-btns { flex-direction: row; gap: 0.2rem; }
-          .np-subscribe-btn, .np-report-btn { width: 65px; padding: 0.25rem 0; font-size: 0.65rem; }
-          .np-logo-right a { width: auto; }
-          .np-logo-section { padding: 0.15rem 0 !important; border-bottom: none !important; }
+          
+          /* Mobile Header Layout Adjustments */
+          .np-logo-section { padding: 0.5rem 0 !important; border-bottom: none !important; }
+          .np-logo-inner { 
+            display: grid !important; 
+            grid-template-columns: 1fr auto; 
+            grid-template-rows: auto auto; 
+            gap: 0.8rem 0.5rem !important; 
+            align-items: center;
+          }
+          .np-logo-left { grid-column: 1 / 2; grid-row: 1 / 2; width: 100%; display: flex; align-items: center; }
+          .np-logo-link { text-align: left; }
+          .np-logo-title { font-size: 1.8rem; margin-bottom: 0.1rem; text-align: left; }
+          .np-logo-sub { font-size: 0.55rem; letter-spacing: 0; text-align: left; white-space: normal !important; }
+          
+          .np-logo-center { display: none; } /* Hide center logo on mobile to save space */
+          
+          .np-mobile-hamburger { grid-column: 2 / 3; grid-row: 1 / 2; display: flex; align-items: center; justify-content: flex-end; }
+          .np-hamburger-btn { background: none; border: none; padding: 0.2rem; cursor: pointer; color: var(--primary); display: flex; align-items: center; }
+          
+          .np-logo-right { grid-column: 1 / 3; grid-row: 2 / 3; width: 100%; justify-content: center; margin-bottom: 0.2rem; }
+          .np-search-form { width: 100%; max-width: none; justify-content: space-between; }
+          .np-search-input { width: 100%; padding: 0.4rem 0.6rem; font-size: 0.85rem; }
+          .np-search-btn { padding: 0.4rem 0.8rem; background: var(--primary); }
+          
+          .np-logo-btns { display: none; } /* Hide subscribe button on mobile header */
           .np-nav { border-top: 1.5px solid var(--primary) !important; }
           .np-nav-link { padding: 0.45rem 0 !important; font-size: 0.72rem; }
           .np-nav-item { margin-left: 0.1rem; padding-left: 0.1rem; }

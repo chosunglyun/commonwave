@@ -5,7 +5,6 @@ import Header from '@/components/Header';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import emailjs from '@emailjs/browser';
-import { SITE_CONFIG } from '@/constants/siteConfig';
 import './report.css';
 
 export default function ReportPage() {
@@ -41,8 +40,8 @@ export default function ReportPage() {
         .select('*')
         .eq('id', session.user.id)
         .single();
-      if (!profile || (profile.role !== 'subscriber' && profile.role !== 'normal' && profile.role !== 'reporter' && profile.role !== 'editor' && profile.role !== 'admin' && profile.role !== 'member')) {
-        alert('이 메뉴는 로그인 회원만 이용 가능합니다.');
+      if (!profile || (profile.role !== 'reporter' && profile.role !== 'editor' && profile.role !== 'admin' && profile.role !== 'member')) {
+        alert('이 메뉴를 볼 권한이 없습니다. (취재기자 등급 이상 필요)');
         router.push('/');
         return;
       }
@@ -136,7 +135,7 @@ export default function ReportPage() {
     <main className="report-body">
       <Header />
       <div className="report-masthead">
-        <div className="report-masthead-name">{SITE_CONFIG.brand.name}</div>
+        <div className="report-masthead-name">COMMON WAVE</div>
         <div className="report-masthead-sub">마을 소식 제보 시스템 (기자 전용)</div>
         <div className="report-masthead-date">{todayStr()}</div>
       </div>
@@ -177,7 +176,7 @@ export default function ReportPage() {
           </div>
           <div className="report-field">
             <label className="report-label"><span className="report-badge b-where">어디서</span> Where</label>
-            <input type="text" id="where" className="report-input" value={formData.where} onChange={handleInputChange} placeholder="예: 경기도 김포시 00동..." />
+            <input type="text" id="where" className="report-input" value={formData.where} onChange={handleInputChange} placeholder="예: 마을 회관 앞 광장" />
           </div>
           <div className="report-field">
             <label className="report-label"><span className="report-badge b-how">어떻게</span> How</label>
@@ -239,7 +238,7 @@ export default function ReportPage() {
           )}
         </div>
 
-        <div className="report-footer-rule">{SITE_CONFIG.brand.name_kr} 언론협동조합 · 마을 소식 제보 시스템</div>
+        <div className="report-footer-rule">COMMON WAVE 언론협동조합 · 마을 소식 제보 시스템</div>
       </div>
     </main>
   );

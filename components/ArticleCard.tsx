@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 import { Article } from '@/lib/supabase';
+import { Eye } from 'lucide-react';
+import CategoryBadge from '@/components/ui/CategoryBadge';
 
 export default function ArticleCard({ article }: { article: Article }) {
   return (
@@ -23,34 +25,19 @@ export default function ArticleCard({ article }: { article: Article }) {
     }}
     >
       <div style={{ position: 'relative', height: '200px', width: '100%', background: '#f0f0f0' }}>
-        {article.image_url ? (
-          <Image 
-            src={article.image_url} 
-            alt={article.title} 
-            fill 
-            style={{ objectFit: 'cover' }}
-          />
-        ) : (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-            color: '#ccc',
-            background: 'linear-gradient(45deg, var(--primary-light), #fff)'
-          }}>
-            이미지 없음
-          </div>
-        )}
+        <Image 
+          src={article.image_url || '/fallback/article-default.svg'} 
+          alt={article.image_url ? article.title : `${article.title} - COMMON WAVE`} 
+          fill 
+          style={{ objectFit: 'cover' }}
+          onError={(e) => { 
+            (e.target as HTMLImageElement).src = '/fallback/article-default.svg'; 
+            (e.target as HTMLImageElement).srcset = '';
+          }}
+        />
       </div>
       <div style={{ padding: '1.2rem' }}>
-        <span style={{
-          fontSize: '0.75rem',
-          fontWeight: 700,
-          color: 'var(--primary-dark)',
-          textTransform: 'uppercase',
-          letterSpacing: '1px'
-        }}>{article.category}</span>
+        <CategoryBadge category={article.category} />
         <h3 style={{ 
           fontSize: '1.2rem', 
           margin: '0.5rem 0',
@@ -72,9 +59,15 @@ export default function ArticleCard({ article }: { article: Article }) {
           fontSize: '0.8rem',
           color: '#999',
           display: 'flex',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          alignItems: 'center'
         }}>
           <span>{new Date(article.created_at).toLocaleDateString()}</span>
+          {article.view_count !== undefined && (
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+              <Eye size={14} /> {article.view_count.toLocaleString()}
+            </span>
+          )}
         </div>
       </div>
     </div>

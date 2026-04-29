@@ -1,34 +1,34 @@
 :root {
-  --background: #F4F6FA;
+  --background: #ffffff;
   --foreground: #1a1a1a;
-  --primary: #14213D; /* 세련된 도시감각의 딥블루 */
-  --primary-dark: #0B1221;
-  --primary-light: #E5E9F0;
+  --primary: #3950C4; /* 커먼웨이브 클래식 블루 */
+  --primary-dark: #2b3c94;
+  --primary-light: #e6ebff;
   --secondary: #2c3e50;
-  --accent: #FCA311; /* 포인트 컬러 (오렌지 옐로우) */
+  --accent: #c8973a;
   --card: #ffffff;
   --card-foreground: #1a1a1a;
   --border: #e2e8f0;
   --input: #e2e8f0;
-  --ring: #14213D;
+  --ring: #3950C4;
   --radius: 3px;
   --font-serif: 'Noto Serif KR', 'Nanum Myeongjo', 'KoPubWorldBatang', Georgia, serif;
   --font-sans: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
 }
 
 [data-theme='dark'] {
-  --background: #0A0F1E;
+  --background: #0f172a;
   --foreground: #f8fafc;
-  --primary: #FCA311;
-  --primary-dark: #D48806;
-  --primary-light: #14213D;
+  --primary: #6c81f0;
+  --primary-dark: #4b64e6;
+  --primary-light: #8e9ff5;
   --secondary: #94a3b8;
-  --accent: #1B3A6B;
+  --accent: #fbbf24;
   --card: #1e293b;
   --card-foreground: #f8fafc;
   --border: #334155;
   --input: #334155;
-  --ring: #00C9B1;
+  --ring: #6c81f0;
 }
 
 * {
@@ -267,10 +267,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Regional Badge */
-.badge-gangjin { background: #ACE1AF; color: #1a1a1a; }
-.badge-boseong { background: #76c7c0; color: #1a1a1a; }
-.badge-jangheung { background: #5ea4d4; color: white; }
-.badge-goheung { background: #fbc02d; color: #1a1a1a; }
+.badge-gimpo { background: #3950C4; color: white; }
+.badge-paju { background: #5ea4d4; color: white; }
+.badge-goyang { background: #76c7c0; color: #1a1a1a; }
+.badge-uijeongbu { background: #fbc02d; color: #1a1a1a; }
 /* Responsive Utilities */
 .mobile-stack {
   display: flex !important;
@@ -619,3 +619,10 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
+
+.ethics-content section { margin-bottom: 4rem; }
+.ethics-content h2 { font-family: 'Noto Serif KR', serif; font-size: 1.6rem; font-weight: 800; color: #111; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #e2e8f0; }
+.article { margin-bottom: 2rem; padding-left: 1rem; }
+.article-title { display: block; font-weight: 800; color: #1e293b; margin-bottom: 0.6rem; font-size: 1.05rem; }
+.article p { margin: 0; color: #475569; line-height: 1.8; font-size: 1.05rem; }
+@media (max-width: 768px) { .ethics-content { padding: 2rem !important; } }
