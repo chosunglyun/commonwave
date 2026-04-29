@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
   verification: {
-    google: "FafkuE0YBRZtLsqTthBQeQT2wWpk90jfoLvp5OGXhCw",
+    google: "snV-W8_MXEIOl2M9DQlj7cJKqeIhRogyAezs6lvVLKc",
   },
   other: {
     "naver-site-verification": "b791cfcfeb56042ca8f327c4929200f1ece79f05",
