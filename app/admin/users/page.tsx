@@ -32,13 +32,15 @@ export default function UserManagementPage() {
       }
       setUserProfile(profile);
 
-      // Fetch all user profiles
-      const { data: allUsers, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .order('name', { ascending: true });
-
-      if (allUsers) setUsers(allUsers);
+      // Fetch all user profiles via admin API (bypasses RLS)
+      const session2 = (await supabase.auth.getSession()).data.session;
+      const res = await fetch('/api/admin/users', {
+        headers: { 'Authorization': `Bearer ${session2?.access_token}` }
+      });
+      if (res.ok) {
+        const allUsers = await res.json();
+        setUsers(allUsers);
+      }
       setLoading(false);
     };
 
@@ -46,16 +48,20 @@ export default function UserManagementPage() {
   }, [router]);
 
   const handleRoleChange = async (userId: string, newRole: string) => {
-    const { error } = await supabase
-      .from('profiles')
-      .update({ role: newRole })
-      .eq('id', userId);
-
-    if (error) {
-      alert('변경 실패: ' + error.message);
+    const session = (await supabase.auth.getSession()).data.session;
+    const res = await fetch('/api/admin/users', {
+      method: 'PATCH',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session?.access_token}`
+      },
+      body: JSON.stringify({ userId, role: newRole })
+    });
+    if (!res.ok) {
+      const data = await res.json();
+      alert('변경 실패: ' + data.error);
     } else {
       setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
-      // alert('등급이 성공적으로 변경되었습니다.'); // Too many alerts are annoying
     }
   };
 
