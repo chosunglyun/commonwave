@@ -1,17 +1,21 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
-const dasanAdmin = createClient(
-  process.env.DASAN_SUPABASE_URL!,
-  process.env.DASAN_SERVICE_ROLE_KEY!
-);
-
 export async function POST(request: NextRequest) {
+  const supabaseAdmin = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
+  const dasanAdmin = createClient(
+    process.env.DASAN_SUPABASE_URL || '',
+    process.env.DASAN_SERVICE_ROLE_KEY || ''
+  );
+
+  if (!process.env.DASAN_SUPABASE_URL || !process.env.DASAN_SERVICE_ROLE_KEY) {
+    return NextResponse.json({ error: '다산어보 연동 설정이 없습니다. 환경 변수를 확인하세요.' }, { status: 500 });
+  }
+
   // 관리자 인증
   const authHeader = request.headers.get('Authorization');
   if (!authHeader) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
