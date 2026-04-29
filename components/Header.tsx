@@ -155,7 +155,7 @@ export default function Header() {
         <div className="container np-logo-inner">
           <div className="np-logo-left">
             {/* Mobile Logo & Slogan */}
-            <Link href="/" className="np-logo-link desktop-hide" style={{ display: 'flex', alignItems: 'center' }}>
+            <Link href="/" className="np-logo-link desktop-hide">
               <img src="/images/logo.png" alt="COMMON WAVE" style={{ height: '32px', objectFit: 'contain' }} />
             </Link>
             <div className="np-logo-sub mobile-hide" style={{ whiteSpace: 'nowrap', opacity: 0.8, fontWeight: 700, color: 'var(--primary)' }}>
