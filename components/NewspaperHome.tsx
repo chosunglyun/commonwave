@@ -248,6 +248,55 @@ function RegionalNews({ articles }: { articles: any[] }) {
 /* =========================================
    RIGHT SIDEBAR
    ========================================= */
+function GasStationWidget() {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/gas-stations')
+      .then(res => res.json())
+      .then(json => {
+        if (json.data) {
+          // 보통 휘발유, 경유, 고급휘발유 등 필터링해서 보여주기
+          const filtered = json.data.filter((item: any) => 
+            ['휘발유', '경유', '고급휘발유'].includes(item.DIV_NM)
+          );
+          setData(filtered.slice(0, 3));
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div style={{ fontSize: '0.8rem', color: '#888', padding: '1rem 0' }}>유가 정보 불러오는 중...</div>;
+  if (!data || data.length === 0) return null; // API 키 없거나 오류 시 숨김
+
+  return (
+    <div className="np-sidebar-item" style={{ marginTop: '1.5rem' }}>
+      <SectionHeader title="오늘의 김포시 유가" />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        {data.map((p: any, i: number) => {
+          const diff = parseInt(p.BFRT_CMPR_FLTCT_VAL || '0');
+          return (
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.4rem 0.6rem', background: i % 2 === 0 ? '#f9f9f9' : '#fff', borderRadius: '2px' }}>
+              <span style={{ fontSize: '0.78rem', color: '#444', fontWeight: 600 }}>{p.DIV_NM}</span>
+              <div style={{ textAlign: 'right' }}>
+                <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#111' }}>{parseInt(p.AVG_PRCE || '0').toLocaleString()}원</span>
+                <span style={{ fontSize: '0.65rem', marginLeft: '0.5rem', fontWeight: 700, color: diff > 0 ? '#e11d48' : diff < 0 ? '#2b84ac' : '#999' }}>
+                  {diff > 0 ? '▲' : diff < 0 ? '▼' : '-'} {Math.abs(diff)}
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.8rem' }}>
+        <span style={{ fontSize: '0.6rem', color: '#bbb' }}>출처: 한국석유공사 / 경기데이터드림</span>
+      </div>
+    </div>
+  );
+}
+
 function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd: any }) {
   const defaultPrices = [
     { item_name: '쌀', price: '59000', diff: '0', unit: '20kg' },
@@ -282,7 +331,9 @@ function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd:
         </div>
       </div>
 
-      <div className="np-sidebar-services-grid">
+      <GasStationWidget />
+
+      <div className="np-sidebar-services-grid" style={{ marginTop: '1.5rem' }}>
         {/* 서비스 공통 스타일 상수 (인라인으로 적용하거나 별도 컴포넌트화 가능하지만 현재 구조 유지하며 스타일만 통일) */}
         
         {/* 광고 배너 */}
