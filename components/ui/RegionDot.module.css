@@ -4,20 +4,20 @@
 .gimpo_text     { color: #283788; }
 .gimpo_bg       { background-color: #E6EBFF; }
 
-.paju_accent   { background-color: #5EA4D4; }
-.paju_border   { border-color: #5EA4D4; }
-.paju_text     { color: #3A6988; }
-.paju_bg       { background-color: #EBF4FA; }
+.paju_accent   { background-color: #8b5cf6; }
+.paju_border   { border-color: #8b5cf6; }
+.paju_text     { color: #5b21b6; }
+.paju_bg       { background-color: #f3e8ff; }
 
-.goyang_accent   { background-color: #76C7C0; }
-.goyang_border   { border-color: #76C7C0; }
-.goyang_text     { color: #4A807B; }
-.goyang_bg       { background-color: #EFF8F8; }
+.goyang_accent   { background-color: #059669; }
+.goyang_border   { border-color: #059669; }
+.goyang_text     { color: #064e3b; }
+.goyang_bg       { background-color: #d1fae5; }
 
-.uijeongbu_accent { background-color: #FBC02D; }
-.uijeongbu_border { border-color: #FBC02D; }
-.uijeongbu_text   { color: #A57D1D; }
-.uijeongbu_bg     { background-color: #FFF9E6; }
+.uijeongbu_accent { background-color: #ea580c; }
+.uijeongbu_border { border-color: #ea580c; }
+.uijeongbu_text   { color: #7c2d12; }
+.uijeongbu_bg     { background-color: #ffedd5; }
 
 .fallback_accent  { background-color: #9CA3AF; } /* gray-400 */
 .fallback_border  { border-color: #9CA3AF; }

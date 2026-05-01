@@ -12,17 +12,17 @@ export const REGION_META = {
   },
   '파주': {
     key: 'paju',   slug: 'paju',
-    label: '파주',    tone: '블루',
+    label: '파주',    tone: '보라',
     motif: '출판·예술',
   },
   '고양': {
     key: 'goyang',   slug: 'goyang',
-    label: '고양',    tone: '그린',
+    label: '고양',    tone: '딥 그린',
     motif: '꽃·호수',
   },
   '의정부': {
     key: 'uijeongbu', slug: 'uijeongbu',
-    label: '의정부',    tone: '옐로우',
+    label: '의정부',    tone: '오렌지',
     motif: '희망·도약',
   },
 } as const

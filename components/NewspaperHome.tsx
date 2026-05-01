@@ -25,8 +25,8 @@ export function BreakingTicker({ articles }: { articles: any[] }) {
   }, [articles]);
 
   return (
-    <div style={{ background: '#e11d48', color: '#fff', display: 'flex', alignItems: 'center', overflow: 'hidden', borderBottom: '2px solid #be123c' }}>
-      <div style={{ background: '#be123c', padding: '0.5rem 1.2rem', fontWeight: 900, fontSize: '0.8rem', flexShrink: 0, fontFamily: 'Noto Serif KR, serif', letterSpacing: '1px', whiteSpace: 'nowrap' }}>
+    <div style={{ background: '#2b84ac', color: '#fff', display: 'flex', alignItems: 'center', overflow: 'hidden', borderBottom: '2px solid #1d5f7e' }}>
+      <div style={{ background: '#e11d48', padding: '0.5rem 1.2rem', fontWeight: 900, fontSize: '0.8rem', flexShrink: 0, fontFamily: 'Noto Serif KR, serif', letterSpacing: '1px', whiteSpace: 'nowrap' }}>
         ◈ 속 보
       </div>
       <div style={{ overflow: 'hidden', flex: 1, position: 'relative' }}>
@@ -215,7 +215,7 @@ function CenterMain({ articles, featured }: { articles: any[]; featured: any }) 
 function RegionalNews({ articles }: { articles: any[] }) {
   const regions = ['김포', '파주', '고양', '의정부'];
   const regionRoutes: Record<string, string> = { 김포: '/gimpo', 파주: '/paju', 고양: '/goyang', 의정부: '/uijeongbu' };
-  const regionColors: Record<string, string> = { 김포: '#2b84ac', 파주: '#5ea4d4', 고양: '#76c7c0', 의정부: '#fbc02d' };
+  const regionColors: Record<string, string> = { 김포: '#2b84ac', 파주: '#8b5cf6', 고양: '#059669', 의정부: '#ea580c' };
 
   return (
     <div className="np-region-section">
