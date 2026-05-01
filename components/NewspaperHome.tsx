@@ -345,11 +345,45 @@ function PharmacyWidget() {
   );
 }
 
-function LifeInfoDashboard() {
+function FarmPriceWidget({ farmPrices }: { farmPrices: any[] }) {
+  const defaultPrices = [
+    { item_name: '쌀', price: '59000', diff: '0', unit: '20kg' },
+    { item_name: '배추', price: '12200', diff: '0', unit: '1포기' },
+    { item_name: '마늘', price: '154000', diff: '0', unit: '20kg' },
+    { item_name: '고구마', price: '494000', diff: '0', unit: '100kg' },
+    { item_name: '양파', price: '12600', diff: '0', unit: '15kg' },
+  ];
+  const prices = farmPrices.length > 0 ? farmPrices.slice(0, 5) : defaultPrices.slice(0, 5);
+
+  return (
+    <div className="np-life-info-card" style={{ background: '#fff', border: '1px solid #e0e0e0', borderRadius: '4px', padding: '1rem', display: 'flex', flexDirection: 'column' }}>
+      <h4 style={{ margin: '0 0 1rem', fontSize: '1rem', fontWeight: 900, color: '#2b84ac' }}>오늘의 농산물 가격</h4>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        {prices.map((p: any, i: number) => {
+          return (
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.4rem 0.6rem', background: i % 2 === 0 ? '#f9f9f9' : '#fff', borderRadius: '2px' }}>
+              <span style={{ fontSize: '0.78rem', color: '#444' }}>{p.item_name} <span style={{ fontSize: '0.65rem', color: '#999' }}>({p.unit})</span></span>
+              <div style={{ textAlign: 'right' }}>
+                <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#111' }}>{parseInt(p.price).toLocaleString()}원</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '0.8rem' }}>
+        <span style={{ fontSize: '0.6rem', color: '#bbb' }}>출처: KAMIS</span>
+        <a href="https://www.kamis.or.kr" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.65rem', color: '#2b84ac', textDecoration: 'none', fontWeight: 700 }}>가격 확인 →</a>
+      </div>
+    </div>
+  );
+}
+
+function LifeInfoDashboard({ farmPrices }: { farmPrices: any[] }) {
   return (
     <div className="np-life-info-section" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
       <SectionHeader title="김포시 생활정보" />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+        <FarmPriceWidget farmPrices={farmPrices} />
         <GasStationWidget />
         <PharmacyWidget />
         
@@ -369,41 +403,10 @@ function LifeInfoDashboard() {
 /* =========================================
    RIGHT SIDEBAR
    ========================================= */
-function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd: any }) {
-  const defaultPrices = [
-    { item_name: '쌀', price: '59000', diff: '0', unit: '20kg' },
-    { item_name: '배추', price: '12200', diff: '0', unit: '1포기' },
-    { item_name: '마늘', price: '154000', diff: '0', unit: '20kg' },
-    { item_name: '고구마', price: '494000', diff: '0', unit: '100kg' },
-    { item_name: '양파', price: '12600', diff: '0', unit: '15kg' },
-  ];
-  const prices = farmPrices.length > 0 ? farmPrices.slice(0, 6) : defaultPrices;
-
+function RightSidebar({ sidebarAd }: { sidebarAd: any }) {
   return (
     <aside className="np-sidebar np-right-sidebar">
-      {/* 농산물 가격 */}
-      <div className="np-sidebar-item">
-        <SectionHeader title="오늘의 농산물 가격" />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          {prices.map((p: any, i: number) => {
-            const diff = parseInt(p.diff || '0');
-            return (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.4rem 0.6rem', background: i % 2 === 0 ? '#f9f9f9' : '#fff', borderRadius: '2px' }}>
-                <span style={{ fontSize: '0.78rem', color: '#444' }}>{p.item_name} <span style={{ fontSize: '0.65rem', color: '#999' }}>({p.unit})</span></span>
-                <div style={{ textAlign: 'right' }}>
-                  <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#111' }}>{parseInt(p.price).toLocaleString()}원</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.8rem' }}>
-          <span style={{ fontSize: '0.6rem', color: '#bbb' }}>출처: KAMIS (농산물유통정보)</span>
-          <a href="https://www.kamis.or.kr" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.65rem', color: '#2b84ac', textDecoration: 'none', fontWeight: 700 }}>다른 품목 가격 확인 →</a>
-        </div>
-      </div>
-
-      <div className="np-sidebar-services-grid" style={{ marginTop: '1.5rem' }}>
+      <div className="np-sidebar-services-grid" style={{ marginTop: '0' }}>
         {/* 서비스 공통 스타일 상수 (인라인으로 적용하거나 별도 컴포넌트화 가능하지만 현재 구조 유지하며 스타일만 통일) */}
         
         {/* 광고 배너 */}
@@ -569,13 +572,13 @@ export function NewspaperMain({ articles, popularArticles, farmPrices, sidebarAd
         </div>
 
         <div className="np-col-right">
-          <RightSidebar farmPrices={farmPrices} sidebarAd={sidebarAd} />
+          <RightSidebar sidebarAd={sidebarAd} />
         </div>
       </div>
 
       <RegionalNews articles={articles} />
 
-      <LifeInfoDashboard />
+      <LifeInfoDashboard farmPrices={farmPrices} />
 
       <BottomSections articles={articles} />
 
