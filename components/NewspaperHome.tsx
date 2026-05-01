@@ -345,6 +345,54 @@ function PharmacyWidget() {
   );
 }
 
+function NursingHospitalWidget() {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/nursing-hospitals')
+      .then(res => res.json())
+      .then(json => {
+        if (json.data) {
+          setData(json.data.slice(0, 3)); // 메인 화면 미리보기 3개
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div style={{ fontSize: '0.8rem', color: '#888', padding: '1rem 0' }}>요양병원 정보 불러오는 중...</div>;
+  if (!data || data.length === 0) return null;
+
+  return (
+    <div className="np-life-info-card" style={{ background: '#fff', border: '1px solid #e0e0e0', borderRadius: '4px', padding: '1rem', display: 'flex', flexDirection: 'column' }}>
+      <h4 style={{ margin: '0 0 1rem', fontSize: '1rem', fontWeight: 900, color: '#2b84ac' }}>김포시 요양병원 현황</h4>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        {data.map((h: any, i: number) => {
+          return (
+            <div key={i} style={{ padding: '0.5rem', background: i % 2 === 0 ? '#f9f9f9' : '#fff', borderRadius: '4px', border: '1px solid #eee' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
+                <span style={{ fontSize: '0.8rem', color: '#2b84ac', fontWeight: 800 }}>{h.BIZPLC_NM}</span>
+                <span style={{ fontSize: '0.65rem', color: '#137333', fontWeight: 600 }}>{h.BSN_STATE_NM}</span>
+              </div>
+              <div style={{ fontSize: '0.68rem', color: '#555', wordBreak: 'keep-all', lineHeight: 1.3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {h.REFINE_ROADNM_ADDR || h.REFINE_LOTNO_ADDR}
+              </div>
+              <div style={{ fontSize: '0.65rem', color: '#666', marginTop: '0.3rem', fontWeight: 600 }}>
+                🛏️ 병상: {h.SICKBD_CNT}개 | 👩‍⚕️ 의료인: {h.MEDSTAF_CNT}명
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '0.8rem' }}>
+        <span style={{ fontSize: '0.6rem', color: '#bbb' }}>출처: 경기데이터드림</span>
+        <Link href="/nursing-hospitals" style={{ fontSize: '0.65rem', color: '#2b84ac', textDecoration: 'none', fontWeight: 700 }}>전체 보기 →</Link>
+      </div>
+    </div>
+  );
+}
+
 function FarmPriceWidget({ farmPrices }: { farmPrices: any[] }) {
   const defaultPrices = [
     { item_name: '쌀', price: '59000', diff: '0', unit: '20kg' },
@@ -386,15 +434,7 @@ function LifeInfoDashboard({ farmPrices }: { farmPrices: any[] }) {
         <FarmPriceWidget farmPrices={farmPrices} />
         <GasStationWidget />
         <PharmacyWidget />
-        
-        {/* 요양병원 링크 카드 */}
-        <div className="np-life-info-card" style={{ background: '#f5f5f5', border: '1px solid #e0e0e0', borderRadius: '4px', padding: '1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <h4 style={{ margin: '0 0 0.8rem', fontSize: '1.1rem', color: '#2b84ac', fontWeight: 800 }}>김포시 요양병원 현황</h4>
-          <p style={{ fontSize: '0.8rem', color: '#666', textAlign: 'center', marginBottom: '1.2rem', wordBreak: 'keep-all', lineHeight: 1.4 }}>관내 정상 영업 중인<br/>병원급 요양병원 리스트를 확인하세요.</p>
-          <Link href="/nursing-hospitals" style={{ display: 'inline-block', background: '#2b84ac', color: '#fff', textAlign: 'center', padding: '0.8rem 1.2rem', borderRadius: '4px', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 800, boxShadow: '0 2px 6px rgba(43, 132, 172, 0.2)' }}>
-            🏥 병원급 현황 찾아보기
-          </Link>
-        </div>
+        <NursingHospitalWidget />
       </div>
     </div>
   );
