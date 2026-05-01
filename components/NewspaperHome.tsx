@@ -297,6 +297,53 @@ function GasStationWidget() {
   );
 }
 
+function PharmacyWidget() {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/pharmacies')
+      .then(res => res.json())
+      .then(json => {
+        if (json.data) {
+          setData(json.data);
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div style={{ fontSize: '0.8rem', color: '#888', padding: '1rem 0' }}>휴일 약국 정보 불러오는 중...</div>;
+  if (!data || data.length === 0) return null;
+
+  return (
+    <div className="np-sidebar-item" style={{ marginTop: '1.5rem' }}>
+      <SectionHeader title="김포시 휴일지킴이 약국" />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+        {data.map((p: any, i: number) => {
+          return (
+            <div key={i} style={{ padding: '0.5rem', background: i % 2 === 0 ? '#f9f9f9' : '#fff', borderRadius: '4px', border: '1px solid #eee' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
+                <span style={{ fontSize: '0.8rem', color: '#2b84ac', fontWeight: 800 }}>{p.INST_NM}</span>
+                <span style={{ fontSize: '0.65rem', color: '#666', fontWeight: 600 }}>{p.REPRSNT_TELNO}</span>
+              </div>
+              <div style={{ fontSize: '0.68rem', color: '#555', wordBreak: 'keep-all', lineHeight: 1.3 }}>
+                {p.REFINE_ROADNM_ADDR}
+              </div>
+              <div style={{ fontSize: '0.6rem', color: '#e11d48', marginTop: '0.3rem', fontWeight: 600 }}>
+                일요일: {p.SUN_BEGIN_TREAT_TM ? `${p.SUN_BEGIN_TREAT_TM} ~ ${p.SUN_END_TREAT_TM}` : '휴무'}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.8rem' }}>
+        <span style={{ fontSize: '0.6rem', color: '#bbb' }}>출처: 경기데이터드림</span>
+      </div>
+    </div>
+  );
+}
+
 function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd: any }) {
   const defaultPrices = [
     { item_name: '쌀', price: '59000', diff: '0', unit: '20kg' },
@@ -332,6 +379,7 @@ function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd:
       </div>
 
       <GasStationWidget />
+      <PharmacyWidget />
 
       <div className="np-sidebar-services-grid" style={{ marginTop: '1.5rem' }}>
         {/* 서비스 공통 스타일 상수 (인라인으로 적용하거나 별도 컴포넌트화 가능하지만 현재 구조 유지하며 스타일만 통일) */}
