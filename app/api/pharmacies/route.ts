@@ -13,8 +13,8 @@ export async function GET(request: Request) {
   }
 
   try {
-    // pSize=100 to get a good batch to filter from
-    const url = `https://openapi.gg.go.kr/ParmacyInfo?KEY=${API_KEY}&Type=json&SIGUN_NM=${encodeURIComponent(sigunNm)}&pSize=100`;
+    // pSize=1000 to get enough data for the full list
+    const url = `https://openapi.gg.go.kr/ParmacyInfo?KEY=${API_KEY}&Type=json&SIGUN_NM=${encodeURIComponent(sigunNm)}&pSize=1000`;
     
     const response = await fetch(url);
     const data = await response.json();
@@ -22,13 +22,12 @@ export async function GET(request: Request) {
     if (data.ParmacyInfo && data.ParmacyInfo[1]) {
       const rows = data.ParmacyInfo[1].row;
       
-      // Filter for pharmacies open on Sunday (휴일 지킴이 느낌) or late night
+      // Filter for pharmacies open on Sunday or holidays
       const holidayPharmacies = rows.filter((r: any) => 
         r.SUN_BEGIN_TREAT_TM !== null || r.HOLIDAY_BEGIN_TREAT_TM !== null
       );
 
-      // Return top 5
-      return NextResponse.json({ data: holidayPharmacies.slice(0, 5) });
+      return NextResponse.json({ data: holidayPharmacies });
     } else {
       return NextResponse.json({ error: 'Data not found', raw: data }, { status: 404 });
     }

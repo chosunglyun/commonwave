@@ -306,7 +306,7 @@ function PharmacyWidget() {
       .then(res => res.json())
       .then(json => {
         if (json.data) {
-          setData(json.data);
+          setData(json.data.slice(0, 5)); // 메인화면 위젯에서는 5개만 노출
         }
         setLoading(false);
       })
@@ -339,6 +339,7 @@ function PharmacyWidget() {
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.8rem' }}>
         <span style={{ fontSize: '0.6rem', color: '#bbb' }}>출처: 경기데이터드림</span>
+        <Link href="/pharmacy" style={{ fontSize: '0.65rem', color: '#2b84ac', textDecoration: 'none', fontWeight: 700 }}>더보기 →</Link>
       </div>
     </div>
   );
