@@ -25,8 +25,8 @@ export function BreakingTicker({ articles }: { articles: any[] }) {
   }, [articles]);
 
   return (
-    <div style={{ background: '#2b84ac', color: '#fff', display: 'flex', alignItems: 'center', overflow: 'hidden', borderBottom: '2px solid #283788' }}>
-      <div style={{ background: '#283788', padding: '0.5rem 1.2rem', fontWeight: 900, fontSize: '0.8rem', flexShrink: 0, fontFamily: 'Noto Serif KR, serif', letterSpacing: '1px', whiteSpace: 'nowrap' }}>
+    <div style={{ background: '#e11d48', color: '#fff', display: 'flex', alignItems: 'center', overflow: 'hidden', borderBottom: '2px solid #be123c' }}>
+      <div style={{ background: '#be123c', padding: '0.5rem 1.2rem', fontWeight: 900, fontSize: '0.8rem', flexShrink: 0, fontFamily: 'Noto Serif KR, serif', letterSpacing: '1px', whiteSpace: 'nowrap' }}>
         ◈ 속 보
       </div>
       <div style={{ overflow: 'hidden', flex: 1, position: 'relative' }}>
@@ -215,6 +215,7 @@ function CenterMain({ articles, featured }: { articles: any[]; featured: any }) 
 function RegionalNews({ articles }: { articles: any[] }) {
   const regions = ['김포', '파주', '고양', '의정부'];
   const regionRoutes: Record<string, string> = { 김포: '/gimpo', 파주: '/paju', 고양: '/goyang', 의정부: '/uijeongbu' };
+  const regionColors: Record<string, string> = { 김포: '#2b84ac', 파주: '#5ea4d4', 고양: '#76c7c0', 의정부: '#fbc02d' };
 
   return (
     <div className="np-region-section">
@@ -225,7 +226,7 @@ function RegionalNews({ articles }: { articles: any[] }) {
           return (
             <div key={region} className="np-region-item">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.7rem' }}>
-                <h4 style={{ margin: 0, fontSize: '0.88rem', fontWeight: 900, color: '#2b84ac', fontFamily: 'Noto Serif KR, serif' }}>
+                <h4 style={{ margin: 0, fontSize: '0.88rem', fontWeight: 900, color: regionColors[region] || '#2b84ac', fontFamily: 'Noto Serif KR, serif' }}>
                   <RegionDot region={region} size="md" />
                 </h4>
                 <Link href={regionRoutes[region]} style={{ fontSize: '0.68rem', color: '#888', textDecoration: 'none' }}>더보기</Link>
