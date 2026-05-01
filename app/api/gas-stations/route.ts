@@ -12,15 +12,30 @@ export async function GET() {
   }
 
   try {
-    const url = `https://openapi.gg.go.kr/GasStationAvgPrice?KEY=${API_KEY}&Type=json&SIGUN_NM=${encodeURIComponent(sigunNm)}`;
+    const url = `https://openapi.gg.go.kr/GASSTATIONAVGPRICE?KEY=${API_KEY}&Type=json&SIGUN_NM=${encodeURIComponent(sigunNm)}`;
     
     const response = await fetch(url);
     const data = await response.json();
     
-    // 경기 데이터드림 API의 정상 응답 구조 확인
-    if (data.GasStationAvgPrice && data.GasStationAvgPrice[1]) {
-      const rows = data.GasStationAvgPrice[1].row;
-      return NextResponse.json({ data: rows });
+    if (data.GASSTATIONAVGPRICE && data.GASSTATIONAVGPRICE[1]) {
+      const rows = data.GASSTATIONAVGPRICE[1].row;
+      
+      const prodMap: Record<string, string> = {
+        'B027': '휘발유',
+        'B034': '고급휘발유',
+        'D047': '경유',
+        'C004': '실내등유',
+        'K015': 'LPG'
+      };
+      
+      const formatted = rows.map((r: any) => ({
+        ...r,
+        DIV_NM: prodMap[r.PROD_DIV] || r.PROD_DIV,
+        AVG_PRCE: r.AVG_PC,
+        BFRT_CMPR_FLTCT_VAL: r.FLCTN_VL
+      }));
+
+      return NextResponse.json({ data: formatted });
     } else {
       return NextResponse.json({ error: 'Data not found', raw: data }, { status: 404 });
     }
