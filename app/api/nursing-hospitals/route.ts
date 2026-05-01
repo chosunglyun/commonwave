@@ -1,0 +1,36 @@
+import { NextResponse } from 'next/server';
+
+export const revalidate = 86400; // 1일(24시간) 단위 캐싱 - 병원 현황은 매일 바뀌지 않음
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const sigunNm = searchParams.get('sigunNm') || '김포시';
+  
+  const API_KEY = process.env.GG_DATA_API_KEY;
+  
+  if (!API_KEY || API_KEY === '여기에_발급받으신_인증키를_붙여넣으세요') {
+    return NextResponse.json({ error: 'GG_DATA_API_KEY not configured in .env.local' }, { status: 500 });
+  }
+
+  try {
+    const url = `https://openapi.gg.go.kr/RecuperationHospital?KEY=${API_KEY}&Type=json&SIGUN_NM=${encodeURIComponent(sigunNm)}&pSize=1000`;
+    
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    if (data.RecuperationHospital && data.RecuperationHospital[1]) {
+      const rows = data.RecuperationHospital[1].row;
+      
+      // Filter for active hospitals (영업중, 영업/정상 등)
+      const activeHospitals = rows.filter((r: any) => 
+        r.BSN_STATE_NM && r.BSN_STATE_NM.includes('영업')
+      );
+
+      return NextResponse.json({ data: activeHospitals });
+    } else {
+      return NextResponse.json({ error: 'Data not found', raw: data }, { status: 404 });
+    }
+  } catch (error: any) {
+    return NextResponse.json({ error: 'Failed to fetch', message: error.message }, { status: 500 });
+  }
+}

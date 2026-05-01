@@ -382,7 +382,13 @@ function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd:
       <GasStationWidget />
       <PharmacyWidget />
 
-      <div className="np-sidebar-services-grid" style={{ marginTop: '1.5rem' }}>
+      <div style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
+        <Link href="/nursing-hospitals" style={{ display: 'block', background: '#2b84ac', color: '#fff', textAlign: 'center', padding: '0.8rem', borderRadius: '4px', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 800, boxShadow: '0 2px 6px rgba(43, 132, 172, 0.2)' }}>
+          🏥 김포시 요양병원(병원급) 현황 찾아보기
+        </Link>
+      </div>
+
+      <div className="np-sidebar-services-grid">
         {/* 서비스 공통 스타일 상수 (인라인으로 적용하거나 별도 컴포넌트화 가능하지만 현재 구조 유지하며 스타일만 통일) */}
         
         {/* 광고 배너 */}
