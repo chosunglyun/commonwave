@@ -12,7 +12,7 @@ export default function PrivacyPage() {
       
       <div className="container" style={{ paddingTop: '3rem', paddingBottom: '5rem', maxWidth: '800px' }}>
         <div style={{ background: 'white', padding: '3rem', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', border: '1px solid #eee' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '2px solid #3950C4', paddingBottom: '1.5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '2px solid #2b84ac', paddingBottom: '1.5rem' }}>
             <h1 style={{ margin: 0, fontSize: '2rem', fontWeight: 800, color: '#1a1a1a' }}>개인정보처리방침</h1>
             <p style={{ marginTop: '0.5rem', color: '#666', fontSize: '1.1rem' }}>COMMON WAVE 언론협동조합</p>
           </div>
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
             </p>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제1조 (개인정보의 처리 목적)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제1조 (개인정보의 처리 목적)</h3>
               <p>
                 조합은 다음의 목적을 위하여 개인정보를 처리합니다.<br />
                 ① 회원 가입 및 관리: 회원 가입의사 확인, 회원제 서비스 제공<br />
@@ -35,7 +35,7 @@ export default function PrivacyPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제2조 (개인정보의 처리 및 보유기간)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제2조 (개인정보의 처리 및 보유기간)</h3>
               <p>
                 ① 조합은 법령에 따른 개인정보 보유·이용기간 또는 이용자로부터 개인정보를 수집 시 동의받은 기간 내에서 개인정보를 처리·보유합니다.<br />
                 ② 회원 가입 및 관리: 회원 탈퇴 시까지<br />
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제3조 (수집하는 개인정보 항목)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제3조 (수집하는 개인정보 항목)</h3>
               <p>
                 ① 회원 가입: 이름, 이메일, 비밀번호, 연락처<br />
                 ② 구독 신청: 이름, 주소, 연락처, 이메일<br />
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제4조 (개인정보의 제3자 제공)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제4조 (개인정보의 제3자 제공)</h3>
               <p>
                 조합은 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다. 다만, 다음의 경우는 예외로 합니다.<br />
                 ① 이용자가 사전에 동의한 경우<br />
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제5조 (개인정보의 파기)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제5조 (개인정보의 파기)</h3>
               <p>
                 ① 조합은 개인정보 보유기간이 경과하거나 처리목적이 달성된 경우 지체 없이 파기합니다.<br />
                 ② 전자파일: 복구 불가능한 방법으로 영구 삭제<br />
@@ -74,14 +74,14 @@ export default function PrivacyPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제6조 (이용자의 권리)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제6조 (이용자의 권리)</h3>
               <p>
-                이용자는 언제든지 개인정보 열람, 정정, 삭제, 처리정지를 요청할 수 있습니다. 요청은 <a href="mailto:dinoskorea@gmail.com" style={{ color: '#3950C4', fontWeight: 600 }}>dinoskorea@gmail.com</a>으로 연락하시기 바랍니다.
+                이용자는 언제든지 개인정보 열람, 정정, 삭제, 처리정지를 요청할 수 있습니다. 요청은 <a href="mailto:dinoskorea@gmail.com" style={{ color: '#2b84ac', fontWeight: 600 }}>dinoskorea@gmail.com</a>으로 연락하시기 바랍니다.
               </p>
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제7조 (개인정보 보호책임자)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제7조 (개인정보 보호책임자)</h3>
               <div style={{ background: '#f8f9fa', padding: '1.5rem', borderRadius: '4px' }}>
                 <p><strong>성명:</strong> 강상우</p>
                 <p><strong>직책:</strong> 이사장</p>

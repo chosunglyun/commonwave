@@ -154,7 +154,7 @@ export default function SubscribePage() {
         <style jsx>{`
           .subscription-page {
             --green:    #4a9c6e;
-            --green-d:  #3950C4;
+            --green-d:  #2b84ac;
             --green-l:  #e8f5ee;
             --green-ll: #f4faf7;
             --gold:     #9a7c3a;

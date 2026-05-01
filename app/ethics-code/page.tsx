@@ -14,13 +14,13 @@ export default function EthicsCodePage() {
       <div className="container" style={{ paddingTop: '4rem', paddingBottom: '6rem', maxWidth: '850px' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 style={{ fontSize: '1.2rem', color: '#3950C4', fontWeight: 800, marginBottom: '0.5rem' }}>COMMON WAVE 언론협동조합</h2>
+          <h2 style={{ fontSize: '1.2rem', color: '#2b84ac', fontWeight: 800, marginBottom: '0.5rem' }}>COMMON WAVE 언론협동조합</h2>
           <h1 style={{ fontSize: '3rem', fontWeight: 900, color: '#111', margin: '0 0 1rem', fontFamily: '"Nanum Myeongjo", serif', letterSpacing: '-1px' }}>편집윤리규정</h1>
           <p style={{ color: '#64748b', fontSize: '1rem' }}>2026년 4월 30일 시행 (제1차 보강 포함)</p>
         </div>
 
         {/* Intro Box */}
-        <div style={{ background: 'white', padding: '2.5rem', borderRadius: '12px', border: '1px solid #e2e8f0', borderLeft: '4px solid #3950C4', marginBottom: '3rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+        <div style={{ background: 'white', padding: '2.5rem', borderRadius: '12px', border: '1px solid #e2e8f0', borderLeft: '4px solid #2b84ac', marginBottom: '3rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
           <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#334155', margin: 0, fontWeight: 500 }}>
             COMMON WAVE 언론협동조합은 전남광주특별시 강진·고흥·보성·장흥 4개 군의 목소리를 담는 시민의 언론입니다. 
             우리는 광고주·정치 세력·자본의 압력에 굴하지 않으며, 사실에 기반하여 약자·소수자의 편에 서고, 

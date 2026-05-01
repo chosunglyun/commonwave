@@ -68,7 +68,7 @@ export default function ReportsAdminPage() {
     <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#111', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <FileText size={24} color="#3950C4" />
+          <FileText size={24} color="#2b84ac" />
           마을 리포터 제보 관리
         </h1>
       </div>

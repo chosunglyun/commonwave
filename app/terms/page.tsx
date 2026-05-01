@@ -12,19 +12,19 @@ export default function TermsPage() {
       
       <div className="container" style={{ paddingTop: '3rem', paddingBottom: '5rem', maxWidth: '800px' }}>
         <div style={{ background: 'white', padding: '3rem', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', border: '1px solid #eee' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '2px solid #3950C4', paddingBottom: '1.5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '2px solid #2b84ac', paddingBottom: '1.5rem' }}>
             <h1 style={{ margin: 0, fontSize: '2rem', fontWeight: 800, color: '#1a1a1a' }}>이용약관</h1>
             <p style={{ marginTop: '0.5rem', color: '#666', fontSize: '1.1rem' }}>COMMON WAVE 언론협동조합</p>
           </div>
 
           <div style={{ lineHeight: '1.8', color: '#333', fontSize: '1.05rem' }}>
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제1조 (목적)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제1조 (목적)</h3>
               <p>이 약관은 COMMON WAVE 언론협동조합(이하 '조합')이 운영하는 인터넷신문 COMMON WAVE(www.dasaneobo.kr, 이하 '사이트')에서 제공하는 서비스의 이용 조건 및 절차, 이용자와 조합의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.</p>
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제2조 (정의)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제2조 (정의)</h3>
               <p>
                 ① '서비스'란 조합이 사이트를 통해 제공하는 뉴스 기사, 정보, 구독 서비스 등 일체를 말합니다.<br />
                 ② '이용자'란 이 약관에 따라 조합이 제공하는 서비스를 받는 회원 및 비회원을 말합니다.<br />
@@ -33,7 +33,7 @@ export default function TermsPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제3조 (약관의 효력 및 변경)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제3조 (약관의 효력 및 변경)</h3>
               <p>
                 ① 이 약관은 사이트에 게시함으로써 효력이 발생합니다.<br />
                 ② 조합은 필요한 경우 약관을 변경할 수 있으며, 변경된 약관은 사이트에 공지함으로써 효력이 발생합니다.<br />
@@ -42,7 +42,7 @@ export default function TermsPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제4조 (서비스 이용)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제4조 (서비스 이용)</h3>
               <p>
                 ① 서비스 이용은 조합의 업무상 또는 기술상 특별한 지장이 없는 한 연중무휴 24시간을 원칙으로 합니다.<br />
                 ② 조합은 시스템 점검, 보수 등의 사유로 서비스를 일시 중단할 수 있습니다.<br />
@@ -51,7 +51,7 @@ export default function TermsPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제5조 (이용자의 의무)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제5조 (이용자의 의무)</h3>
               <p>
                 이용자는 다음 행위를 하여서는 안 됩니다.<br />
                 ① 타인의 정보를 도용하거나 허위 정보를 제공하는 행위<br />
@@ -62,7 +62,7 @@ export default function TermsPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제6조 (저작권)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제6조 (저작권)</h3>
               <p>
                 ① 조합이 작성한 기사, 사진, 영상 등 모든 콘텐츠의 저작권은 조합에 귀속됩니다.<br />
                 ② 이용자는 조합의 사전 동의 없이 콘텐츠를 복제·배포·방송·전송할 수 없습니다.<br />
@@ -71,7 +71,7 @@ export default function TermsPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제7조 (면책조항)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제7조 (면책조항)</h3>
               <p>
                 ① 조합은 천재지변, 전쟁, 기간통신사업자의 서비스 중지 등 불가항력으로 서비스를 제공할 수 없는 경우 책임이 면제됩니다.<br />
                 ② 이용자가 게시한 정보의 정확성 및 신뢰성에 대해 조합은 책임을 지지 않습니다.
@@ -79,7 +79,7 @@ export default function TermsPage() {
             </section>
 
             <section style={{ marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>제8조 (분쟁 해결)</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>제8조 (분쟁 해결)</h3>
               <p>이 약관과 관련한 분쟁은 대한민국 법을 적용하며, 분쟁 발생 시 관할 법원은 조합의 소재지를 관할하는 법원으로 합니다.</p>
             </section>
 

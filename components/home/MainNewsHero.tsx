@@ -100,7 +100,7 @@ export default function MainNewsHero({ article }: MainNewsHeroProps) {
           aspectRatio: '16/9',
           minHeight: '260px',
           background: '#f0fdf4',
-          borderLeft: '3px solid #3950C4',
+          borderLeft: '3px solid #2b84ac',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -200,7 +200,7 @@ export default function MainNewsHero({ article }: MainNewsHeroProps) {
                   href={href}
                   style={{
                     textDecoration: 'none',
-                    color: '#3950C4',
+                    color: '#2b84ac',
                     fontSize: '0.82rem',
                     fontWeight: 700,
                   }}

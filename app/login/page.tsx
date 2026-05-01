@@ -91,7 +91,7 @@ function LoginForm() {
               disabled={loading}
               style={{
                 marginTop: '1.2rem',
-                background: '#3950C4',
+                background: '#2b84ac',
                 color: 'white',
                 padding: '1rem',
                 border: 'none',
@@ -108,7 +108,7 @@ function LoginForm() {
           </form>
 
           <div style={{ textAlign: 'center', marginTop: '2.5rem', fontSize: '0.9rem', color: '#777', borderTop: '1px solid #eee', paddingTop: '2rem' }}>
-            COMMON WAVE가 처음이신가요? <Link href="/signup" style={{ color: '#3950C4', fontWeight: 800, textDecoration: 'none', marginLeft: '0.5rem' }}>회원가입</Link>
+            COMMON WAVE가 처음이신가요? <Link href="/signup" style={{ color: '#2b84ac', fontWeight: 800, textDecoration: 'none', marginLeft: '0.5rem' }}>회원가입</Link>
           </div>
     </>
   );
@@ -129,7 +129,7 @@ export default function LoginPage() {
           boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
         }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <h1 style={{ margin: '0 0 0.6rem', fontSize: '2rem', fontWeight: 900, color: '#3950C4', fontFamily: 'Noto Serif KR, serif' }}>COMMON WAVE</h1>
+            <h1 style={{ margin: '0 0 0.6rem', fontSize: '2rem', fontWeight: 900, color: '#2b84ac', fontFamily: 'Noto Serif KR, serif' }}>COMMON WAVE</h1>
             <p style={{ color: '#888', fontSize: '0.9rem', fontWeight: 500 }}>로그인하여 지역 소식을 만나보세요.</p>
           </div>
 

@@ -185,7 +185,7 @@ function ReportContent() {
 
   return (
     <>
-      <div style={{ background: '#3950C4', color: 'white', padding: '4rem 0', textAlign: 'center' }}>
+      <div style={{ background: '#2b84ac', color: 'white', padding: '4rem 0', textAlign: 'center' }}>
         <div className="container">
           <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem', fontFamily: 'Noto Serif KR, serif' }}>우리 동네 제보하기</h1>
           <p style={{ opacity: 0.9, fontSize: '1.1rem' }}>여러분의 제보가 우리 지역의 역사가 됩니다.</p>

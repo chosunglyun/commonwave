@@ -12,7 +12,7 @@ export default function NoEmailCollectPage() {
       
       <div className="container" style={{ paddingTop: '3rem', paddingBottom: '5rem', maxWidth: '800px' }}>
         <div style={{ background: 'white', padding: '3rem', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', border: '1px solid #eee' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '2px solid #3950C4', paddingBottom: '1.5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '2px solid #2b84ac', paddingBottom: '1.5rem' }}>
             <h1 style={{ margin: 0, fontSize: '2rem', fontWeight: 800, color: '#1a1a1a' }}>이메일주소 무단수집 거부</h1>
             <p style={{ marginTop: '0.5rem', color: '#666', fontSize: '1.1rem' }}>COMMON WAVE 언론협동조합</p>
           </div>
@@ -25,7 +25,7 @@ export default function NoEmailCollectPage() {
             </div>
 
             <section style={{ marginBottom: '2.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1.2rem', color: '#3950C4' }}>관련 법령</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1.2rem', color: '#2b84ac' }}>관련 법령</h3>
               <p style={{ fontWeight: 600, marginBottom: '0.8rem', color: '#555' }}>
                 정보통신망 이용촉진 및 정보보호 등에 관한 법률 제50조의2(전자우편주소의 무단 수집행위 등 금지)
               </p>
@@ -44,9 +44,9 @@ export default function NoEmailCollectPage() {
             </section>
 
             <section style={{ marginBottom: '2.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>문의</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>문의</h3>
               <p>
-                <strong>▸ 이메일:</strong> <a href="mailto:dinoskorea@gmail.com" style={{ color: '#3950C4' }}>dinoskorea@gmail.com</a><br />
+                <strong>▸ 이메일:</strong> <a href="mailto:dinoskorea@gmail.com" style={{ color: '#2b84ac' }}>dinoskorea@gmail.com</a><br />
                 <strong>▸ COMMON WAVE 언론협동조합 편집국</strong>
               </p>
             </section>

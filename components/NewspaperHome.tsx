@@ -25,7 +25,7 @@ export function BreakingTicker({ articles }: { articles: any[] }) {
   }, [articles]);
 
   return (
-    <div style={{ background: '#3950C4', color: '#fff', display: 'flex', alignItems: 'center', overflow: 'hidden', borderBottom: '2px solid #283788' }}>
+    <div style={{ background: '#2b84ac', color: '#fff', display: 'flex', alignItems: 'center', overflow: 'hidden', borderBottom: '2px solid #283788' }}>
       <div style={{ background: '#283788', padding: '0.5rem 1.2rem', fontWeight: 900, fontSize: '0.8rem', flexShrink: 0, fontFamily: 'Noto Serif KR, serif', letterSpacing: '1px', whiteSpace: 'nowrap' }}>
         ◈ 속 보
       </div>
@@ -78,8 +78,8 @@ function ArticleImg({ src, alt, width = 80, height = 60 }: { src: string; alt: s
 
 function SectionHeader({ title, href }: { title: string; href?: string }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '2px solid #3950C4', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
-      <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 900, color: '#3950C4', fontFamily: 'Noto Serif KR, serif' }}>{title}</h3>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '2px solid #2b84ac', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
+      <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 900, color: '#2b84ac', fontFamily: 'Noto Serif KR, serif' }}>{title}</h3>
       {href && <Link href={href} style={{ fontSize: '0.72rem', color: '#888', textDecoration: 'none' }}>더보기 +</Link>}
     </div>
   );
@@ -93,7 +93,7 @@ function NoticeFounding() {
   return (
     <div style={{ 
       background: '#fff', 
-      border: '1.5px solid #3950C4', 
+      border: '1.5px solid #2b84ac', 
       padding: '2px', 
       borderRadius: '2px', 
       boxShadow: '0 4px 12px rgba(57, 80, 196, 0.08)',
@@ -128,7 +128,7 @@ function LeftSidebar({ popularArticles, articles }: { popularArticles: any[]; ar
           {popularArticles.map((art, i) => (
             <li key={art.id}>
               <Link href={`/article/${art.slug ?? art.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', gap: '0.7rem', alignItems: 'flex-start' }}>
-                <span style={{ fontSize: '1.1rem', fontWeight: 900, color: i < 3 ? '#3950C4' : '#ccc', flexShrink: 0, lineHeight: 1.2, minWidth: '1.2rem' }}>{i + 1}</span>
+                <span style={{ fontSize: '1.1rem', fontWeight: 900, color: i < 3 ? '#2b84ac' : '#ccc', flexShrink: 0, lineHeight: 1.2, minWidth: '1.2rem' }}>{i + 1}</span>
                 <span style={{ fontSize: '0.82rem', fontWeight: 600, lineHeight: 1.4, color: '#222', wordBreak: 'keep-all' }}>{art.title}</span>
               </Link>
             </li>
@@ -176,8 +176,8 @@ function CenterMain({ articles, featured }: { articles: any[]; featured: any }) 
       {/* TOP NEWS */}
       {featured && (
         <div style={{ marginBottom: '1.8rem' }}>
-          <div style={{ borderBottom: '3px solid #3950C4', paddingBottom: '0.4rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <span style={{ background: '#3950C4', color: '#fff', fontSize: '0.72rem', fontWeight: 900, padding: '0.2rem 0.7rem', letterSpacing: '1px' }}>{SITE_CONFIG.labels.topNews}</span>
+          <div style={{ borderBottom: '3px solid #2b84ac', paddingBottom: '0.4rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+            <span style={{ background: '#2b84ac', color: '#fff', fontSize: '0.72rem', fontWeight: 900, padding: '0.2rem 0.7rem', letterSpacing: '1px' }}>{SITE_CONFIG.labels.topNews}</span>
           </div>
           <HeroFocusBox article={featured} />
         </div>
@@ -225,7 +225,7 @@ function RegionalNews({ articles }: { articles: any[] }) {
           return (
             <div key={region} className="np-region-item">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.7rem' }}>
-                <h4 style={{ margin: 0, fontSize: '0.88rem', fontWeight: 900, color: '#3950C4', fontFamily: 'Noto Serif KR, serif' }}>
+                <h4 style={{ margin: 0, fontSize: '0.88rem', fontWeight: 900, color: '#2b84ac', fontFamily: 'Noto Serif KR, serif' }}>
                   <RegionDot region={region} size="md" />
                 </h4>
                 <Link href={regionRoutes[region]} style={{ fontSize: '0.68rem', color: '#888', textDecoration: 'none' }}>더보기</Link>
@@ -277,7 +277,7 @@ function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd:
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.8rem' }}>
           <span style={{ fontSize: '0.6rem', color: '#bbb' }}>출처: KAMIS (농산물유통정보)</span>
-          <a href="https://www.kamis.or.kr" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.65rem', color: '#3950C4', textDecoration: 'none', fontWeight: 700 }}>다른 품목 가격 확인 →</a>
+          <a href="https://www.kamis.or.kr" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.65rem', color: '#2b84ac', textDecoration: 'none', fontWeight: 700 }}>다른 품목 가격 확인 →</a>
         </div>
       </div>
 
@@ -288,18 +288,18 @@ function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd:
         <div className="np-sidebar-item">
           {sidebarAd ? (
             <Link href={sidebarAd.link_url || "/ad-apply"} style={{ textDecoration: 'none', display: 'block' }}>
-              <div style={{ background: '#fff', border: '1px solid #3950C4', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ fontSize: '0.6rem', color: '#3950C4', fontWeight: 900, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.ad}</div>
+              <div style={{ background: '#fff', border: '1px solid #2b84ac', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ fontSize: '0.6rem', color: '#2b84ac', fontWeight: 900, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.ad}</div>
                 <h5 style={{ margin: '0 0 0.8rem', fontSize: '0.85rem', fontWeight: 800, color: '#333' }}>{sidebarAd.title}</h5>
-                <div style={{ background: '#3950C4', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>보기</div>
+                <div style={{ background: '#2b84ac', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>보기</div>
               </div>
             </Link>
           ) : (
             <Link href="/ad-apply" style={{ textDecoration: 'none', display: 'block' }}>
-              <div style={{ background: '#fff', border: '1px solid #3950C4', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ fontSize: '0.6rem', color: '#3950C4', fontWeight: 900, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.ad}</div>
+              <div style={{ background: '#fff', border: '1px solid #2b84ac', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ fontSize: '0.6rem', color: '#2b84ac', fontWeight: 900, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.ad}</div>
                 <h5 style={{ margin: '0 0 0.8rem', fontSize: '0.85rem', fontWeight: 800, color: '#333' }}>광고 신청</h5>
-                <div style={{ background: '#3950C4', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>신청하기</div>
+                <div style={{ background: '#2b84ac', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>신청하기</div>
               </div>
             </Link>
           )}
@@ -308,10 +308,10 @@ function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd:
         {/* 마을 리포터 모집 */}
         <div className="np-sidebar-item">
           <Link href="/reporter-apply" style={{ textDecoration: 'none', display: 'block' }}>
-            <div style={{ background: '#fff', border: '1px solid #3950C4', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ fontSize: '0.6rem', color: '#3950C4', fontWeight: 700, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.community}</div>
+            <div style={{ background: '#fff', border: '1px solid #2b84ac', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{ fontSize: '0.6rem', color: '#2b84ac', fontWeight: 700, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.community}</div>
               <h4 style={{ margin: '0 0 0.8rem', fontSize: '0.85rem', fontWeight: 800, color: '#333' }}>리포터 모집</h4>
-              <div style={{ background: '#3950C4', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>신청하기</div>
+              <div style={{ background: '#2b84ac', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>신청하기</div>
             </div>
           </Link>
         </div>
@@ -319,10 +319,10 @@ function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd:
         {/* 구독 신청 */}
         <div className="np-sidebar-item">
           <Link href="/subscribe" style={{ textDecoration: 'none', display: 'block' }}>
-            <div style={{ background: '#fff', border: '1px solid #3950C4', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ fontSize: '0.6rem', color: '#3950C4', fontWeight: 700, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.subscription}</div>
+            <div style={{ background: '#fff', border: '1px solid #2b84ac', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{ fontSize: '0.6rem', color: '#2b84ac', fontWeight: 700, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.subscription}</div>
               <h4 style={{ margin: '0 0 0.8rem', fontSize: '0.85rem', fontWeight: 800, color: '#333' }}>구독 신청</h4>
-              <div style={{ background: '#3950C4', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>신청하기</div>
+              <div style={{ background: '#2b84ac', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>신청하기</div>
             </div>
           </Link>
         </div>
@@ -330,10 +330,10 @@ function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd:
         {/* 기사 제보 */}
         <div className="np-sidebar-item">
           <Link href="/report" style={{ textDecoration: 'none', display: 'block' }}>
-            <div style={{ background: '#fff', border: '1px solid #3950C4', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ fontSize: '0.6rem', color: '#3950C4', fontWeight: 700, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.report}</div>
+            <div style={{ background: '#fff', border: '1px solid #2b84ac', padding: '1rem 0.8rem', textAlign: 'center', borderRadius: '4px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{ fontSize: '0.6rem', color: '#2b84ac', fontWeight: 700, marginBottom: '0.2rem' }}>{SITE_CONFIG.labels.report}</div>
               <h4 style={{ margin: '0 0 0.8rem', fontSize: '0.85rem', fontWeight: 800, color: '#333' }}>기사 제보</h4>
-              <div style={{ background: '#3950C4', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>제보하기</div>
+              <div style={{ background: '#2b84ac', color: '#fff', padding: '0.5rem 0', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 800 }}>제보하기</div>
             </div>
           </Link>
         </div>
@@ -353,7 +353,7 @@ function BottomSections({ articles }: { articles: any[] }) {
 
   return (
     <div style={{ marginTop: '3rem' }}>
-      <hr style={{ border: 'none', borderTop: '3px solid #3950C4', marginBottom: '2rem' }} />
+      <hr style={{ border: 'none', borderTop: '3px solid #2b84ac', marginBottom: '2rem' }} />
 
       {/* 최신기사 목록 */}
       <div className="np-bottom-latest">

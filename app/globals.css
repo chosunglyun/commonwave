@@ -1,16 +1,16 @@
 :root {
   --background: #f4f7fb;
   --foreground: #1a1a1a;
-  --primary: #3950C4; /* 커먼웨이브 클래식 블루 */
-  --primary-dark: #2b3c94;
-  --primary-light: #e6ebff;
+  --primary: #2b84ac; /* 커먼웨이브 테마 블루 */
+  --primary-dark: #1d5f7e;
+  --primary-light: #d6ecf7;
   --secondary: #2c3e50;
   --accent: #c8973a;
   --card: #ffffff;
   --card-foreground: #1a1a1a;
   --border: #e2e8f0;
   --input: #e2e8f0;
-  --ring: #3950C4;
+  --ring: #2b84ac;
   --radius: 3px;
   --font-serif: 'Noto Serif KR', 'Nanum Myeongjo', 'KoPubWorldBatang', Georgia, serif;
   --font-sans: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
@@ -19,16 +19,16 @@
 [data-theme='dark'] {
   --background: #0f172a;
   --foreground: #f8fafc;
-  --primary: #6c81f0;
-  --primary-dark: #4b64e6;
-  --primary-light: #8e9ff5;
+  --primary: #4ab1db;
+  --primary-dark: #378cb0;
+  --primary-light: #a3def5;
   --secondary: #94a3b8;
   --accent: #fbbf24;
   --card: #1e293b;
   --card-foreground: #f8fafc;
   --border: #334155;
   --input: #334155;
-  --ring: #6c81f0;
+  --ring: #4ab1db;
 }
 
 * {
@@ -267,7 +267,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Regional Badge */
-.badge-gimpo { background: #3950C4; color: white; }
+.badge-gimpo { background: #2b84ac; color: white; }
 .badge-paju { background: #5ea4d4; color: white; }
 .badge-goyang { background: #76c7c0; color: #1a1a1a; }
 .badge-uijeongbu { background: #fbc02d; color: #1a1a1a; }

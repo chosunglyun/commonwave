@@ -12,7 +12,7 @@ export default function CopyrightPolicyPage() {
       
       <div className="container" style={{ paddingTop: '3rem', paddingBottom: '5rem', maxWidth: '800px' }}>
         <div style={{ background: 'white', padding: '3rem', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', border: '1px solid #eee' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '2px solid #3950C4', paddingBottom: '1.5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '2px solid #2b84ac', paddingBottom: '1.5rem' }}>
             <h1 style={{ margin: 0, fontSize: '2rem', fontWeight: 800, color: '#1a1a1a' }}>저작권보호정책</h1>
             <p style={{ marginTop: '0.5rem', color: '#666', fontSize: '1.1rem' }}>COMMON WAVE 언론협동조합</p>
           </div>
@@ -23,7 +23,7 @@ export default function CopyrightPolicyPage() {
             </p>
 
             <section style={{ marginBottom: '2.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>1. 저작권 보호 범위</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>1. 저작권 보호 범위</h3>
               <p style={{ marginBottom: '0.5rem' }}>COMMON WAVE가 제작·편집한 다음 콘텐츠는 저작권법의 보호를 받습니다.</p>
               <ul style={{ listStyle: 'none', paddingLeft: '0.5rem' }}>
                 <li>▸ 기자 및 편집진이 작성한 기사</li>
@@ -35,7 +35,7 @@ export default function CopyrightPolicyPage() {
             </section>
 
             <section style={{ marginBottom: '2.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>2. 허용되는 이용</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>2. 허용되는 이용</h3>
               <p style={{ marginBottom: '0.5rem' }}>다음의 경우 COMMON WAVE 콘텐츠를 이용할 수 있습니다.</p>
               <ul style={{ listStyle: 'none', paddingLeft: '0.5rem' }}>
                 <li>▸ 개인적·비상업적 목적의 이용</li>
@@ -55,16 +55,16 @@ export default function CopyrightPolicyPage() {
             </section>
 
             <section style={{ marginBottom: '2.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>4. 저작권 침해 신고</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>4. 저작권 침해 신고</h3>
               <p>
                 저작권 침해를 발견하신 경우 아래 연락처로 신고해 주시면 즉시 조치하겠습니다.<br />
-                <strong>▸ 이메일:</strong> <a href="mailto:dinoskorea@gmail.com" style={{ color: '#3950C4' }}>dinoskorea@gmail.com</a><br />
+                <strong>▸ 이메일:</strong> <a href="mailto:dinoskorea@gmail.com" style={{ color: '#2b84ac' }}>dinoskorea@gmail.com</a><br />
                 <strong>▸ 담당:</strong> 편집국
               </p>
             </section>
 
             <section style={{ marginBottom: '2.5rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#3950C4' }}>5. 외부 콘텐츠 이용</h3>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '1rem', color: '#2b84ac' }}>5. 외부 콘텐츠 이용</h3>
               <p>
                 COMMON WAVE는 외부 콘텐츠 이용 시 해당 저작권자의 허락을 받거나 적법한 절차에 따라 이용합니다. 외부 제공 데이터(공공데이터포털, 네이버 API 등)는 각 제공처의 이용약관을 준수합니다.
               </p>

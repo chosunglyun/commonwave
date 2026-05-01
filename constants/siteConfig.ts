@@ -11,9 +11,9 @@ export const SITE_CONFIG = {
   
   // 브랜딩 컬러
   colors: {
-    primary: "#3950C4", // 커먼웨이브 클래식 블루
-    primaryDark: "#2b3c94",
-    accent: "#6c81f0", // 밝은 블루 계열
+    primary: "#2b84ac", // 커먼웨이브 테마 블루
+    primaryDark: "#1d5f7e",
+    accent: "#4ab1db", // 밝은 블루 계열
   },
   
   // UI 라벨 (영문 대문자 한글화)

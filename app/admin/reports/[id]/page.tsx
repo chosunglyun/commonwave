@@ -158,7 +158,7 @@ ${report.extra || '없음'}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '3rem', paddingBottom: '2rem', borderBottom: '1px solid #f1f5f9' }}>
           <div>
             <h3 style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 0.5rem 0', fontWeight: 700 }}>제보 형식</h3>
-            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#3950C4' }}>{report.style}</div>
+            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#2b84ac' }}>{report.style}</div>
           </div>
           <div>
             <h3 style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 0.5rem 0', fontWeight: 700 }}>제보자 정보</h3>
@@ -170,7 +170,7 @@ ${report.extra || '없음'}
 
         {/* 6W1H Content */}
         <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#1e293b', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <div style={{ width: '4px', height: '20px', background: '#3950C4', borderRadius: '2px' }}></div>
+          <div style={{ width: '4px', height: '20px', background: '#2b84ac', borderRadius: '2px' }}></div>
           육하원칙 제보 내용
         </h3>
         
@@ -192,7 +192,7 @@ ${report.extra || '없음'}
 
         {/* Extra Content */}
         <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#1e293b', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <div style={{ width: '4px', height: '20px', background: '#3950C4', borderRadius: '2px' }}></div>
+          <div style={{ width: '4px', height: '20px', background: '#2b84ac', borderRadius: '2px' }}></div>
           상세 내용 및 전달 사항
         </h3>
         <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '8px', border: '1px solid #f1f5f9', minHeight: '150px' }}>

@@ -151,7 +151,7 @@ export default function Footer() {
           font-family: 'Noto Serif KR', serif;
           font-size: 1.8rem;
           font-weight: 900;
-          color: var(--primary, #3950C4);
+          color: var(--primary, #2b84ac);
           margin: 0 0 0.8rem;
           letter-spacing: -1px;
         }
@@ -169,7 +169,7 @@ export default function Footer() {
           color: #666;
           cursor: pointer;
         }
-        .np-footer-sns span:hover { color: #3950C4; }
+        .np-footer-sns span:hover { color: #2b84ac; }
 
         .np-footer-heading {
           font-size: 0.85rem;
@@ -195,7 +195,7 @@ export default function Footer() {
           text-decoration: none;
           transition: color 0.15s;
         }
-        .np-footer-links a:hover { color: #3950C4; }
+        .np-footer-links a:hover { color: #2b84ac; }
 
         /* Legal */
         .np-footer-legal {
@@ -223,7 +223,7 @@ export default function Footer() {
           transition: color 0.15s;
         }
         .np-footer-legal-links a:hover,
-        .np-footer-legal-links span:hover { color: #3950C4; }
+        .np-footer-legal-links span:hover { color: #2b84ac; }
         .np-highlight { font-weight: 700; color: #aaa !important; }
         .np-footer-copyright {
           font-size: 0.72rem;
