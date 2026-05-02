@@ -6,7 +6,7 @@ import CategoryBadge from '@/components/ui/CategoryBadge';
 import { getCategoryMeta } from '@/lib/categoryMeta';
 import badgeStyles from '@/components/ui/CategoryBadge.module.css';
 import RegionDot from '@/components/ui/RegionDot';
-import { getRegionMeta } from '@/lib/regionMeta';
+import { getRegionMeta, getRegionMetaBySlug } from '@/lib/regionMeta';
 import regionStyles from '@/components/ui/RegionDot.module.css';
 
 interface Article {
@@ -40,9 +40,14 @@ export default async function NewspaperLayout({ title, type, value, page = 1 }: 
     .order('created_at', { ascending: false })
     .range(offset, offset + ITEMS_PER_PAGE - 1);
 
+  // 지역 페이지는 영문 슬러그(gimpo 등)로 넘어오지만 DB에는 한글(김포)로 저장되어 있으므로 변환
+  const dbRegionValue = type === 'region'
+    ? (getRegionMetaBySlug(value)?.label ?? value)
+    : value;
+
   if (value !== 'all') {
     if (type === 'region') {
-      query = query.eq('region', value);
+      query = query.eq('region', dbRegionValue);
     } else {
       query = query.eq('category', value);
     }

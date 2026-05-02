@@ -31,7 +31,7 @@ function EditArticleForm() {
     content: '',
     image_url: '',
     category: '사회',
-    region: '강진',
+    region: '김포',
     author_id: '',
     is_featured: false,
     pin_until: null as string | null
@@ -79,7 +79,7 @@ function EditArticleForm() {
             content: (content as string) || '',
             image_url: article.image_url || '',
             category: article.category || '사회',
-            region: article.region || '강진',
+            region: article.region || '김포',
             author_id: article.author_id || '',
             is_featured: article.is_featured || false,
             pin_until: article.pin_until || null
@@ -132,20 +132,26 @@ function EditArticleForm() {
       img.onload = () => {
         const width = img.naturalWidth;
         const height = img.naturalHeight;
-        
-        if (width < 1200) {
-          resolve({ message: '해상도 위반: 최소 1200×675 권장', isValid: false });
-          return;
-        }
-        
         const ratio = width / height;
-        const targetRatio = 16 / 9;
-        if (ratio < targetRatio * 0.85 || ratio > targetRatio * 1.15) {
-          resolve({ message: '비율 위반: 16:9 가까운 이미지로 업로드해 주세요', isValid: false });
+        
+        if (width < 400 && height < 400) {
+          resolve({ message: '해상도가 너무 낮습니다 (최소 400px 이상 권장)', isValid: false });
           return;
         }
         
-        resolve({ message: '✅ 히어로 이미지로 적합합니다', isValid: true });
+        // 세로 사진도 허용 (portrait)
+        if (ratio < 1) {
+          resolve({ message: '✅ 세로형 이미지입니다 (업로드 가능)', isValid: true });
+          return;
+        }
+        
+        // 가로 사진은 16:9 근사 권장이지만 강제하지 않음
+        const targetRatio = 16 / 9;
+        if (ratio >= targetRatio * 0.7) {
+          resolve({ message: '✅ 이미지 업로드 가능합니다', isValid: true });
+        } else {
+          resolve({ message: '⚠️ 이미지 비율이 정사각형에 가깝습니다 (업로드는 가능)', isValid: true });
+        }
       };
       img.src = URL.createObjectURL(file);
     });
@@ -157,6 +163,11 @@ function EditArticleForm() {
 
     const validationResult = await validateImage(file);
     setImageValidation(validationResult);
+
+    if (!validationResult.isValid) {
+      // 유효하지 않은 경우에만 업로드 중단
+      return;
+    }
 
     setUploading(true);
 
@@ -353,7 +364,22 @@ function EditArticleForm() {
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>카테고리</label>
               <select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ddd' }}>
-                 <option>초점</option><option>행정</option><option>정치</option><option>경제</option><option>사회</option><option>교육</option><option>문화</option><option>인터뷰</option><option>지역</option><option>칼럼</option>
+                <optgroup label="── 전문 섹션 ──">
+                  <option value="인문학">인문학</option>
+                  <option value="영화 아카이브">영화 아카이브</option>
+                  <option value="시민참여">시민참여</option>
+                  <option value="지역사람들">지역사람들</option>
+                </optgroup>
+                <optgroup label="── 일반 분야 ──">
+                  <option value="행정">행정</option>
+                  <option value="정치">정치</option>
+                  <option value="경제">경제</option>
+                  <option value="사회">사회</option>
+                  <option value="교육">교육</option>
+                  <option value="문화">문화</option>
+                  <option value="인터뷰">인터뷰</option>
+                  <option value="칼럼">칼럼</option>
+                </optgroup>
               </select>
             </div>
             <div>

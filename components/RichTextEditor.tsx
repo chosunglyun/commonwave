@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Color } from '@tiptap/extension-color';
@@ -9,8 +9,9 @@ import { Image } from '@tiptap/extension-image';
 import { 
   Bold, Italic, List, ListOrdered, Link as LinkIcon, 
   Image as ImageIcon, Type, Palette, Undo, Redo, AlignLeft, 
-  AlignCenter, AlignRight 
+  AlignCenter, AlignRight, Loader2
 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 interface EditorProps {
   value: string;
@@ -20,10 +21,59 @@ interface EditorProps {
 const MenuBar = ({ editor }: { editor: any }) => {
   if (!editor) return null;
 
-  const addImage = () => {
-    const url = window.prompt('이미지 URL을 입력하세요');
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imgUploading, setImgUploading] = useState(false);
+
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImgUploading(true);
+    try {
+      // 이미지 압축 및 Supabase 스토리지 업로드
+      const maxWidth = 1200;
+      const compressedBlob = await new Promise<Blob>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new window.Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx?.drawImage(img, 0, 0, width, height);
+            canvas.toBlob((blob) => {
+              if (blob) resolve(blob);
+              else reject(new Error('Canvas conversion failed'));
+            }, 'image/jpeg', 0.85);
+          };
+          img.src = event.target?.result as string;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.jpg`;
+      const filePath = `articles/${fileName}`;
+      const { error: uploadError } = await supabase.storage
+        .from('article-images')
+        .upload(filePath, compressedBlob);
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('article-images')
+        .getPublicUrl(filePath);
+
+      editor.chain().focus().setImage({ src: publicUrl }).run();
+    } catch (err: any) {
+      alert('본문 이미지 업로드 실패: ' + err.message);
+    } finally {
+      setImgUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
@@ -54,7 +104,24 @@ const MenuBar = ({ editor }: { editor: any }) => {
       <div style={{ width: '1px', background: '#ddd', margin: '0 5px' }} />
       
       <button onClick={setLink} className={editor.isActive('link') ? 'is-active' : ''} type="button" style={buttonStyle(editor.isActive('link'))} title="링크"><LinkIcon size={16} /></button>
-      <button onClick={addImage} type="button" style={buttonStyle(false)} title="이미지"><ImageIcon size={16} /></button>
+      
+      {/* 이미지 파일 업로드 버튼 */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={handleImageFileChange}
+      />
+      <button
+        onClick={() => fileInputRef.current?.click()}
+        type="button"
+        style={buttonStyle(false)}
+        title="이미지 파일 업로드"
+        disabled={imgUploading}
+      >
+        {imgUploading ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <ImageIcon size={16} />}
+      </button>
       
       <div style={{ width: '1px', background: '#ddd', margin: '0 5px' }} />
       
@@ -142,6 +209,7 @@ export default function RichTextEditor({ value, onChange }: EditorProps) {
         .tiptap-content h1 { font-size: 1.8em; margin-bottom: 0.5em; }
         .tiptap-content h2 { font-size: 1.5em; margin-bottom: 0.4em; }
         .tiptap-content h3 { font-size: 1.3em; margin-bottom: 0.3em; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
       `}</style>
     </div>
   );
