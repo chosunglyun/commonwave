@@ -31,25 +31,50 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   
   if (!article) return { title: '기사를 찾을 수 없습니다 | COMMON WAVE' };
   
-  const contentSnippet = article.content ? article.content.substring(0, 150).replace(/<[^>]*>/g, '').replace(/[#*`~]/g, '') + '...' : 'COMMON WAVE 지역 뉴스';
+  // Clean description: remove HTML, Markdown, and extra whitespace
+  const contentSnippet = article.content 
+    ? article.content
+        .replace(/<[^>]*>/g, '') // Remove HTML
+        .replace(/[#*`~_\[\]()]/g, '') // Remove Markdown characters
+        .replace(/\s+/g, ' ') // Collapse whitespace
+        .trim()
+        .substring(0, 160) + '...'
+    : 'COMMON WAVE 지역 뉴스';
 
   const url = `${SITE_CONFIG.url}/article/${article.slug || article.id}`;
+  const imageUrl = article.image_url || `${SITE_CONFIG.url}/og-image.png`; // Fallback to site OG image instead of SVG
   
+  const title = `${article.title} | ${SITE_CONFIG.name}`;
+
   return {
-    title: `${article.title} | ${SITE_CONFIG.name}`,
+    title,
     description: contentSnippet,
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: `${article.title} | ${SITE_CONFIG.name}`,
+      title,
       description: contentSnippet,
-      images: article.image_url ? [{ url: article.image_url }] : [{ url: `${SITE_CONFIG.url}/fallback/article-default.svg` }],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        }
+      ],
       url: url,
       type: 'article',
       publishedTime: article.created_at,
       authors: [article.author_name || 'COMMON WAVE'],
       section: article.category,
+      siteName: SITE_CONFIG.name,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: contentSnippet,
+      images: [imageUrl],
     }
   };
 }
@@ -276,7 +301,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
                     style={{ maxWidth: '100%', height: 'auto', borderRadius: '4px', display: 'block', margin: '0 auto' }} 
                   />
                   <figcaption style={{ fontSize: '0.8rem', color: '#999', marginTop: '0.7rem', paddingLeft: '0.5rem', borderLeft: '2px solid var(--primary)' }}>
-                    {article.title} 관련 자료 사진. ⓒ COMMON WAVE
+                    {article.image_caption || `${article.title} 관련 자료 사진. ⓒ ${SITE_CONFIG.name}`}
                   </figcaption>
                 </figure>
               )}

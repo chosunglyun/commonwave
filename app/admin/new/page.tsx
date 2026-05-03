@@ -30,6 +30,7 @@ function EditArticleForm() {
     slug: '',
     content: '',
     image_url: '',
+    image_caption: '',
     category: '사회',
     region: '김포',
     author_id: '',
@@ -79,6 +80,7 @@ function EditArticleForm() {
             slug: article.slug || '',
             content: (content as string) || '',
             image_url: article.image_url || '',
+            image_caption: article.image_caption || '',
             category: article.category || '사회',
             region: article.region || '김포',
             author_id: article.author_id || '',
@@ -258,6 +260,7 @@ function EditArticleForm() {
         slug: finalSlug,
         content: formData.content,
         image_url: formData.image_url,
+        image_caption: formData.image_caption,
         category: formData.category,
         region: formData.region,
         author_id: (formData.author_id && !formData.author_id.startsWith('none-')) ? formData.author_id : null,
@@ -424,9 +427,23 @@ function EditArticleForm() {
             <label htmlFor="image-upload" style={{ display: 'block', width: '100%', padding: '0.8rem', textAlign: 'center', background: uploading ? '#eee' : 'var(--primary)', color: '#fff', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer', marginBottom: '1rem' }}>
               {uploading ? '처리 중...' : '이미지 파일 선택'}
             </label>
-            <div style={{ width: '100%', aspectRatio: '16/9', background: '#f8f9fa', border: '1px dashed #ccc', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+            <div style={{ width: '100%', aspectRatio: '16/9', background: '#f8f9fa', border: '1px dashed #ccc', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: '1rem' }}>
               {formData.image_url ? <img src={formData.image_url} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <span style={{ color: '#999', fontSize: '0.8rem' }}>이미지를 선택해 주세요.</span>}
             </div>
+            
+            {formData.image_url && (
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#666', marginBottom: '0.4rem' }}>사진 설명 및 출처</label>
+                <input 
+                  type="text" 
+                  placeholder="예: <안녕, 용문객잔> 포스터 ⓒ Homegreen Films 제공"
+                  value={formData.image_caption}
+                  onChange={(e) => setFormData({...formData, image_caption: e.target.value})}
+                  style={{ width: '100%', padding: '0.7rem', fontSize: '0.85rem', border: '1px solid #ddd', borderRadius: '6px', outline: 'none' }}
+                />
+                <p style={{ fontSize: '0.7rem', color: '#999', marginTop: '0.3rem' }}>* 비워두면 기사 제목과 사이트명이 기본으로 표시됩니다.</p>
+              </div>
+            )}
           </div>
 
           {(userProfile?.role === 'admin' || userProfile?.role === 'editor') && (

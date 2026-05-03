@@ -12,6 +12,7 @@ export type Article = {
   title: string;
   content: string;
   image_url: string;
+  image_caption?: string;
   author_id?: string;
   status: 'draft' | 'published';
   category: string;
