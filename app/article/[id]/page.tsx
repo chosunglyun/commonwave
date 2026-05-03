@@ -78,8 +78,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         .substring(0, 160) + '...'
     : 'COMMON WAVE 지역 뉴스';
 
-  const url = `${SITE_CONFIG.url}/article/${article.slug || article.id}`;
-  const imageUrl = article.image_url || `${SITE_CONFIG.url}/og-image.png`; // Fallback to site OG image instead of SVG
+  const encodedSlug = encodeURIComponent(article.slug || article.id);
+  const url = `${SITE_CONFIG.url}/article/${encodedSlug}`;
+  const imageUrl = article.image_url || `${SITE_CONFIG.url}/og-image.png`;
   
   const title = `${article.title} | ${SITE_CONFIG.name}`;
 
@@ -99,7 +100,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
           width: 1200,
           height: 630,
           alt: article.title,
-          type: imageUrl.toLowerCase().endsWith('.png') ? 'image/png' : 'image/jpeg',
+          type: 'image/jpeg', // Always use image/jpeg as we convert it in the API
         }
       ],
       url: url,

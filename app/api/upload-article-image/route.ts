@@ -34,10 +34,8 @@ export async function POST(req: Request) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
     
-    // Improved sanitization: extract extension and clean only the base name
-    const lastDotIndex = file.name.lastIndexOf('.');
-    const baseName = lastDotIndex !== -1 ? file.name.substring(0, lastDotIndex) : file.name;
-    const sanitizedBase = baseName.replace(/[^\x00-\x7F]/g, '').replace(/[^a-zA-Z0-9]/g, '_');
+    // Ultra-strict sanitization: remove EVERYTHING except alphanumeric
+    const sanitizedBase = file.name.split('.')[0].replace(/[^a-zA-Z0-9]/g, '').substring(0, 30);
     
     // Always use .jpg for the thumbnail because we convert it to JPEG via sharp below
     const fileName = `${Date.now()}_${sanitizedBase || 'image'}.jpg`;
