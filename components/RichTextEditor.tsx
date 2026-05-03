@@ -29,46 +29,21 @@ const MenuBar = ({ editor }: { editor: any }) => {
     if (!file) return;
     setImgUploading(true);
     try {
-      // 이미지 압축 및 Supabase 스토리지 업로드
-      const maxWidth = 1200;
-      const compressedBlob = await new Promise<Blob>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const img = new window.Image();
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            let width = img.width;
-            let height = img.height;
-            if (width > maxWidth) {
-              height = Math.round((height * maxWidth) / width);
-              width = maxWidth;
-            }
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx?.drawImage(img, 0, 0, width, height);
-            canvas.toBlob((blob) => {
-              if (blob) resolve(blob);
-              else reject(new Error('Canvas conversion failed'));
-            }, 'image/jpeg', 0.85);
-          };
-          img.src = event.target?.result as string;
-        };
-        reader.readAsDataURL(file);
+      const fd = new FormData();
+      fd.append('file', file);
+      
+      const response = await fetch('/api/upload-article-image', {
+        method: 'POST',
+        body: fd,
       });
-
-      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.jpg`;
-      const filePath = `articles/${fileName}`;
-      const { error: uploadError } = await supabase.storage
-        .from('article-images')
-        .upload(filePath, compressedBlob);
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('article-images')
-        .getPublicUrl(filePath);
-
-      editor.chain().focus().setImage({ src: publicUrl }).run();
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || '업로드 실패');
+      }
+      
+      const result = await response.json();
+      editor.chain().focus().setImage({ src: result.publicUrl }).run();
     } catch (err: any) {
       alert('본문 이미지 업로드 실패: ' + err.message);
     } finally {

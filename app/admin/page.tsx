@@ -36,7 +36,7 @@ export default function AdminPage() {
       .select(`*`)
       .eq('status', 'published')
       .order('created_at', { ascending: false })
-      .limit(30);
+      .limit(100);
     if (published) setPublishedArticles(published);
 
     // Village Reports
