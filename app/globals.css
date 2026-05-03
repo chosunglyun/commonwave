@@ -631,6 +631,10 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 100% !important;
   height: auto !important;
   display: block;
-  margin: 1.5rem auto;
+  margin: 3rem auto !important;
   border-radius: 4px;
+}
+
+.article-figure {
+  margin-bottom: 4rem !important;
 }

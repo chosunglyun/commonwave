@@ -266,7 +266,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
             {/* Content */}
             <div style={{ fontSize: '1.1rem', lineHeight: '2', color: '#333', fontFamily: '"Nanum Myeongjo", serif' }}>
               {article.image_url && (
-                <figure className="article-figure" style={{ margin: '0 0 2.5rem 0', textAlign: 'center' }}>
+                <figure className="article-figure" style={{ margin: '0 0 3.5rem 0', textAlign: 'center' }}>
                   <Image 
                     src={article.image_url} 
                     alt={article.title} 
