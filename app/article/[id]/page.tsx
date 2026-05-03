@@ -41,11 +41,17 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     // 2. Try matching after processing (handles truncation/special chars in URL)
     if (!article) {
       const processedId = generateSlug(decodedId);
-      const { data: processedMatch } = await supabase.from('articles').select('*').eq('slug', processedId).single();
+      const { data: processedMatch } = await supabase.from('articles').select('*').ilike('slug', processedId).single();
       article = processedMatch;
     }
     
-    // 3. Try history
+    // 3. Try searching by Title directly (if URL is the title)
+    if (!article) {
+      const { data: titleMatch } = await supabase.from('articles').select('*').ilike('title', decodedId).single();
+      article = titleMatch;
+    }
+    
+    // 4. Try history
     if (!article) {
       const { data: history } = await supabase.from('article_slug_history').select('article_id').eq('old_slug', decodedId).single();
       if (history?.article_id) {
@@ -140,11 +146,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
     // 2. Try processed slug
     if (!article) {
       const processedId = generateSlug(decodedId);
-      const { data: processedMatch } = await supabase.from('articles').select('*').eq('slug', processedId).single();
+      const { data: processedMatch } = await supabase.from('articles').select('*').ilike('slug', processedId).single();
       article = processedMatch;
     }
     
-    // 3. Try history
+    // 3. Try direct Title search
+    if (!article) {
+      const { data: titleMatch } = await supabase.from('articles').select('*').ilike('title', decodedId).single();
+      article = titleMatch;
+    }
+    
+    // 4. Try history
     if (!article) {
       const { data: history } = await supabase.from('article_slug_history').select('article_id').eq('old_slug', decodedId).single();
       if (history?.article_id) {
