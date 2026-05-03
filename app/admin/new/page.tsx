@@ -33,6 +33,7 @@ function EditArticleForm() {
     category: '사회',
     region: '김포',
     author_id: '',
+    author_name: '',
     is_featured: false,
     pin_until: null as string | null
   });
@@ -81,6 +82,7 @@ function EditArticleForm() {
             category: article.category || '사회',
             region: article.region || '김포',
             author_id: article.author_id || '',
+            author_name: article.author_name || '',
             is_featured: article.is_featured || false,
             pin_until: article.pin_until || null
           });
@@ -112,7 +114,13 @@ function EditArticleForm() {
           .select('id, name, role')
           .in('role', ['admin', 'editor', 'reporter', 'member'])
           .order('name');
-        if (allProfiles) setAuthors(allProfiles);
+        
+        let fetchedAuthors = allProfiles || [];
+        // Ensure 조성륜 is in the list even if no profile exists yet
+        if (!fetchedAuthors.find(a => a.name === '조성륜')) {
+          fetchedAuthors.push({ id: 'manual-josunglyun', name: '조성륜', role: 'editor' });
+        }
+        setAuthors(fetchedAuthors);
 
         try {
           const pick = await getActivePick();
@@ -252,7 +260,8 @@ function EditArticleForm() {
         image_url: formData.image_url,
         category: formData.category,
         region: formData.region,
-        author_id: formData.author_id,
+        author_id: formData.author_id || null,
+        author_name: formData.author_name || null,
         is_featured: formData.is_featured,
         pin_until: formData.is_featured ? formData.pin_until : null
       };
@@ -368,21 +377,33 @@ function EditArticleForm() {
                  <option>김포</option><option>파주</option><option>고양</option><option>의정부</option><option>전국/일반</option>
               </select>
             </div>
-            {(userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'member') && authors.length > 0 && (
+            {(userProfile?.role === 'admin' || userProfile?.role === 'editor' || userProfile?.role === 'member') && (
               <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #eee' }}>
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem' }}>작성 기자 선택</label>
                 <select 
                   value={formData.author_id} 
                   onChange={(e) => setFormData({...formData, author_id: e.target.value})} 
-                  style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ddd', background: '#fff9db' }}
+                  style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid #ddd', background: '#fff9db', marginBottom: '0.5rem' }}
                 >
+                  <option value="">-- 직접 입력 또는 선택 --</option>
                   {authors.map(a => (
                     <option key={a.id} value={a.id}>
-                      [{a.role === 'reporter' ? '마을리포터' : '기자'}] {a.name}
+                      [{a.role === 'reporter' ? '마을리포터' : (a.name === '조성륜' ? '기자' : '기자')}] {a.name}
                     </option>
                   ))}
                 </select>
-                <p style={{ fontSize: '0.7rem', color: '#666', marginTop: '0.4rem' }}>* 편집국 및 조합원 권한으로 기사 바이라인을 변경할 수 있습니다.</p>
+                
+                <div style={{ marginTop: '0.5rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#666', marginBottom: '0.3rem' }}>바이라인 직접 입력 (조성륜 등)</label>
+                  <input 
+                    type="text" 
+                    placeholder="기자명을 직접 입력하세요"
+                    value={formData.author_name || ''} 
+                    onChange={(e) => setFormData({...formData, author_name: e.target.value})}
+                    style={{ width: '100%', padding: '0.6rem', borderRadius: '6px', border: '1px solid #ddd', fontSize: '0.85rem' }}
+                  />
+                </div>
+                <p style={{ fontSize: '0.7rem', color: '#666', marginTop: '0.4rem' }}>* 선택 목록에 없는 기사는 이름을 직접 입력하세요.</p>
               </div>
             )}
           </div>

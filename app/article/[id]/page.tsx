@@ -130,10 +130,21 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
   const roleLabels: any = {
     'admin': '기자',
     'editor': '기자',
-    'reporter': '마을리포터'
+    'reporter': '마을리포터',
+    'member': '조합원 기자'
   };
-  const authorRole = roleLabels[authorProfile?.role] || '기자';
-  const authorName = authorProfile?.name || '관리자';
+  
+  // Robust author resolution
+  let authorRole = '기자';
+  let authorName = article.author_name || '관리자';
+
+  if (authorProfile) {
+    authorRole = roleLabels[authorProfile.role] || '기자';
+    authorName = authorProfile.name || authorName;
+  } else if (!article.author_name) {
+    authorRole = '관리자';
+    authorName = '관리자';
+  }
 
   // Fetch recent articles for sidebar
   const { data: recentArticles } = await supabase
@@ -196,10 +207,17 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
                 lineHeight: 1.25,
                 fontFamily: '"Nanum Myeongjo", serif',
                 wordBreak: 'keep-all',
-                color: '#111'
+                color: '#111',
+                fontSize: '3.5rem',
+                letterSpacing: '-0.02em'
               }}>
                 {article.title}
               </h1>
+              <style jsx>{`
+                @media (max-width: 768px) {
+                  .article-title { font-size: 2.2rem !important; }
+                }
+              `}</style>
 
               <div className="meta-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#777', fontSize: '0.85rem' }}>
                 <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>

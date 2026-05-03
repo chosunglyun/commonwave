@@ -246,6 +246,44 @@ function RegionalNews({ articles }: { articles: any[] }) {
 }
 
 /* =========================================
+   PHOTO NEWS SECTION (Dasan-Eobo Style)
+   ========================================= */
+function PhotoNewsMain({ articles }: { articles: any[] }) {
+  const photos = articles.filter((a) => a.image_url && !a.image_url.includes('fallback') && !a.image_url.includes('default')).slice(0, 4);
+  
+  if (photos.length === 0) return null;
+
+  return (
+    <div style={{ marginTop: '2.5rem', marginBottom: '2.5rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '2px solid #222', paddingBottom: '0.6rem', marginBottom: '1.5rem' }}>
+        <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 900, color: '#111', fontFamily: 'Noto Serif KR, serif', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span style={{ background: '#222', color: '#fff', padding: '2px 8px', fontSize: '0.75rem', borderRadius: '2px' }}>PHOTO</span> 포토 뉴스
+        </h3>
+        <Link href="/region" style={{ fontSize: '0.72rem', color: '#666', textDecoration: 'none', fontWeight: 600 }}>더보기 +</Link>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.2rem' }} className="np-photo-news-main-grid">
+        {photos.map((art) => (
+          <Link key={art.id} href={`/article/${art.slug ?? art.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="np-photo-wrap" style={{ position: 'relative', width: '100%', aspectRatio: '4/3', overflow: 'hidden', borderRadius: '4px', marginBottom: '0.8rem', boxShadow: '0 4px 10px rgba(0,0,0,0.08)' }}>
+              <Image src={art.image_url} alt={art.title} fill style={{ objectFit: 'cover' }} 
+              />
+            </div>
+            <p style={{ margin: 0, fontSize: '0.88rem', fontWeight: 700, color: '#222', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', wordBreak: 'keep-all' }}>{art.title}</p>
+          </Link>
+        ))}
+      </div>
+      <style jsx>{`
+        .np-photo-wrap:hover img { transform: scale(1.05); }
+        .np-photo-wrap img { transition: transform 0.3s ease; }
+        @media (max-width: 768px) {
+          .np-photo-news-main-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem !important; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+/* =========================================
    LIFE INFO WIDGETS
    ========================================= */
 function GasStationWidget() {
@@ -297,101 +335,6 @@ function GasStationWidget() {
   );
 }
 
-function PharmacyWidget() {
-  const [data, setData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('/api/pharmacies')
-      .then(res => res.json())
-      .then(json => {
-        if (json.data) {
-          setData(json.data.slice(0, 5)); // 메인화면 위젯에서는 5개만 노출
-        }
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
-
-  if (loading) return <div style={{ fontSize: '0.8rem', color: '#888', padding: '1rem 0' }}>휴일 약국 정보 불러오는 중...</div>;
-  if (!data || data.length === 0) return null;
-
-  return (
-    <div className="np-life-info-card" style={{ background: '#fff', border: '1px solid #e0e0e0', borderRadius: '4px', padding: '1rem', display: 'flex', flexDirection: 'column' }}>
-      <h4 style={{ margin: '0 0 1rem', fontSize: '1rem', fontWeight: 900, color: '#2b84ac' }}>김포시 휴일지킴이 약국</h4>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-        {data.map((p: any, i: number) => {
-          return (
-            <div key={i} style={{ padding: '0.5rem', background: i % 2 === 0 ? '#f9f9f9' : '#fff', borderRadius: '4px', border: '1px solid #eee' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
-                <span style={{ fontSize: '0.8rem', color: '#2b84ac', fontWeight: 800 }}>{p.INST_NM}</span>
-                <span style={{ fontSize: '0.65rem', color: '#666', fontWeight: 600 }}>{p.REPRSNT_TELNO}</span>
-              </div>
-              <div style={{ fontSize: '0.68rem', color: '#555', wordBreak: 'keep-all', lineHeight: 1.3 }}>
-                {p.REFINE_ROADNM_ADDR}
-              </div>
-              <div style={{ fontSize: '0.6rem', color: '#e11d48', marginTop: '0.3rem', fontWeight: 600 }}>
-                일요일: {p.SUN_BEGIN_TREAT_TM ? `${p.SUN_BEGIN_TREAT_TM} ~ ${p.SUN_END_TREAT_TM}` : '휴무'}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.8rem' }}>
-        <span style={{ fontSize: '0.6rem', color: '#bbb' }}>출처: 경기데이터드림</span>
-        <Link href="/pharmacy" style={{ fontSize: '0.65rem', color: '#2b84ac', textDecoration: 'none', fontWeight: 700 }}>더보기 →</Link>
-      </div>
-    </div>
-  );
-}
-
-function NursingHospitalWidget() {
-  const [data, setData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('/api/nursing-hospitals')
-      .then(res => res.json())
-      .then(json => {
-        if (json.data) {
-          setData(json.data.slice(0, 3)); // 메인 화면 미리보기 3개
-        }
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
-
-  if (loading) return <div style={{ fontSize: '0.8rem', color: '#888', padding: '1rem 0' }}>요양병원 정보 불러오는 중...</div>;
-  if (!data || data.length === 0) return null;
-
-  return (
-    <div className="np-life-info-card" style={{ background: '#fff', border: '1px solid #e0e0e0', borderRadius: '4px', padding: '1rem', display: 'flex', flexDirection: 'column' }}>
-      <h4 style={{ margin: '0 0 1rem', fontSize: '1rem', fontWeight: 900, color: '#2b84ac' }}>김포시 요양병원 현황</h4>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-        {data.map((h: any, i: number) => {
-          return (
-            <div key={i} style={{ padding: '0.5rem', background: i % 2 === 0 ? '#f9f9f9' : '#fff', borderRadius: '4px', border: '1px solid #eee' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
-                <span style={{ fontSize: '0.8rem', color: '#2b84ac', fontWeight: 800 }}>{h.BIZPLC_NM}</span>
-                <span style={{ fontSize: '0.65rem', color: '#137333', fontWeight: 600 }}>{h.BSN_STATE_NM}</span>
-              </div>
-              <div style={{ fontSize: '0.68rem', color: '#555', wordBreak: 'keep-all', lineHeight: 1.3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                {h.REFINE_ROADNM_ADDR || h.REFINE_LOTNO_ADDR}
-              </div>
-              <div style={{ fontSize: '0.65rem', color: '#666', marginTop: '0.3rem', fontWeight: 600 }}>
-                🛏️ 병상: {h.SICKBD_CNT}개 | 👩‍⚕️ 의료인: {h.MEDSTAF_CNT}명
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '0.8rem' }}>
-        <span style={{ fontSize: '0.6rem', color: '#bbb' }}>출처: 경기데이터드림</span>
-        <Link href="/nursing-hospitals" style={{ fontSize: '0.65rem', color: '#2b84ac', textDecoration: 'none', fontWeight: 700 }}>전체 보기 →</Link>
-      </div>
-    </div>
-  );
-}
 
 function FarmPriceWidget({ farmPrices }: { farmPrices: any[] }) {
   const defaultPrices = [
@@ -426,29 +369,20 @@ function FarmPriceWidget({ farmPrices }: { farmPrices: any[] }) {
   );
 }
 
-function LifeInfoDashboard({ farmPrices }: { farmPrices: any[] }) {
-  return (
-    <div className="np-life-info-section" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-      <SectionHeader title="김포시 생활정보" />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
-        <FarmPriceWidget farmPrices={farmPrices} />
-        <GasStationWidget />
-        <PharmacyWidget />
-        <NursingHospitalWidget />
-      </div>
-    </div>
-  );
-}
 
 /* =========================================
    RIGHT SIDEBAR
    ========================================= */
-function RightSidebar({ sidebarAd }: { sidebarAd: any }) {
+function RightSidebar({ farmPrices, sidebarAd }: { farmPrices: any[]; sidebarAd: any }) {
   return (
     <aside className="np-sidebar np-right-sidebar">
+      {/* 농산물 가격 위젯 - 다산어보 스타일로 복구 */}
+      <div className="np-sidebar-item">
+        <SectionHeader title="오늘의 농산물 가격" />
+        <FarmPriceWidget farmPrices={farmPrices} />
+      </div>
+
       <div className="np-sidebar-services-grid" style={{ marginTop: '0' }}>
-        {/* 서비스 공통 스타일 상수 (인라인으로 적용하거나 별도 컴포넌트화 가능하지만 현재 구조 유지하며 스타일만 통일) */}
-        
         {/* 광고 배너 */}
         <div className="np-sidebar-item">
           {sidebarAd ? (
@@ -514,7 +448,7 @@ function BottomSections({ articles }: { articles: any[] }) {
   const latest = articles.slice(0, 30);
   const columns = articles.filter((a) => a.category === '칼럼' || a.category === '오피니언').slice(0, 5);
   const planned = articles.filter((a) => a.category === '기획연재').slice(0, 4);
-  const photos = articles.filter((a) => a.image_url).slice(0, 8);
+  const photos = articles.filter((a) => a.image_url && !a.image_url.includes('fallback') && !a.image_url.includes('default')).slice(0, 8);
 
   return (
     <div style={{ marginTop: '3rem' }}>
@@ -568,11 +502,11 @@ function BottomSections({ articles }: { articles: any[] }) {
       </div>
 
       {/* 포토뉴스: 이미지 있는 기사만, 2개 이상일 때 노출 */}
-      {photos.filter(a => !a.image_url.includes('fallback') && !a.image_url.includes('default')).length >= 2 && (
+      {photos.length >= 2 && (
         <div className="np-bottom-photos">
           <SectionHeader title="포토 뉴스" href="/region" />
           <div className="np-bottom-photos-grid">
-            {photos.filter(a => !a.image_url.includes('fallback') && !a.image_url.includes('default')).map((art) => (
+            {photos.map((art) => (
               <Link key={art.id} href={`/article/${art.slug ?? art.id}`} className="np-bottom-photo-item">
                 <div className="np-bottom-photo-img-wrap" style={{ background: '#f5f5f5' }}>
                   <Image src={art.image_url} alt={art.title} fill style={{ objectFit: 'cover' }}
@@ -612,16 +546,17 @@ export function NewspaperMain({ articles, popularArticles, farmPrices, sidebarAd
         </div>
 
         <div className="np-col-right">
-          <RightSidebar sidebarAd={sidebarAd} />
+          <RightSidebar farmPrices={farmPrices} sidebarAd={sidebarAd} />
         </div>
       </div>
 
       <RegionalNews articles={articles} />
 
-      <LifeInfoDashboard farmPrices={farmPrices} />
+      <PhotoNewsMain articles={articles} />
 
       <BottomSections articles={articles} />
 
     </div>
   );
 }
+
