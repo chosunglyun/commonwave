@@ -141,9 +141,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
   if (authorProfile) {
     authorRole = roleLabels[authorProfile.role] || '기자';
     authorName = authorProfile.name || authorName;
-  } else if (!article.author_name) {
-    authorRole = '관리자';
-    authorName = '관리자';
+  } else if (!article.author_name || article.author_name === '관리자') {
+    authorRole = '기자';
+    authorName = 'COMMON WAVE';
   }
 
   // Fetch recent articles for sidebar
@@ -215,7 +215,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
               </h1>
               <style dangerouslySetInnerHTML={{ __html: `
                 @media (max-width: 768px) {
-                  .article-title { font-size: 2.2rem !important; }
+                  .article-title { 
+                    font-size: 1.8rem !important; 
+                    line-height: 1.3 !important;
+                    word-break: break-all !important;
+                  }
                 }
               ` }} />
 
