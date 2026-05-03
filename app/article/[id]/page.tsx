@@ -23,9 +23,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   
   let decodedId = '';
   try {
-    decodedId = decodeURIComponent(id);
+    decodedId = decodeURIComponent(id).normalize('NFC');
   } catch (e) {
-    decodedId = id;
+    decodedId = id.normalize('NFC');
   }
 
   let article = null;
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     article = data;
   } else {
     // 1. Try exact slug match
-    const { data: directMatch } = await supabase.from('articles').select('*').eq('slug', decodedId).single();
+    const { data: directMatch } = await supabase.from('articles').select('*').ilike('slug', decodedId).single();
     article = directMatch;
     
     // 2. Try matching after processing (handles truncation/special chars in URL)
@@ -124,9 +124,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
   
   let decodedId = '';
   try {
-    decodedId = decodeURIComponent(id);
+    decodedId = decodeURIComponent(id).normalize('NFC');
   } catch (e) {
-    decodedId = id;
+    decodedId = id.normalize('NFC');
   }
 
   const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
@@ -140,7 +140,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
     error = err;
   } else {
     // 1. Try exact slug
-    const { data: directMatch } = await supabase.from('articles').select('*').eq('slug', decodedId).single();
+    const { data: directMatch } = await supabase.from('articles').select('*').ilike('slug', decodedId).single();
     article = directMatch;
     
     // 2. Try processed slug

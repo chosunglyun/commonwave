@@ -33,9 +33,14 @@ export async function POST(req: Request) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    // Sanitize filename: remove non-ASCII and special characters to prevent "Invalid key" errors
-    const sanitizedName = file.name.replace(/[^\x00-\x7F]/g, '').replace(/[^a-zA-Z0-9.-]/g, '_');
-    const fileName = `${Date.now()}_${sanitizedName || 'image'}.jpg`;
+    
+    // Improved sanitization: extract extension and clean only the base name
+    const lastDotIndex = file.name.lastIndexOf('.');
+    const ext = lastDotIndex !== -1 ? file.name.substring(lastDotIndex + 1).toLowerCase() : 'jpg';
+    const baseName = lastDotIndex !== -1 ? file.name.substring(0, lastDotIndex) : file.name;
+    const sanitizedBase = baseName.replace(/[^\x00-\x7F]/g, '').replace(/[^a-zA-Z0-9]/g, '_');
+    
+    const fileName = `${Date.now()}_${sanitizedBase || 'image'}.${ext}`;
 
     // 1️⃣ Google Drive 업로드 (고해상도 원본)
     let highResUrl = '';
