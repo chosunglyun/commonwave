@@ -118,7 +118,7 @@ function EditArticleForm() {
         let fetchedAuthors = allProfiles || [];
         // Ensure 조성륜 is in the list even if no profile exists yet
         if (!fetchedAuthors.find(a => a.name === '조성륜')) {
-          fetchedAuthors.push({ id: 'c05a11e1-b01d-4000-8000-000000000000', name: '조성륜', role: 'editor' });
+          fetchedAuthors.push({ id: 'none-josunglyun', name: '조성륜', role: 'editor' });
         }
         setAuthors(fetchedAuthors);
 
@@ -260,7 +260,7 @@ function EditArticleForm() {
         image_url: formData.image_url,
         category: formData.category,
         region: formData.region,
-        author_id: formData.author_id || null,
+        author_id: (formData.author_id && !formData.author_id.startsWith('none-')) ? formData.author_id : null,
         author_name: formData.author_name || null,
         is_featured: formData.is_featured,
         pin_until: formData.is_featured ? formData.pin_until : null
