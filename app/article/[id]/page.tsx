@@ -208,7 +208,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
                 fontFamily: '"Nanum Myeongjo", serif',
                 wordBreak: 'keep-all',
                 color: '#111',
-                fontSize: '3.5rem',
+                fontSize: '2.6rem',
                 letterSpacing: '-0.02em'
               }}>
                 {article.title}
