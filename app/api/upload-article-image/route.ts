@@ -33,7 +33,9 @@ export async function POST(req: Request) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const fileName = `${Date.now()}_${file.name}`;
+    // Sanitize filename: remove non-ASCII and special characters to prevent "Invalid key" errors
+    const sanitizedName = file.name.replace(/[^\x00-\x7F]/g, '').replace(/[^a-zA-Z0-9.-]/g, '_');
+    const fileName = `${Date.now()}_${sanitizedName || 'image'}.jpg`;
 
     // 1️⃣ Google Drive 업로드 (고해상도 원본)
     let highResUrl = '';
