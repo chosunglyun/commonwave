@@ -213,11 +213,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
               }}>
                 {article.title}
               </h1>
-              <style jsx>{`
+              <style dangerouslySetInnerHTML={{ __html: `
                 @media (max-width: 768px) {
                   .article-title { font-size: 2.2rem !important; }
                 }
-              `}</style>
+              ` }} />
 
               <div className="meta-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#777', fontSize: '0.85rem' }}>
                 <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
