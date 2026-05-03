@@ -208,7 +208,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
                 fontFamily: '"Nanum Myeongjo", serif',
                 wordBreak: 'keep-all',
                 color: '#111',
-                fontSize: '2.6rem',
+                fontSize: '2.2rem',
                 letterSpacing: '-0.02em'
               }}>
                 {article.title}
@@ -216,8 +216,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
               <style dangerouslySetInnerHTML={{ __html: `
                 @media (max-width: 768px) {
                   .article-title { 
-                    font-size: 1.8rem !important; 
-                    line-height: 1.3 !important;
+                    font-size: 1.5rem !important; 
+                    line-height: 1.35 !important;
                     word-break: break-all !important;
                   }
                 }
@@ -273,7 +273,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
                     width={800}
                     height={500}
                     priority
-                    style={{ width: '100%', height: 'auto', borderRadius: '4px', overflow: 'hidden' }} 
+                    style={{ width: '100%', maxWidth: '900px', height: 'auto', borderRadius: '4px', overflow: 'hidden' }} 
                   />
                   <figcaption style={{ fontSize: '0.8rem', color: '#999', marginTop: '0.7rem', paddingLeft: '0.5rem', borderLeft: '2px solid var(--primary)' }}>
                     {article.title} 관련 자료 사진. ⓒ COMMON WAVE
