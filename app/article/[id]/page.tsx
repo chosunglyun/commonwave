@@ -95,9 +95,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       images: [
         {
           url: imageUrl,
+          secureUrl: imageUrl,
           width: 1200,
           height: 630,
           alt: article.title,
+          type: 'image/jpeg',
         }
       ],
       url: url,
