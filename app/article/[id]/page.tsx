@@ -99,7 +99,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
           width: 1200,
           height: 630,
           alt: article.title,
-          type: 'image/jpeg',
+          type: imageUrl.toLowerCase().endsWith('.png') ? 'image/png' : 'image/jpeg',
         }
       ],
       url: url,
