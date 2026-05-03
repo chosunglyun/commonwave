@@ -273,7 +273,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
                     width={800}
                     height={500}
                     priority
-                    style={{ width: '100%', maxWidth: '900px', height: 'auto', borderRadius: '4px', overflow: 'hidden' }} 
+                    style={{ maxWidth: '100%', height: 'auto', borderRadius: '4px', display: 'block', margin: '0 auto' }} 
                   />
                   <figcaption style={{ fontSize: '0.8rem', color: '#999', marginTop: '0.7rem', paddingLeft: '0.5rem', borderLeft: '2px solid var(--primary)' }}>
                     {article.title} 관련 자료 사진. ⓒ COMMON WAVE
