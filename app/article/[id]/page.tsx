@@ -12,6 +12,7 @@ import ViewCounter from '@/components/ViewCounter';
 import { SITE_CONFIG } from '@/constants/siteConfig';
 import Footer from '@/components/Footer';
 import CategoryBadge from '@/components/ui/CategoryBadge';
+import { generateSlug } from '@/lib/utils/slugify';
 
 export const revalidate = 0; // Ensure data is always fetch freshly
 
@@ -20,16 +21,46 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = resolvedParams;
   const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
   
-  let query = supabase.from('articles').select('*');
+  let decodedId = '';
+  try {
+    decodedId = decodeURIComponent(id);
+  } catch (e) {
+    decodedId = id;
+  }
+
+  let article = null;
+  
   if (isUUID) {
-    query = query.eq('id', id);
+    const { data } = await supabase.from('articles').select('*').eq('id', id).single();
+    article = data;
   } else {
-    query = query.eq('slug', decodeURIComponent(id));
+    // 1. Try exact slug match
+    const { data: directMatch } = await supabase.from('articles').select('*').eq('slug', decodedId).single();
+    article = directMatch;
+    
+    // 2. Try matching after processing (handles truncation/special chars in URL)
+    if (!article) {
+      const processedId = generateSlug(decodedId);
+      const { data: processedMatch } = await supabase.from('articles').select('*').eq('slug', processedId).single();
+      article = processedMatch;
+    }
+    
+    // 3. Try history
+    if (!article) {
+      const { data: history } = await supabase.from('article_slug_history').select('article_id').eq('old_slug', decodedId).single();
+      if (history?.article_id) {
+        const { data: historyMatch } = await supabase.from('articles').select('*').eq('id', history.article_id).single();
+        article = historyMatch;
+      }
+    }
   }
   
-  const { data: article } = await query.single();
-  
-  if (!article) return { title: '기사를 찾을 수 없습니다 | COMMON WAVE' };
+  if (!article) return { 
+    title: '기사를 찾을 수 없습니다', 
+    openGraph: {
+      images: [{ url: `${SITE_CONFIG.url}/og-image.png` }]
+    }
+  };
   
   // Clean description: remove HTML, Markdown, and extra whitespace
   const contentSnippet = article.content 
@@ -85,34 +116,42 @@ export default async function ArticlePage({ params }: { params: Promise<{ id: st
 
   const { data: { session } } = await supabase.auth.getSession();
   
+  let decodedId = '';
+  try {
+    decodedId = decodeURIComponent(id);
+  } catch (e) {
+    decodedId = id;
+  }
+
   const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
   
-  let query = supabase.from('articles').select('*');
+  let article = null;
+  let error = null;
+
   if (isUUID) {
-    query = query.eq('id', id);
+    const { data, error: err } = await supabase.from('articles').select('*').eq('id', id).single();
+    article = data;
+    error = err;
   } else {
-    query = query.eq('slug', decodeURIComponent(id));
-  }
-  
-  let { data: article, error } = await query.single();
-  
-  // If not found by slug, check history table for 301 redirect
-  if (!article && !isUUID) {
-    const { data: history } = await supabase
-      .from('article_slug_history')
-      .select('article_id')
-      .eq('old_slug', decodeURIComponent(id))
-      .single();
-      
-    if (history?.article_id) {
-      const { data: currentArticle } = await supabase
-        .from('articles')
-        .select('slug')
-        .eq('id', history.article_id)
-        .single();
-        
-      if (currentArticle?.slug) {
-        redirect(`/article/${currentArticle.slug}`);
+    // 1. Try exact slug
+    const { data: directMatch } = await supabase.from('articles').select('*').eq('slug', decodedId).single();
+    article = directMatch;
+    
+    // 2. Try processed slug
+    if (!article) {
+      const processedId = generateSlug(decodedId);
+      const { data: processedMatch } = await supabase.from('articles').select('*').eq('slug', processedId).single();
+      article = processedMatch;
+    }
+    
+    // 3. Try history
+    if (!article) {
+      const { data: history } = await supabase.from('article_slug_history').select('article_id').eq('old_slug', decodedId).single();
+      if (history?.article_id) {
+        const { data: currentArticle } = await supabase.from('articles').select('slug').eq('id', history.article_id).single();
+        if (currentArticle?.slug) {
+          redirect(`/article/${currentArticle.slug}`);
+        }
       }
     }
   }
