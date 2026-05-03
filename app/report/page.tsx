@@ -119,11 +119,15 @@ function ReportContent() {
       // 1. Upload Photos
       const photo_urls: string[] = [];
       for (const file of files) {
-        const fileExt = file.name.split('.').pop();
+        const fileExt = file.name.split('.').pop()?.toLowerCase();
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+        
+        // Explicitly set content type for better crawler support
+        const contentType = file.type || (fileExt === 'png' ? 'image/png' : 'image/jpeg');
+        
         const { error: uploadError } = await supabase.storage
           .from('reporter-submissions')
-          .upload(fileName, file);
+          .upload(fileName, file, { contentType });
           
         if (!uploadError) {
           const { data } = supabase.storage.from('reporter-submissions').getPublicUrl(fileName);

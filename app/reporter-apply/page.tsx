@@ -120,11 +120,15 @@ export default function ReporterRecruitPage() {
       
       // Upload consent file if exists
       if (formData.guardian_consent) {
-        const fileExt = formData.guardian_consent.name.split('.').pop();
+        const fileExt = formData.guardian_consent.name.split('.').pop()?.toLowerCase();
         const fileName = `${Date.now()}-consent.${fileExt}`;
+        
+        // Explicitly set content type for better support
+        const contentType = formData.guardian_consent.type || (fileExt === 'pdf' ? 'application/pdf' : 'image/jpeg');
+        
         const { error: uploadError } = await supabase.storage
           .from('reporter-applications')
-          .upload(fileName, formData.guardian_consent);
+          .upload(fileName, formData.guardian_consent, { contentType });
           
         if (!uploadError) {
           const { data } = supabase.storage.from('reporter-applications').getPublicUrl(fileName);
