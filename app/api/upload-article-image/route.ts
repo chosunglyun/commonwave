@@ -57,12 +57,12 @@ export async function POST(req: Request) {
         
       // 기존 기사 이미지 버킷인 article-images를 사용
       const { error: storageError } = await supabaseAdmin.storage
-        .from('article-images')
+        .from('article_images')
         .upload(`articles/${fileName}`, lowResBuffer, { contentType: 'image/jpeg', upsert: true });
         
       if (!storageError) {
         const { data: { publicUrl } } = supabaseAdmin.storage
-          .from('article-images')
+          .from('article_images')
           .getPublicUrl(`articles/${fileName}`);
         lowResUrl = publicUrl;
       } else {

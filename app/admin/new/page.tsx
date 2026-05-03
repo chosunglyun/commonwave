@@ -118,7 +118,7 @@ function EditArticleForm() {
         let fetchedAuthors = allProfiles || [];
         // Ensure 조성륜 is in the list even if no profile exists yet
         if (!fetchedAuthors.find(a => a.name === '조성륜')) {
-          fetchedAuthors.push({ id: 'manual-josunglyun', name: '조성륜', role: 'editor' });
+          fetchedAuthors.push({ id: 'c05a11e1-b01d-4000-8000-000000000000', name: '조성륜', role: 'editor' });
         }
         setAuthors(fetchedAuthors);
 
@@ -142,8 +142,8 @@ function EditArticleForm() {
         const height = img.naturalHeight;
         const ratio = width / height;
         
-        if (width < 400 && height < 400) {
-          resolve({ message: '해상도가 너무 낮습니다 (최소 400px 이상 권장)', isValid: false });
+        if (width < 200 && height < 200) {
+          resolve({ message: '⚠️ 해상도가 매우 낮습니다 (가급적 고해상도 이미지를 사용해주세요)', isValid: true });
           return;
         }
         
